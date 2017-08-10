@@ -1,7 +1,7 @@
 // Here You can type your custom JavaScript...
 var $head = window.jQuery('head')
 $head.prepend("<link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />")
-inject('https://maps.googleapis.com/maps/api/js?key=AIzaSyCqa6NdAoaxGpKwX2g5W93Il7v8_swu7fs&libraries=places')
+inject('https://maps.googleapis.com/maps/api/js?key=[GOOGLE_MAPS_API_HERE]&libraries=places')
 inject('https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js')
 function inject (src) {
   var s = document.createElement('script')
