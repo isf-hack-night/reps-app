@@ -25,7 +25,7 @@ module.exports = {
         use: {
             loader: 'babel-loader',
             options: {
-            presets: ['env']
+            presets: ['env', 'preact']
           }
         }
       }
@@ -41,5 +41,11 @@ module.exports = {
     allowedHosts: [
         '.state-strong.org'
     ]
+  },
+  resolve: {
+    alias: {
+      'react': 'preact-compat',
+      'react-dom': 'preact-compat'
+    }
   }
 }
