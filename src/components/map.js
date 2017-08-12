@@ -221,8 +221,8 @@ function geolocate() {
 
 class Map extends Component {
   componentDidMount () {
-    this.props.connector.register(onPositionSet)
-    initMap(this.props.connector.updatePoint)
+    // this.props.connector.register(onPositionSet)
+    // initMap(this.props.connector.updatePoint)
   }
 
   render () {

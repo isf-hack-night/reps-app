@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import Autocomplete from 'react-google-autocomplete'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 const AutocompleteContainer = withRouter(({history, updatePoint}) => (
   // render () {
@@ -10,15 +10,15 @@ const AutocompleteContainer = withRouter(({history, updatePoint}) => (
         <Autocomplete
               style={{width: '60%'}}
               onPlaceSelected={(place) => {
-                var tempKey = 'temp'
-                var newPage = `/index.php/test/${tempKey}`
-                {/*<Redirect to={{ pathname: newPage }} />*/}
                 console.log('placeSelected: ', place)
                 const lat = place.geometry.location.lat()
                 const lon = place.geometry.location.lng()
                 const districtsData = updatePoint(lat, lon)
                 console.log('response: ', districtsData)
-                {/*history.push(newPage)*/}
+                var routeQuery = `?lat=${lat}&lng=${lon}`
+                var newRoute = `/index.php/test/${routeQuery}`
+                console.log('autocomplete route: ', newRoute)
+                history.push(newRoute)
               }}
               types={['address']}
               componentRestrictions={{country: 'us'}}

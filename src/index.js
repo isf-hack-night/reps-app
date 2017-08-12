@@ -3,16 +3,16 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
-import App from './components/app'
+import LandingApp from './components/landingApp'
 import RepsWrapper from './components/reps'
-import './style.css'
+// import './style.css'
 // import './style.less'
 
 const RepsApp = () => (
   <Router>
     <div>
-      <Route path="/index.php/test/" component={App}/>
-      <Route path="/index.php/test/temp" component={RepsWrapper}/>
+      <Route exact path="/index.php/test/" component={LandingApp}/>
+      {/*<Route path="/index.php/test/temp" component={RepsWrapper}/>*/}
     </div>
   </Router>
 )

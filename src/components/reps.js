@@ -3,6 +3,7 @@ import { h, Component } from 'preact'
 class RepsWrapper extends Component {
   constructor (props) {
     super(props)
+    debugger
     const boundUpdate = this.setState.bind(this)
 
     function updateWrapper (data) {
@@ -25,8 +26,8 @@ class RepsWrapper extends Component {
     const upperRep = distData ? distData.upper.legislators[0].full_name : ''
     return (
       <div style={styles}>
-        <h4>Your Lower House Representative is: {lowerRep}</h4>
-        <h4>Your Upper House Representative is: {upperRep}</h4>
+        <h4>Your Assemblymember is: {lowerRep}</h4>
+        <h4>Your Senator is: {upperRep}</h4>
       </div>
     )
   }
