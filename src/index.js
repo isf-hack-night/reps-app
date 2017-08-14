@@ -3,19 +3,19 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
-import LandingApp from './components/landingApp'
-import RepsWrapper from './components/reps'
-// import './style.css'
-// import './style.less'
+import LandingApp from './components/landing_app'
+import { ROOT_PATH } from './constants'
+import './style.less'
 
 const RepsApp = () => (
   <Router>
     <div>
-      <Route exact path="/index.php/test/" component={LandingApp}/>
+      <Route exact path={ROOT_PATH} component={LandingApp}/>
       {/*<Route path="/index.php/test/temp" component={RepsWrapper}/>*/}
     </div>
   </Router>
 )
 
 console.log('running!')
+document.querySelector('h1.title.entry-title').style.display = 'none'
 render(<RepsApp />, document.getElementById('reps_app_root'))
