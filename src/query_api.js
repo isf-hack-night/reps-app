@@ -23,4 +23,18 @@ function getParamData (params) {
   return paramsObj
 }
 
-export default parseQuery
+function buildQuery (paramsObj) {
+  const queryParams = Object.keys(paramsObj).map((key, index) => {
+    const firstChar = index === 0 ? '?' : '&'
+    return `${firstChar}${key}=${paramsObj[key]}`
+  })
+
+  return [ROOT_PATH].concat(queryParams).join('')
+}
+
+const queryAPI = {
+  parse: parseQuery,
+  build: buildQuery
+}
+
+export default queryAPI

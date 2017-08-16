@@ -10,7 +10,7 @@ class ActionsDisplay extends Component {
       actionsNum: ACTIONS_DISPLAY_LIMIT
     })
 
-    this.props.loadMoreActions = this.loadMoreActions.bind(this)
+    // this.props.loadMoreActions = this.loadMoreActions.bind(this)
   }
 
   loadMoreActions () {
@@ -22,23 +22,23 @@ class ActionsDisplay extends Component {
     this.setState(newState)
   }
 
-  componentDidUpdate (prevProps) {
-    this.props = Object.assign({}, prevProps, this.props)
-  }
-
   render () {
-    console.log('actionsNum: ', this.state.actionsNum)
     const actionsList = this.props.actions.slice(0, this.state.actionsNum)
                                           .map(action => <ActionCard action={action} />)
+
+    const loadMoreButton = this.props.actions.length > this.state.actionsNum
+      ? (
+        <button
+          className="actions-display_load-more"
+          onClick={this.loadMoreActions}>
+          More actions
+        </button>
+      ) : ''
     return (
       <div className="actions-display-list">
         <h4>Take action</h4>
         {actionsList}
-        <button
-          className="actions-display_load-more"
-          onClick={this.props.loadMoreActions}>
-          More actions
-        </button>
+        {loadMoreButton}
       </div>
     )
   }

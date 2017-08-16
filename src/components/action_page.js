@@ -1,8 +1,31 @@
 import { h, Component } from 'preact'
+import queryAPI from '../query_api'
 import amplify from '../amplify'
-import ActionDashboard from './action_dashboard'
 
-class RepsWrapper extends Component {
+class ActionInfo extends Component {
+  render () {
+    const {
+      preTitle,
+      title,
+      person,
+      callScriptMd,
+      callBackgroundMd
+    } = this.props
+
+    return (
+      <div>
+        <h3>{preTitle} {title}</h3>
+        <h4>{person.offices[0].phone}</h4>
+        <h4>Call script</h4>
+        <p>{callScriptMd}</p>
+        <h4>Background information</h4>
+        <p>{callBackgroundMd}</p>
+      </div>
+    )
+  }
+}
+
+class ActionPage extends Component {
   constructor (props) {
     super(props)
 
@@ -48,10 +71,15 @@ class RepsWrapper extends Component {
   }
 
   render () {
-    console.log('reps state: ', this.state)
     if (!this.state.isLoading && this.state.successfulResponse) {
-      const { ampData, districtLower, districtUpper } = this.state
-      return <ActionDashboard ampData={ampData} districtLower={districtLower} districtUpper={districtUpper} />      
+      const { actionId } = queryAPI.parse()
+      const action = this.state.ampData.find((action) => action.id === actionId)
+      return action
+      ? (
+        <ActionInfo {...action} />
+      ) : (
+        <h4>Something broke. Sad! Try refreshing the page.</h4>
+      )
     } else if (this.state.isLoading) {
       //TODO: better spinny gif
       return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style="width: 75px;" />
@@ -61,4 +89,4 @@ class RepsWrapper extends Component {
   }
 }
 
-export default RepsWrapper
+export default ActionPage

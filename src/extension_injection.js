@@ -12,7 +12,7 @@ function inject (src) {
   $head.prepend(s)
 }
 var interval = setInterval(function () {
-    if (window.google) {
+    if (window.google && L.mapbox) {
         clearInterval(interval)
         inject('https://localhost:9000/dist/bundle.js')
     }

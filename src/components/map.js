@@ -1,73 +1,43 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import API_KEYS from '../KEYS'
-import { ROOT_PATH, US_STATE } from '../constants'
+import queryAPI from '../query_api'
+import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS } from '../constants'
+const defaultZoom = 6
 
-var map, marker, markers, myDistricts
-var caCenter = [37.2719, -119.2702]
-var defaultZoom = 6
-var caBounds = [ [32.5343, -124.4096], [42.0095, -114.1308]]
-var openStates
+//TODO:
+// went forward (map didn't render in this view) hit back and got "Error: Map container is already initialized."
+// how to handle a single action's page... the map should lock in this case? or moving/clicking opens the rep/actions list view?
+
+// const caCenter = [37.2719, -119.2702] // replaced by STATE_CENTER constant
+// const caBounds = [[32.5343, -124.4096], [42.0095, -114.1308]] // replace by STATE_BOUNDS constant
 // var stateDistricts; // get from react prop
 // var state = 'CA'; // replaced by US_STATE constant     //TODO get latlong map zoom defaults
-var openStatesApiKey = 'INSERT API KEY HERE'
-
-var onUpdatePoint
-
-function initMap (_callback) {
-  onUpdatePoint = _callback
-
-  L.mapbox.accessToken = API_KEYS.mapbox
-  map = L.mapbox.map('map', 'mapbox.light')
-  map.fitBounds(caBounds)
-
-  markers = L.featureGroup()
-  map.addLayer(markers)
-
-  myDistricts = L.layerGroup()
-  map.addLayer(myDistricts)
-
-  map.on('click', function (e) {
-      var pos = e.latlng
-      onUpdatePoint( pos.lat, pos.lng )
-
-      // document.getElementById('autocomplete').value = ''
-  })
-
-  resetMap()
-  //TODO needs ca outline
-}
-
-
+var openStatesApiKey = 'INSERT API KEY HERE' // TODO: is this necessary?
 
 class JustMap extends Component {
   constructor (props) {
     super(props)
 
-    this.props.resetMap = this.resetMap.bind(this)
-    this.props.handleDrag = this.handleDrag.bind(this)
-    this.props.handleClick = this.handleClick.bind(this)
-    this.props.updateRoute = this.updateRoute.bind(this)
-    this.props.positionSet = this.positionSet.bind(this)
-    this.props.zoomDistrict = this.zoomDistrict.bind(this)
-    this.props.drawDistrict = this.drawDistrict.bind(this)
+    this.handleDrag = this.handleDrag.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick (e) {
     const { lat, lng } = e.latlng
-    this.props.updateRoute(lat, lng)
+    this.updateRoute(lat, lng)
   }
 
   handleDrag (e) {
     console.log(e.target)
     const {lat, lng} = e.target._latlng
-    this.props.updateRoute(lat, lng)
+    this.updateRoute(lat, lng)
   }
 
   resetMap () {
     this.state.markers.clearLayers()
     this.state.myDistricts.clearLayers()
-    this.state.map.flyToBounds(caBounds)
+    this.state.map.flyToBounds(STATE_BOUNDS)
   // document.getElementById('autocomplete').value = '';
   }
 
@@ -76,13 +46,19 @@ class JustMap extends Component {
     console.log('response: ', districtsData)
     const lowerId = districtsData.lower.id
     const upperId = districtsData.upper.id
-    const newRoute = [
-      ROOT_PATH,
-      `?lat=${lat}`,
-      `&lng=${lng}`,
-      `&districtLower=${lowerId}`,
-      `&districtUpper=${upperId}`
-    ].join('')
+    const newRoute = queryAPI.build({
+      lat,
+      lng,
+      districtLower: lowerId,
+      districtUpper: upperId
+    })
+    // const newRoute = [
+    //   ROOT_PATH,
+    //   `?lat=${lat}`,
+    //   `&lng=${lng}`,
+    //   `&districtLower=${lowerId}`,
+    //   `&districtUpper=${upperId}`
+    // ].join('')
     {/*var newRoute = `${ROOT_PATH}${routeQuery}`*/}
     console.log('autocomplete route: ', newRoute)
     this.props.history.push(newRoute)
@@ -90,15 +66,15 @@ class JustMap extends Component {
 
   positionSet (lat, lng) {
     this.state.markers.clearLayers()
-    marker = L.marker([lat,lng], { draggable: true })
+    const marker = L.marker([lat,lng], { draggable: true })
       
-    marker.on('dragend', this.props.handleDrag)
+    marker.on('dragend', this.handleDrag)
 
     this.state.markers.addLayer(marker)
     
     const districtData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
     if (districtData.upper || districtData.lower) {
-      this.props.zoomDistrict(districtData)  //make this a callback
+      this.zoomDistrict(districtData)  //make this a callback
     } else {
       this.state.myDistricts.clearLayers()
     }
@@ -108,15 +84,27 @@ class JustMap extends Component {
     const bbox = districtData.upper.bbox  //TODO get bbox of both bboxes
 
     const drawNewDistrict = true
-    map.flyToBounds(bbox)
+    this.state.map.flyToBounds(bbox)
 
     this.state.myDistricts.clearLayers()
-    this.props.drawDistrict(districtData.upper, 'blue')
-    this.props.drawDistrict(districtData.lower, 'red')
+    this.drawDistrict(districtData.upper, 'blue')
+    this.drawDistrict(districtData.lower, 'red')
   }
 
   drawDistrict (district, districtColor) {
-    let shape = district.shape
+    let shape = []
+    for (let a in district.shape) {
+      shape[a] = []
+      for (let b in district.shape[a]) {
+        shape[a][b] = []
+        for (let c in district.shape[a][b]) {
+          shape[a][b][c] = []
+          for (let d in district.shape[a][b][c]) {
+            shape[a][b][c][d] = district.shape[a][b][c][d]
+          }
+        }
+      }
+    }
 
     for (let i = 0; i < shape.length; i++) { 
       const boundary = shape[i][0].slice(1).map(x => [x[1], x[0]] )  //assumes no donuts
@@ -128,34 +116,30 @@ class JustMap extends Component {
   }
 
   componentDidMount () {
+    // aka init map
     L.mapbox.accessToken = API_KEYS.mapbox
-    map = L.mapbox.map('map', 'mapbox.light')
-    map.fitBounds(caBounds)
+    const map = L.mapbox.map('map', 'mapbox.light')
+    map.fitBounds(STATE_BOUNDS)
 
     const markers = L.featureGroup()
     map.addLayer(markers)
 
-    myDistricts = L.layerGroup()
+    const myDistricts = L.layerGroup()
     map.addLayer(myDistricts)
 
-    map.on('click', this.props.handleClick)
+    map.on('click', this.handleClick)
 
     const newState = { map, markers, myDistricts }
 
-    if (this.props.paramsData) {
-      const { lat, lng } = this.props.paramsData
-      newState.lat = lat
-      newState.lng = lng
-    }
+    // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState))
-    this.props.resetMap()
+    this.resetMap()
   }
 
   componentDidUpdate (prevProps) {
-    this.props = Object.assign({}, prevProps, this.props)
-    const { lat, lng } = this.state
+    const { lat, lng } = this.props.paramsData
     if (lat && lng) {
-      this.props.positionSet(lat, lng)
+      this.positionSet(lat, lng)
     }
   }
 

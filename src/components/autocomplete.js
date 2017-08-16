@@ -1,14 +1,14 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import { ROOT_PATH } from '../constants'
+import queryAPI from '../query_api'
 
 class Autocomplete extends Component {
   constructor (props) {
     super(props)
 
-    this.props.getPlace = this.getPlace.bind(this)
-    this.props.geolocate = this.geolocate.bind(this)
-    this.props.getAndUpdatePlace = this.getAndUpdatePlace.bind(this)
+    this.getPlace = this.getPlace.bind(this)
+    this.geolocate = this.geolocate.bind(this)
   }
 
   geolocate () {
@@ -33,7 +33,7 @@ class Autocomplete extends Component {
     const lat = place.geometry.location.lat()
     const lng = place.geometry.location.lng()
 
-    this.props.updateRoute(lat, lng)
+    this.updateRoute(lat, lng)
   }
 
   updateRoute (lat, lng) {
@@ -41,13 +41,19 @@ class Autocomplete extends Component {
     console.log('response: ', districtsData)
     const lowerId = districtsData.lower.id
     const upperId = districtsData.upper.id
-    const newRoute = [
-      ROOT_PATH,
-      `?lat=${lat}`,
-      `&lng=${lng}`,
-      `&districtLower=${lowerId}`,
-      `&districtUpper=${upperId}`
-    ].join('')
+    const newRoute = queryAPI.build({
+      lat,
+      lng,
+      districtLower: lowerId,
+      districtUpper: upperId
+    })
+    // const newRoute = [
+    //   ROOT_PATH,
+    //   `?lat=${lat}`,
+    //   `&lng=${lng}`,
+    //   `&districtLower=${lowerId}`,
+    //   `&districtUpper=${upperId}`
+    // ].join('')
     this.props.history.push(newRoute)
   }
 
@@ -56,19 +62,15 @@ class Autocomplete extends Component {
             /** @type {!HTMLInputElement} */(document.getElementById('map-autocomplete')),
             {types: ['geocode']})
 
-    autocomplete.addListener('place_changed', this.props.getPlace)
+    autocomplete.addListener('place_changed', this.getPlace)
 
     const newState = Object.assign({}, this.state, { autocomplete })
     this.setState(newState)
   }
 
-  componentDidUpdate (prevProps) {
-    this.props = Object.assign({}, prevProps, this.props)
-  }
-
   render () {
     return (
-      <input id="map-autocomplete" placeholder="Enter your address" type="text" onFocus={this.props.geolocate}/>
+      <input id="map-autocomplete" placeholder="Enter your address" type="text" onFocus={this.geolocate}/>
     )
   }
 }
