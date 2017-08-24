@@ -18,7 +18,7 @@ class LandingApp extends Component {
   render() {
     const paramsData = queryAPI.parse()
     let display
-    const shouldDisplayAction = paramsData.actionId
+    const shouldDisplayAction = paramsData && paramsData.actionId
     const shouldDisplayRepsAndActions = paramsData
     if (shouldDisplayAction) {
       // TODO: add action display page
