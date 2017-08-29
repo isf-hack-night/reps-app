@@ -36,7 +36,9 @@ class JustMap extends Component {
 
   resetMap () {
     this.state.markers.clearLayers()
-    this.state.myDistricts.clearLayers()
+    this.state.upperDistricts.clearLayers()
+    this.state.lowerDistricts.clearLayers()
+    this.state.layerControl.getContainer.hide()
     this.state.map.flyToBounds(STATE_BOUNDS)
   // document.getElementById('autocomplete').value = '';
   }
@@ -76,7 +78,10 @@ class JustMap extends Component {
     if (districtData.upper || districtData.lower) {
       this.zoomDistrict(districtData)  //make this a callback
     } else {
-      this.state.myDistricts.clearLayers()
+      this.state.upperDistricts.clearLayers()
+      this.state.lowerDistricts.clearLayers()
+      this.state.layerControl.getContainer.hide()
+
     }
   }
 
@@ -86,12 +91,14 @@ class JustMap extends Component {
     const drawNewDistrict = true
     this.state.map.flyToBounds(bbox)
 
-    this.state.myDistricts.clearLayers()
-    this.drawDistrict(districtData.upper, 'blue')
-    this.drawDistrict(districtData.lower, 'red')
+    this.state.upperDistricts.clearLayers()
+    this.state.lowerDistricts.clearLayers()
+    this.drawDistrict(districtData.upper, 'blue' , 'upper')
+    this.drawDistrict(districtData.lower, 'red' , 'lower')
+    this.state.layerControl.getContainer().show()
   }
 
-  drawDistrict (district, districtColor) {
+  drawDistrict (district, districtColor, layer) {
     let shape = []
     for (let a in district.shape) {
       shape[a] = []
@@ -112,7 +119,11 @@ class JustMap extends Component {
     }
 
     const polygon = L.polygon(shape, { color: districtColor })
-    this.state.myDistricts.addLayer(polygon)  //todo name layer ?
+    if( layer == 'upper')
+      this.state.upperDistricts.addLayer( polygon )
+    else 
+      this.state.lowerDistricts.addLayer( polygon )
+
   }
 
   componentDidMount () {
@@ -124,12 +135,23 @@ class JustMap extends Component {
     const markers = L.featureGroup()
     map.addLayer(markers)
 
-    const myDistricts = L.layerGroup()
-    map.addLayer(myDistricts)
+    const upperDistricts = L.layerGroup([])
+    const lowerDistricts = L.layerGroup([])
+    map.addLayer( upperDistricts)
+    map.addLayer(lowerDistricts)
+
+    var overlayMaps = {
+      "<span style='color: blue'>State Senate Districts</span>" : upperDistricts,
+      "<span style='color: red'>State Assembly Districts</span>": lowerDistricts
+    };
+
+    const layerControl = L.control.layers(null, overlayMaps, {collapsed:false})
+    layerControl.getContainer().hide()
+    layerControl.addTo(map);
 
     map.on('click', this.handleClick)
 
-    const newState = { map, markers, myDistricts }
+    const newState = { map, markers, layerControl, upperDistricts, lowerDistricts}
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState))
