@@ -10,7 +10,7 @@ class ActionsDisplay extends Component {
       actionsNum: ACTIONS_DISPLAY_LIMIT
     })
 
-    // this.props.loadMoreActions = this.loadMoreActions.bind(this)
+    this.loadMoreActions = this.loadMoreActions.bind(this)
   }
 
   loadMoreActions () {
@@ -29,13 +29,13 @@ class ActionsDisplay extends Component {
     const loadMoreButton = this.props.actions.length > this.state.actionsNum
       ? (
         <button
-          className="actions-display_load-more"
+          className="ActionsDisplay-loadMore"
           onClick={this.loadMoreActions}>
           More actions
         </button>
       ) : ''
     return (
-      <div className="actions-display-list">
+      <div className="ActionsDisplay">
         <h4>Take action</h4>
         {actionsList}
         {loadMoreButton}

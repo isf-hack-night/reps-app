@@ -54,15 +54,6 @@ class JustMap extends Component {
       districtLower: lowerId,
       districtUpper: upperId
     })
-    // const newRoute = [
-    //   ROOT_PATH,
-    //   `?lat=${lat}`,
-    //   `&lng=${lng}`,
-    //   `&districtLower=${lowerId}`,
-    //   `&districtUpper=${upperId}`
-    // ].join('')
-    {/*var newRoute = `${ROOT_PATH}${routeQuery}`*/}
-    console.log('autocomplete route: ', newRoute)
     this.props.history.push(newRoute)
   }
 
@@ -167,8 +158,7 @@ class JustMap extends Component {
 
   render () {
     const styles = {
-      display: 'inline-block',
-      width: '48%'
+      display: window.innerWidth <= 600 ? 'block' : 'inline-block'
     }
 
     return (

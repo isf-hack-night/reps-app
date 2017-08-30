@@ -1,0 +1,82 @@
+.RepsCard {
+  h5 {
+    font-size: 13px;
+  }
+
+  div {
+    img {
+      width: 28%;
+      display: inline-block;
+      margin-right: 4%;
+    }
+
+    div.RepsCard-info {
+      display: inline-block;
+      width: 68%;
+      vertical-align: top;
+      overflow: hidden;
+
+      h6 {
+        font-size: 14px;
+        text-align: center;
+        margin: 11px 0;
+      }
+
+      a, p {
+        font-size: 11px;
+        margin: 0 0 3px 0;
+        text-align: left;
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        span {
+          font-weight: bold;
+        }
+      }
+
+      a {
+        display: block;
+        color: @text_black;
+        text-decoration: underline;
+      }
+
+      a:hover {
+        color: @text_blue;
+      }
+    }
+  }
+}
+
+@media (min-width: 415px) {
+  .RepsCard {
+    div {
+      div.RepsCard-info {
+        a, p {
+          font-size: 12px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 599px) {
+  .RepsCard {
+    div {
+      div.RepsCard-info {
+        a, p {
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .RepsCard {
+    display: inline-block;
+    width: 48%;
+    margin: 0 1%;
+  }
+}

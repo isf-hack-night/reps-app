@@ -32,3 +32,14 @@ export const PARAM_TYPES = [
   'districtLower',
   'districtUpper'
 ]
+
+// colors
+export const COLORS = {
+  TEXT: {
+    BLUE: '#0071b9',
+    RED: '#ff0000' 
+  }
+}
+
+// consistent copy
+export const DATA_FINE_PRINT = 'We do not retain any personal data, including your address.'

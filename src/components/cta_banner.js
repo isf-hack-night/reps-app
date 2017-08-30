@@ -5,10 +5,10 @@ class CTABanner extends Component {
     const display = this.props.isVisible ? 'block' : 'none'
 
     return (
-      <div className="cta-banner" styles={`display: ${display};`}>
-        <p><span className="cta-big-text">California</span> has the 6th largest economy in the world. </p>
-        <p>As we lead the country in resisting the Trump agenda and</p>
-        <p>promoting <span className="cta-bold-text">progressive</span> policy, the nation will follow.</p>
+      <div className="CTABanner" styles={`display: ${display};`}>
+        <p><span className="CTABanner-big_text">California</span> has the 6th largest economy in the world. </p>
+        <p>As we lead the country in resisting the Trump agenda and
+        promoting <span className="CTABanner-bold_text">progressive</span> policy, the nation will follow.</p>
       </div>
     )
   }

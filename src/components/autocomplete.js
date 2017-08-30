@@ -1,11 +1,16 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import { ROOT_PATH } from '../constants'
+import utils from '../utils'
 import queryAPI from '../query_api'
 
 class Autocomplete extends Component {
   constructor (props) {
     super(props)
+
+    this.state = {
+      uuid: utils.generateUUID()
+    }
 
     this.getPlace = this.getPlace.bind(this)
     this.geolocate = this.geolocate.bind(this)
@@ -47,19 +52,12 @@ class Autocomplete extends Component {
       districtLower: lowerId,
       districtUpper: upperId
     })
-    // const newRoute = [
-    //   ROOT_PATH,
-    //   `?lat=${lat}`,
-    //   `&lng=${lng}`,
-    //   `&districtLower=${lowerId}`,
-    //   `&districtUpper=${upperId}`
-    // ].join('')
     this.props.history.push(newRoute)
   }
 
   componentDidMount () {
     const autocomplete = new google.maps.places.Autocomplete(
-            /** @type {!HTMLInputElement} */(document.getElementById('map-autocomplete')),
+            /** @type {!HTMLInputElement} */(document.getElementById(this.state.uuid)),
             {types: ['geocode']})
 
     autocomplete.addListener('place_changed', this.getPlace)
@@ -70,7 +68,13 @@ class Autocomplete extends Component {
 
   render () {
     return (
-      <input id="map-autocomplete" placeholder="Enter your address" type="text" onFocus={this.geolocate}/>
+      <input
+        id={this.state.uuid}
+        className="Autocomplete"
+        placeholder="Enter your address"
+        type="text"
+        onFocus={this.geolocate}
+      />
     )
   }
 }

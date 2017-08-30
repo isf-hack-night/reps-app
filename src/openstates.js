@@ -16,8 +16,19 @@ LocalOpenStates.prototype.callApi = function (url) {
 }
 
 LocalOpenStates.prototype.getDistricts = function (state, chamber) {
-	var method = 'all_districts';
+	var method = chamber || 'all_districts';
 	return this.callApi(this.makeUrl(method));
+}
+
+LocalOpenStates.prototype.getDistrictsByParams = function (US_STATE, params) {
+	if (!params) {
+		return this.getDistricts(US_STATE)
+	}
+
+	var { districtLower, districtUpper } = params
+	var lowerDistrictData = districtLower ? [this.getDistricts(US_STATE, districtLower)] : []
+	var upperDistrictData = districtUpper ? [this.getDistricts(US_STATE, districtUpper)] : []
+	return lowerDistrictData.concat(upperDistrictData)
 }
 
 LocalOpenStates.prototype.getDistrictBoundary = function (boundary_id) {
