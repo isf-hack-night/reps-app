@@ -24,7 +24,7 @@ class ActionDetails extends Component {
   render () {
     const action = this.props.action
     return (
-      <div className="action-card" onClick={this.goToActionPage}>
+      <div className="ActionCard" onClick={this.goToActionPage}>
         <p>{`${action.preTitle} ${action.title}`}</p>
       </div>
     )

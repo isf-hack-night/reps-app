@@ -1,29 +1,7 @@
 import { h, Component } from 'preact'
 import queryAPI from '../query_api'
 import amplify from '../amplify'
-
-class ActionInfo extends Component {
-  render () {
-    const {
-      preTitle,
-      title,
-      person,
-      callScriptMd,
-      callBackgroundMd
-    } = this.props
-
-    return (
-      <div>
-        <h3>{preTitle} {title}</h3>
-        <h4>{person.offices[0].phone}</h4>
-        <h4>Call script</h4>
-        <p>{callScriptMd}</p>
-        <h4>Background information</h4>
-        <p>{callBackgroundMd}</p>
-      </div>
-    )
-  }
-}
+import ActionInfo from './action_info'
 
 class ActionPage extends Component {
   constructor (props) {

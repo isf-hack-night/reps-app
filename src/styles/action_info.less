@@ -1,0 +1,50 @@
+.ActionInfo {
+  h3.ActionInfo-header {
+    font-size: 13px;
+    text-align: center;
+    margin: 0 0 5px 0;
+    color: @text_blue;
+  }
+
+  h4.ActionInfo-subheader {
+    font-size: 12px;
+    text-align: left;
+    color: @text_blue;
+  }
+
+  .PhoneLink {
+    color: @text_red;
+    font-size: 13px;
+    text-align: left;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  p {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 599px) {
+  .ActionInfo {
+    h3.ActionInfo-header {
+      text-align: left;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .ActionInfo {
+    h3.ActionInfo-header {
+      font-size: 16px;
+    }
+
+    h4.ActionInfo-subheader {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+  }
+}

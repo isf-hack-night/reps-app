@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom'
 import LandingApp from './components/landing_app'
 import { ROOT_PATH } from './constants'
-import './style.less'
+import './styles/style.less'
 
 const RepsApp = () => (
   <Router>

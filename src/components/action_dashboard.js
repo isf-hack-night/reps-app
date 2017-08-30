@@ -1,5 +1,5 @@
 import { h, Component } from 'preact'
-import RepsDisplay from './reps_display'
+import RepsCard from './reps_card'
 import ActionsDisplay from './actions_display'
 
 class ActionDashboard extends Component {
@@ -13,14 +13,21 @@ class ActionDashboard extends Component {
     const numUpper = this.props.districtUpper.match(/\d+/g)[0]
 
     //TODO: consider making 'S' and 'H' constants... possibly connected to testAction as util function?
-    const upperRep = this.props.ampData.find(action => this.testAction(action.person, 'S', numUpper)) || {}
-    const lowerRep = this.props.ampData.find(action => this.testAction(action.person, 'H', numLower)) || {}
+    let upperRep = this.props.ampData.find(action => this.testAction(action.person, 'S', numUpper)) || {}
+    let lowerRep = this.props.ampData.find(action => this.testAction(action.person, 'H', numLower)) || {}
+
+    // TODO: stop this spoof of 2 reps, change upperRep and lowerRep back to const
+    if (!lowerRep.person && upperRep.person) {
+      lowerRep = upperRep
+    } else if (!upperRep.person && lowerRep.person) {
+      upperRep = lowerRep
+    }
 
     return (
-      <div className="action-dashboard">
-        <div className="reps-display-container"> 
-          <RepsDisplay rep={upperRep} />
-          <RepsDisplay rep={lowerRep} />
+      <div className="ActionDashboard">
+        <div className="RepsDisplay"> 
+          <RepsCard rep={upperRep} />
+          <RepsCard rep={lowerRep} />
         </div>
         <ActionsDisplay actions={this.props.ampData} />
       </div>
