@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import API_KEYS from '../KEYS'
 import queryAPI from '../query_api'
-import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS } from '../constants'
+import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS} from '../constants'
 const defaultZoom = 6
 
 //TODO:
@@ -84,12 +84,12 @@ class JustMap extends Component {
 
     this.state.upperDistricts.clearLayers()
     this.state.lowerDistricts.clearLayers()
-    this.drawDistrict(districtData.upper, 'blue' , 'upper')
-    this.drawDistrict(districtData.lower, 'red' , 'lower')
+    this.drawDistrict(districtData.upper, 'upper')
+    this.drawDistrict(districtData.lower, 'lower')
     this.state.layerControl.getContainer().show()
   }
 
-  drawDistrict (district, districtColor, layer) {
+  drawDistrict (district, layer) {
     let shape = []
     for (let a in district.shape) {
       shape[a] = []
@@ -103,6 +103,10 @@ class JustMap extends Component {
         }
       }
     }
+
+    console.log(district)
+    const districtColor = layer === 'upper' ? COLORS.DISTRICT.UPPER : COLORS.DISTRICT.LOWER
+    console.log(districtColor)
 
     for (let i = 0; i < shape.length; i++) { 
       const boundary = shape[i][0].slice(1).map(x => [x[1], x[0]] )  //assumes no donuts
@@ -118,6 +122,8 @@ class JustMap extends Component {
   }
 
   componentDidMount () {
+
+    console.log("MAP DID MOUNT")
     // aka init map
     L.mapbox.accessToken = API_KEYS.mapbox
     const map = L.mapbox.map('map', 'mapbox.light')
@@ -131,9 +137,14 @@ class JustMap extends Component {
     map.addLayer( upperDistricts)
     map.addLayer(lowerDistricts)
 
-    var overlayMaps = {
-      "<span style='color: blue'>State Senate Districts</span>" : upperDistricts,
-      "<span style='color: red'>State Assembly Districts</span>": lowerDistricts
+
+    const overlayHTMLUpper = "<span style='color:" + COLORS.DISTRICT.UPPER + "''>State Senate Districts</span>"
+    const overlayHTMLLower = "<span style='color: " + COLORS.DISTRICT.UPPER + "'>State Assembly Districts</span>"
+
+    //TODO update colors here as wll
+    const overlayMaps = {
+       overlayHTMLUpper : upperDistricts,
+       overlayHTMLLower: lowerDistricts
     };
 
     const layerControl = L.control.layers(null, overlayMaps, {collapsed:false})
@@ -150,6 +161,7 @@ class JustMap extends Component {
   }
 
   componentDidUpdate (prevProps) {
+    console.log("MAP DID UPDATE")
     const { lat, lng } = this.props.paramsData
     if (lat && lng) {
       this.positionSet(lat, lng)

@@ -37,8 +37,13 @@ export const PARAM_TYPES = [
 export const COLORS = {
   TEXT: {
     BLUE: '#0071b9',
-    RED: '#ff0000' 
+    RED: '#ff0000',
+  },
+  DISTRICT: {
+  	UPPER: '#2E3192',
+    LOWER: '#00AEEF', 
   }
+
 }
 
 // consistent copy
