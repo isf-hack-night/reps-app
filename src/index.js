@@ -17,5 +17,15 @@ const RepsApp = () => (
 )
 
 console.log('running!')
-document.querySelector('h1.title.entry-title').style.display = 'none'
-render(<RepsApp />, document.getElementById('reps_app_root'))
+function tryToRender () {
+  setTimeout(() => {
+    if (window.google && window.L.mapbox) {
+      document.querySelector('h1.title.entry-title').style.display = 'none'
+      render(<RepsApp />, document.getElementById('reps_app_root'))
+    } else {
+      tryToRender()
+    }
+  }, 100)
+}
+
+tryToRender()
