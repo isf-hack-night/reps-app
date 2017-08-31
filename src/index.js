@@ -17,5 +17,5 @@ const RepsApp = () => (
 )
 
 console.log('running!')
-document.querySelector('h1.title.entry-title').style.display = 'none'
+//document.querySelector('h1.title.entry-title').style.display = 'none'
 render(<RepsApp />, document.getElementById('reps_app_root'))

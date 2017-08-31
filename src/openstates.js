@@ -1,5 +1,7 @@
+import { DATA_PATH } from './constants'
+
 function LocalOpenStates() {
-	this.openStatesURL = "https://ca.state-strong.org/wp-content/uploads/2017/08";
+	this.openStatesURL = DATA_PATH;
 	this.api_key = 'local';
 	this.is_local = true;
 }

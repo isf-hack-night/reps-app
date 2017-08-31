@@ -38,7 +38,7 @@ class JustMap extends Component {
     this.state.markers.clearLayers()
     this.state.upperDistricts.clearLayers()
     this.state.lowerDistricts.clearLayers()
-    this.state.layerControl.getContainer.hide()
+   // this.state.layerControl.getContainer.hide()
     this.state.map.flyToBounds(STATE_BOUNDS)
   // document.getElementById('autocomplete').value = '';
   }
@@ -71,7 +71,7 @@ class JustMap extends Component {
     } else {
       this.state.upperDistricts.clearLayers()
       this.state.lowerDistricts.clearLayers()
-      this.state.layerControl.getContainer.hide()
+     // this.state.layerControl.getContainer.hide()
 
     }
   }
@@ -148,7 +148,7 @@ class JustMap extends Component {
     };
 
     const layerControl = L.control.layers(null, overlayMaps, {collapsed:false})
-    layerControl.getContainer().hide()
+    //layerControl.getContainer().hide()
     layerControl.addTo(map);
 
     map.on('click', this.handleClick)

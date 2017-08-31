@@ -1,7 +1,9 @@
 // root path to app
-export const ROOT_PATH = '/index.php/test/'
+export const ROOT_PATH = '/dist'     //'/index.php/test/'
 // path to individual rep page
 export const REPS_PATH = `${ROOT_PATH}rep/`
+
+export const DATA_PATH = '/src/data'  //"https://ca.state-strong.org/wp-content/uploads/2017/08"
 
 // operation state within the US
 export const US_STATE = 'ca'
