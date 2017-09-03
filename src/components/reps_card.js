@@ -13,11 +13,11 @@ class RepsCardBase extends Component {
 
     return (
       <div className="RepsCard" onClick={this.props.goToRepPage} style={`border: 2px solid ${houseColor};`}>
-        <h5>Your {houseTitle} is:</h5>
+        <h5>Your {houseTitle} is: {rep.prefix} {rep.legalName} (<span style={`color: ${partyColor};`}>{rep.partyCode}</span>)</h5>
         <div>
             <img  src={CAP_PIC} style={`border: 1px solid ${partyColor};`}/>
           <div className="RepsCard-info">
-            <p>{rep.prefix} {rep.legalName} (<span style={`color: ${partyColor};`}>{rep.partyCode}</span>)</p>
+            
             <p>District: {rep.district}</p>
             <p>Phone: {rep.offices[0].phone}</p>
             <a href={`mailto:${rep.email}`}>Email</a>
