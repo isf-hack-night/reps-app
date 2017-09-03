@@ -18,7 +18,7 @@ class LandingApp extends Component {
     // let districts = locOpenStates.getDistrictsByParams(US_STATE, paramsData) // .getDistricts(US_STATE)
     // .getDistricts will get ALL districts so map will be useable
     let districts = locOpenStates.getDistricts(US_STATE)
-    console.log('districts: ', districts)
+    //console.log('districts: ', districts)
     let stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, locOpenStates)
     stateDistricts.preloadDistricts()
     let display

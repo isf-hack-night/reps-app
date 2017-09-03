@@ -29,7 +29,7 @@ class JustMap extends Component {
   }
 
   handleDrag (e) {
-    console.log(e.target)
+   // console.log(e.target)
     const {lat, lng} = e.target._latlng
     this.updateRoute(lat, lng)
   }
@@ -153,7 +153,7 @@ class JustMap extends Component {
     };
 
     const layerControl = L.control.layers(null, overlayMaps, {collapsed:false})
-    layerControl.addTo(map);
+    //layerControl.addTo(map);
     //layerControl.hide()
 
     map.on('click', this.handleClick)
@@ -166,7 +166,7 @@ class JustMap extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    console.log("MAP DID UPDATE")
+    //console.log("MAP DID UPDATE")
     const { lat, lng } = this.props.paramsData
     if (lat && lng) {
       this.positionSet(lat, lng)
