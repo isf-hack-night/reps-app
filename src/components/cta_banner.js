@@ -6,9 +6,10 @@ class CTABanner extends Component {
 
     return (
       <div className="CTABanner" styles={`display: ${display};`}>
-        <p><span className="CTABanner-big_text">California</span> has the 6th largest economy in the world. </p>
-        <p>As we lead the country in resisting the Trump agenda and
-        promoting <span className="CTABanner-bold_text">progressive</span> policy, the nation will follow.</p>
+        <h2 className="CTABanner-tagline_text">Hold Your State Representatives Accountable!</h2>
+        <p>Resisting the Trump agenda and promoting progressive policy starts at home. 
+        Find out how you can influence your State Respresentatives to make
+        <span className="CTABanner-state_text"> California </span>take the lead.</p>
       </div>
     )
   }

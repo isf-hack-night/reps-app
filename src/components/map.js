@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import API_KEYS from '../KEYS'
 import queryAPI from '../query_api'
-import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS } from '../constants'
+import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS} from '../constants'
 const defaultZoom = 6
 
 //TODO:
@@ -36,7 +36,9 @@ class JustMap extends Component {
 
   resetMap () {
     this.state.markers.clearLayers()
-    this.state.myDistricts.clearLayers()
+    this.state.upperDistricts.clearLayers()
+    this.state.lowerDistricts.clearLayers()
+   // this.state.layerControl.getContainer.hide()
     this.state.map.flyToBounds(STATE_BOUNDS)
   // document.getElementById('autocomplete').value = '';
   }
@@ -67,22 +69,35 @@ class JustMap extends Component {
     if (districtData.upper || districtData.lower) {
       this.zoomDistrict(districtData)  //make this a callback
     } else {
-      this.state.myDistricts.clearLayers()
+      this.state.upperDistricts.clearLayers()
+      this.state.lowerDistricts.clearLayers()
+     // this.state.layerControl.getContainer.hide()
+
     }
   }
 
   zoomDistrict (districtData) {
-    const bbox = districtData.upper.bbox  //TODO get bbox of both bboxes
+    const bboxU = districtData.upper.bbox  //TODO get bbox of both bboxes
+    const bboxL = districtData.lower.bbox 
+  
+    const bbox = bboxU
+    bboxU[0][0] = Math.min(bboxU[0][0],bboxL[0][0])
+    bbox[0][1]  = Math.min(bboxU[0][1],bboxL[0][1])
+    bbox[1][0]  = Math.max(bboxU[1][0],bboxL[1][0])
+    bbox[1][1]  = Math.max(bboxU[1][1],bboxL[1][1])
+
 
     const drawNewDistrict = true
     this.state.map.flyToBounds(bbox)
 
-    this.state.myDistricts.clearLayers()
-    this.drawDistrict(districtData.upper, 'blue')
-    this.drawDistrict(districtData.lower, 'red')
+    this.state.upperDistricts.clearLayers()
+    this.state.lowerDistricts.clearLayers()
+    this.drawDistrict(districtData.upper)
+    this.drawDistrict(districtData.lower)
+   // this.state.layerControl.getContainer().show()
   }
 
-  drawDistrict (district, districtColor) {
+  drawDistrict (district) {
     let shape = []
     for (let a in district.shape) {
       shape[a] = []
@@ -97,16 +112,24 @@ class JustMap extends Component {
       }
     }
 
+
+    const districtColor = district.chamber === 'upper' ? COLORS.DISTRICT.UPPER : COLORS.DISTRICT.LOWER
+
     for (let i = 0; i < shape.length; i++) { 
       const boundary = shape[i][0].slice(1).map(x => [x[1], x[0]] )  //assumes no donuts
       shape[i] = boundary
     }
 
     const polygon = L.polygon(shape, { color: districtColor })
-    this.state.myDistricts.addLayer(polygon)  //todo name layer ?
+    if( district.chamber == 'upper')
+      this.state.upperDistricts.addLayer( polygon )
+    else 
+      this.state.lowerDistricts.addLayer( polygon )
+
   }
 
   componentDidMount () {
+
     // aka init map
     L.mapbox.accessToken = API_KEYS.mapbox
     const map = L.mapbox.map('map', 'mapbox.light')
@@ -115,12 +138,27 @@ class JustMap extends Component {
     const markers = L.featureGroup()
     map.addLayer(markers)
 
-    const myDistricts = L.layerGroup()
-    map.addLayer(myDistricts)
+    const upperDistricts = L.layerGroup([])
+    const lowerDistricts = L.layerGroup([])
+    map.addLayer( upperDistricts)
+    map.addLayer(lowerDistricts)
+
+    const overlayHTMLUpper = "<span style='color:" + COLORS.DISTRICT.UPPER + "''>State Senate Districts</span>"
+    const overlayHTMLLower = "<span style='color: " + COLORS.DISTRICT.UPPER + "'>State Assembly Districts</span>"
+
+    //TODO update colors here as wll
+    const overlayMaps = {
+       overlayHTMLUpper : upperDistricts,
+       overlayHTMLLower : lowerDistricts
+    };
+
+    const layerControl = L.control.layers(null, overlayMaps, {collapsed:false})
+    layerControl.addTo(map);
+    //layerControl.hide()
 
     map.on('click', this.handleClick)
 
-    const newState = { map, markers, myDistricts }
+    const newState = { map, markers, layerControl, upperDistricts, lowerDistricts}
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState))
@@ -128,6 +166,7 @@ class JustMap extends Component {
   }
 
   componentDidUpdate (prevProps) {
+    console.log("MAP DID UPDATE")
     const { lat, lng } = this.props.paramsData
     if (lat && lng) {
       this.positionSet(lat, lng)

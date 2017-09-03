@@ -41,9 +41,10 @@ class LandingApp extends Component {
       display = (
         <div className="Display">
           <CTABanner />
-          <h4>Enter your address below to find actions from your CA state legislators:</h4>
+          <br></br>
+          <h3>Find actions YOU can take based on your district:</h3>
             <AutocompleteContainer stateDistricts={stateDistricts} />
-          <h5>{DATA_FINE_PRINT}</h5>
+          <h5><em>{DATA_FINE_PRINT}</em></h5>
         </div>
       )
     }
