@@ -152,13 +152,13 @@ class JustMap extends Component {
        overlayHTMLLower : lowerDistricts
     };
 
-    const layerControl = L.control.layers(null, overlayMaps, {collapsed:false})
-    layerControl.addTo(map);
+    //const layerControl = L.control.layers(null, overlayMaps, {collapsed:false})
+    //layerControl.addTo(map);
     //layerControl.hide()
 
     map.on('click', this.handleClick)
 
-    const newState = { map, markers, layerControl, upperDistricts, lowerDistricts}
+    const newState = { map, markers, upperDistricts, lowerDistricts}
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState))
