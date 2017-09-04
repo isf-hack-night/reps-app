@@ -1,6 +1,8 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import queryAPI from '../query_api'
+import { ListGroupItem } from 'react-bootstrap';
+
 
 class ActionDetails extends Component {
   constructor (props) {
@@ -23,10 +25,12 @@ class ActionDetails extends Component {
 
   render () {
     const action = this.props.action
+    const icon = action.type === 'call' ? 'State Assemblymember' : 'State Senator'
+    console.log(action)
     return (
-      <div className="ActionCard" onClick={this.goToActionPage}>
-        <p>{`${action.preTitle} ${action.title}`}</p>
-      </div>
+      <ListGroupItem className="ActionCard" onClick={this.goToActionPage} header= {`${action.preTitle}`}>
+        {`${action.title}`}
+      </ListGroupItem>
     )
   }
 }

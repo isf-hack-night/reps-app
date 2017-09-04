@@ -1,6 +1,7 @@
 import { h, Component } from 'preact'
 import { ACTIONS_DISPLAY_LIMIT, ACTIONS_DISPLAY_INCREMENT } from '../constants'
 import ActionCard from './action_card'
+import { Panel, ListGroup, Button } from 'react-bootstrap';
 
 class ActionsDisplay extends Component {
   constructor (props) {
@@ -28,18 +29,21 @@ class ActionsDisplay extends Component {
 
     const loadMoreButton = this.props.actions.length > this.state.actionsNum
       ? (
-        <button
+        <Button block
           className="ActionsDisplay-loadMore"
           onClick={this.loadMoreActions}>
           More actions
-        </button>
+        </Button>
       ) : ''
+
+
     return (
-      <div className="ActionsDisplay">
-        <h4>Take action</h4>
-        {actionsList}
+      <Panel header="Take Action:" className="ActionsDisplay">
+        <ListGroup  >
+          {actionsList}
+        </ListGroup>
         {loadMoreButton}
-      </div>
+      </Panel>
     )
   }
 }
