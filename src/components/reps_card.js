@@ -1,6 +1,9 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import { REPS_PATH, CAP_PIC, COLORS } from '../constants'
+import { Panel  } from 'react-bootstrap';
+import PhoneLink from './phone_link'
+
 
 class RepsCardBase extends Component {
   render () {
@@ -24,7 +27,7 @@ class RepsCardBase extends Component {
           </div>
           <div className="RepsCard-info">
             <p>District: {rep.district}</p>
-            <p><i class="fa fa-phone fa-fw" aria-hidden="true"></i> {rep.offices[0].phone}</p>
+            <PhoneLink num={rep.offices[0].phone} />
             <div className= "RepSocialWrapper">
               <a href={`${rep.website}`} alt="Homepage"><i class="fa fa-home fa-fw" aria-hidden="true"></i></a>
               <a href={`${rep.twitter}`} alt="Twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></a>

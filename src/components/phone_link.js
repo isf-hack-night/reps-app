@@ -7,7 +7,7 @@ class PhoneLink extends Component {
     if (!teleNum) { return }
     const action = utils.isOnMobile() ? `callto:${teleNum}` : `tel:${teleNum}`
 
-    return <a className="PhoneLink" href={action}>{this.props.num}</a>
+    return <a className="PhoneLink" href={action}><i class="fa fa-phone fa-fw" aria-hidden="true"></i> {this.props.num}</a>
   }
 }
 
