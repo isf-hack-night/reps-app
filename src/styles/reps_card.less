@@ -1,15 +1,33 @@
 .RepsCard {
   h5 {
-    font-size: 13px;
     text-align: left;
+
+  }
+
+
+  .RepImageWrapper{
+      display: inline-block;
+
+
+      img {
+      margin: 0px 8px 8px 8px;
+      width: 90px;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+
+    .RepSocialWrapper{
+      text-align: center;
+      i {
+        display: inline-block;
+      }
+
+    }
   }
 
   div {
-    img {
-      width: 28%;
-      display: inline-block;
-      margin: 0px 8px 10px 8px;
-    }
+
 
     div.RepsCard-info {
       display: inline-block;
@@ -18,13 +36,11 @@
       overflow: hidden;
 
       h6 {
-        font-size: 14px;
         text-align: center;
         margin: 11px 0;
       }
 
-      a, p {
-        font-size: 11px;
+      p {
         margin: 0 0 3px 0;
         text-align: left;
         width: 100%;
@@ -36,9 +52,10 @@
         }
       }
 
+
+
       a {
-        display: block;
-        color: @text_black;
+
         text-decoration: underline;
       }
 
@@ -54,7 +71,6 @@
     div {
       div.RepsCard-info {
         a, p {
-          font-size: 12px;
           // text-align: center;
         }
       }
