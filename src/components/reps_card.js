@@ -19,7 +19,7 @@ class RepsCardBase extends Component {
         <h4> {rep.legalName} (<span style={`color: ${partyColor};`}>{rep.partyCode}</span>)</h4>
         <div>
           <div className="RepImageWrapper">
-            <img  src={CAP_PIC} style={`border: 1px solid ${partyColor};`}/>
+            <img  src={CAP_PIC} style={`border: 2px solid ${partyColor};`}/>
 
           </div>
           <div className="RepsCard-info">
