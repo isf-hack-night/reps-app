@@ -71,7 +71,7 @@ class Autocomplete extends Component {
       <input
         id={this.state.uuid}
         className="Autocomplete"
-        placeholder="Enter your address"
+        placeholder="Enter your town or address"
         type="text"
         onFocus={this.geolocate}
       />

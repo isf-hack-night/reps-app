@@ -49,4 +49,4 @@ export const COLORS = {
 }
 
 // consistent copy
-export const DATA_FINE_PRINT = 'We do not retain any personal data, including your address.'
+export const DATA_FINE_PRINT = 'Address is only used to determine your districts. We do not store or retain any personal info.'

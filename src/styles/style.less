@@ -13,8 +13,10 @@
 @import "action_card.less";
 @import "map_wrapper.less";
 @import "map_header.less";
+@import "mapbox.less";
 
 @text_blue: #0071b9;
+@text_blue_royal: #2E3192;
 @text_gray: #808080;
 @text_black: #555555;
 @text_red: #ff0000;
@@ -37,6 +39,7 @@ div#logo { // set float left later // TODO
   width: 115px;
   display: block;
   margin: 0 auto;
+  margin-left: 0px;
   float: none;
 }
 
@@ -45,12 +48,26 @@ div#logo { // set float left later // TODO
   height: 250px;
   overflow: hidden;
   cursor: pointer;
+  margin: 0px;
 }
+
+.PhoneLink {
+    color: @text_black;
+    font-size: 13px;
+    text-align: left;
+    font-weight: bold;
+    text-decoration: none;
+  }
 
 .Display {
   width: 90%;
   display: block;
-  margin: 10px auto 0 auto;
+  margin: 0px auto 0 auto;
+
+  h3 {
+    margin: 10px 0;
+    text-align: center;
+  }
 
   h4 {
     margin: 10px 0;
@@ -70,18 +87,19 @@ div#logo { // set float left later // TODO
   div#logo { // set float left later // TODO
     float: left;
     width: 130px;
-    margin-left: 15px;
+    margin-left: 0px;
   }
   
   #map {
     height: 340px;
+    margin: 0px;
   }
   
   .Display {
     width: 59%;
     display: inline-block;
     vertical-align: top;
-    margin-top: 20px;
+    margin-top: 0px;
   
     h4 {
       margin: 10px 0;
