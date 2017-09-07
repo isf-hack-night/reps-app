@@ -9,6 +9,9 @@ import queryAPI from '../query_api'
 import { US_STATE, DATA_FINE_PRINT } from '../constants'
 import OpenStatesAPI from '../openstates'
 import AutocompleteContainer from './autocomplete'
+import { Panel  } from 'react-bootstrap';
+import Header from './header'
+
 
 class LandingApp extends Component {
   render() {
@@ -50,7 +53,10 @@ class LandingApp extends Component {
     }
 
     return (
+
+
       <div className="RepsApp">
+        <Header />
         <MapWrapper paramsData={paramsData}>
           <MapHeader stateDistricts={stateDistricts} />
           <Map stateDistricts={stateDistricts} paramsData={paramsData} />
