@@ -1,0 +1,135 @@
+/*
+ Theme Name:   State Strong
+ Theme URI:    http://state-strong.org/state-strong/
+ Description:  Canvas Child Theme
+ Author:       State Strong
+ Author URI:   http://state-strong.org
+ Template:     canvas-2017-07
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+ Text Domain:  state-strong
+*/
+
+.nav-toggle {
+    display:none !important;
+}
+
+
+#inner-wrapper {
+  /*max-width: 1000px;*/
+  margin: 0 auto;
+}
+
+/* main */
+#main {
+  clear: both;
+}
+
+/* header */
+
+#logo img {
+  width: 100%;
+  vertical-align: text-top;
+}
+
+#logo {
+  /*float: none;*/
+  /*width: 205px;
+  /*position: absolute;*/
+  /*left: 38px;*/
+  margin: 0 auto;
+  display: inline-block;
+  float: left;
+  transform: translateX(7%);
+}
+
+#content {
+  margin-top: 88px;
+}
+
+/* footer widgets */
+#footer-widgets {
+  margin-bottom: -13px;
+}
+
+#footer-widgets .widget {
+  padding-bottom: 0;
+}
+
+/* footer */
+
+footer.col-full {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space between;
+}
+
+#footer .social-media-link {
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+#footer .col-left,
+#footer .col-right {
+  display: inline-block;
+  width: 49%;
+}
+
+/* KLUDGED nav menu stuff */
+
+
+
+#navigation ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+#navigation li.menu-item {
+  display: inline-block;
+  padding: 14px 16px;
+  /*text-transform: uppercase;*/
+}
+
+@media only screen and (max-width: 768px) {
+  #navigation li.menu-item {
+    display: block;
+    width: 100%;
+  }
+  
+  #navigation ul {
+    flex-direction: column;
+    clear: both;
+  }
+  
+}
+
+#navigation li.menu-item a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/*#navigation li.menu-item a:hover {
+  color: #0071B9;
+}*/
+
+#navigation section.menus>a.nav-home {
+  display: none;
+}
+
+#navigation section.menus>h3 {
+  display: none;
+}
+
+#navigation a.nav-close {
+  display: none;
+}
+
+#navigation section.menus {
+  display: inline;
+}
