@@ -3,13 +3,8 @@ import { h, Component } from 'preact'
 
 class Display extends Component {
   render () {
-    debugger
-    const styles = {
-      display: 'inline-block',
-      width: '48%'
-    }
     return (
-      <div style={styles}>
+      <div className='Display'>
         {this.props.children}
       </div>
     )

@@ -16,8 +16,19 @@ LocalOpenStates.prototype.callApi = function (url) {
 }
 
 LocalOpenStates.prototype.getDistricts = function (state, chamber) {
-	var method = 'all_districts';
+	var method = chamber || 'all_districts';
 	return this.callApi(this.makeUrl(method));
+}
+
+LocalOpenStates.prototype.getDistrictsByParams = function (US_STATE, params) {
+	if (!params) {
+		return this.getDistricts(US_STATE)
+	}
+
+	var { districtLower, districtUpper } = params
+	var lowerDistrictData = districtLower ? [this.getDistricts(US_STATE, districtLower)] : []
+	var upperDistrictData = districtUpper ? [this.getDistricts(US_STATE, districtUpper)] : []
+	return lowerDistrictData.concat(upperDistrictData)
 }
 
 LocalOpenStates.prototype.getDistrictBoundary = function (boundary_id) {
@@ -173,11 +184,12 @@ DistrictList.prototype.getUpperDistrict = function (i) {
 }
 
 DistrictList.prototype.findNearbyDistricts = function (lat, lon) {
-	var nearby = [];
-	for (var d in this.districts) {
-		var district = this.districts[d];
+    var nearby = []
+		var district = null
+  	for (var d in this.districts) {
+    district = this.districts[d]
 		if (district.surroundsPointApprox(lat, lon)) {
-			nearby.push(district);
+			nearby.push(district)
 		}
 	}
 	return nearby;

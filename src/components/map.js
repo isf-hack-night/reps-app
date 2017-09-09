@@ -1,239 +1,191 @@
 import { h, Component } from 'preact'
-var map, marker, markers, myDistricts;
-var caCenter = [37.2719, -119.2702];
-var defaultZoom = 6;
-var caBounds = [ [32.5343, -124.4096], [42.0095, -114.1308]];
-var autocomplete; 
-var openStates;
-var stateDistricts;
-var state = 'CA';     //TODO get latlong map zoom defaults
-var openStatesApiKey = 'INSERT API KEY HERE';
+import { withRouter } from 'react-router-dom'
+import API_KEYS from '../KEYS'
+import queryAPI from '../query_api'
+import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS} from '../constants'
+const defaultZoom = 6
 
+//TODO:
+// went forward (map didn't render in this view) hit back and got "Error: Map container is already initialized."
+// how to handle a single action's page... the map should lock in this case? or moving/clicking opens the rep/actions list view?
 
-var onUpdatePoint;
+// const caCenter = [37.2719, -119.2702] // replaced by STATE_CENTER constant
+// const caBounds = [[32.5343, -124.4096], [42.0095, -114.1308]] // replace by STATE_BOUNDS constant
+// var stateDistricts; // get from react prop
+// var state = 'CA'; // replaced by US_STATE constant     //TODO get latlong map zoom defaults
+var openStatesApiKey = 'INSERT API KEY HERE' // TODO: is this necessary?
 
-// Copied from https://www.html5rocks.com/en/tutorials/cors/
-function createCORSRequest(method, url) {
-  var xhr = new XMLHttpRequest();
-  if ("withCredentials" in xhr) {
+class JustMap extends Component {
+  constructor (props) {
+    super(props)
 
-    // Check if the XMLHttpRequest object has a "withCredentials" property.
-    // "withCredentials" only exists on XMLHTTPRequest2 objects.
-    xhr.open(method, url, true);
-
-  } else if (typeof XDomainRequest != "undefined") {
-
-    // Otherwise, check if XDomainRequest.
-    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-    xhr = new XDomainRequest();
-    xhr.open(method, url);
-
-  } else {
-
-    // Otherwise, CORS is not supported by the browser.
-    xhr = null;
-
+    this.handleDrag = this.handleDrag.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
-  return xhr;
-}
 
-function fakeOnUpdatePoint (lat, lng) {
-  console.log( [lat,lng]);
-  onPositionSet(lat, lng, stateDistricts.findDistrictsForPoint(lat, lng));
-}
+  handleClick (e) {
+    const { lat, lng } = e.latlng
+    this.updateRoute(lat, lng)
+  }
 
+  handleDrag (e) {
+    console.log(e.target)
+    const {lat, lng} = e.target._latlng
+    this.updateRoute(lat, lng)
+  }
 
-
-
-function init() {
-
-	// initAutocomplete();
-	initOpenStates();  //async
-  initMap(fakeOnUpdatePoint);
-
-  //setTimeout(function() {fakeOnUpdatePoint( 34.31092502160036, -118.29666137695312 );}, 3000);
-}
-
-function initOpenStates() {
-	// openStates = new OpenStates(openStatesApiKey)
-	openStates = new LocalOpenStates();
-	var state_lower = state.toLowerCase();
-	// calls are currently syncronous. Avoid synchronous call by launching a new thread.
-	setTimeout(function () {
-		stateDistricts = new DistrictList(openStates.getDistricts(state_lower), state_lower);
-		stateDistricts.preloadDistricts();
-	}, 10);
-	
-}
-
-
-function initMap( _callback ){
-
-  onUpdatePoint = _callback;
-
-  L.mapbox.accessToken = 'pk.eyJ1Ijoid29sZmdhbmctbXB6IiwiYSI6ImNqNXcxYXA1djA4NzIyd29ncmFzbmowZjUifQ.d_D9DGVm9sfiEJilUmR0dw';
-  map = L.mapbox.map('map', 'mapbox.light');
-  map.fitBounds(caBounds);
-
-  markers = L.featureGroup();
-  map.addLayer(markers);
-
-  myDistricts = L.layerGroup();
-  map.addLayer(myDistricts);
-
-  map.on('click', function(e){
-      var pos = e.latlng;
-      onUpdatePoint( pos.lat, pos.lng );
-
-      // document.getElementById('autocomplete').value = '';
-
-  });
-
-
-  resetMap();
-
-  //TODO needs ca outline
-}
-
-
-function resetMap(){
-
-  markers.clearLayers();
-  myDistricts.clearLayers();
-  map.flyToBounds(caBounds);
+  resetMap () {
+    this.state.markers.clearLayers()
+    this.state.upperDistricts.clearLayers()
+    this.state.lowerDistricts.clearLayers()
+   // this.state.layerControl.getContainer.hide()
+    this.state.map.flyToBounds(STATE_BOUNDS)
   // document.getElementById('autocomplete').value = '';
+  }
 
-}
+  updateRoute (lat, lng) {
+    const districtsData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
+    console.log('response: ', districtsData)
+    const lowerId = districtsData.lower.id
+    const upperId = districtsData.upper.id
+    const newRoute = queryAPI.build({
+      lat,
+      lng,
+      districtLower: lowerId,
+      districtUpper: upperId
+    })
+    this.props.history.push(newRoute)
+  }
 
+  positionSet (lat, lng) {
+    this.state.markers.clearLayers()
+    const marker = L.marker([lat,lng], { draggable: true })
+      
+    marker.on('dragend', this.handleDrag)
 
-// function initAutocomplete() {
-//         // Create the autocomplete object, restricting the search to geographical
-//         // location types.
-//         autocomplete = new google.maps.places.Autocomplete(
-//             /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-//             {types: ['geocode']});
-
-//         autocomplete.addListener('place_changed', getAutocompletePlace);
-//       }
-
-
-
-// function getAutocompletePlace(){
-//   var place = autocomplete.getPlace();
-
-//   var lat = place.geometry.location.lat();
-//   var lng = place.geometry.location.lng();
-  
-//   for (var i = 0; i < place.address_components.length; i++) {
-//       for (var j = 0; j < place.address_components[i].types.length; j++) {
-//         if (place.address_components[i].types[j] == "administrative_area_level_1") {
-//             state = place.address_components[i].short_name;
-//             console.log(state)
-//         }
-//         if (place.address_components[i].types[j] == "postal_code") {
-//             zip = place.address_components[i].long_name;
-//             console.log(zip)
-//         }
-//       }
-//     }
-//     onUpdatePoint( lat, lng );
-// }
-
-
-  function onPositionSet(districtData, lat, lng){
-
-
-
-    markers.clearLayers();
-    marker = L.marker([lat,lng],{ draggable: true });
+    this.state.markers.addLayer(marker)
     
-
-    marker.on('dragend', function(e){
-       console.log( e.target);
-       var pos = e.target._latlng;
-       onUpdatePoint( pos.lat, pos.lng)
-        
-    });
-
-    markers.addLayer(marker);
-       
-
-    if( districtData.upper || districtData.lower ){
-      zoomDistrict(districtData);  //make this a callback
+    const districtData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
+    if (districtData.upper || districtData.lower) {
+      this.zoomDistrict(districtData)  //make this a callback
     } else {
+      this.state.upperDistricts.clearLayers()
+      this.state.lowerDistricts.clearLayers()
+     // this.state.layerControl.getContainer.hide()
 
-      myDistricts.clearLayers();
+    }
+  }
+
+  zoomDistrict (districtData) {
+    const bboxU = districtData.upper.bbox  //TODO get bbox of both bboxes
+    const bboxL = districtData.lower.bbox 
+  
+    const bbox = bboxU
+    bboxU[0][0] = Math.min(bboxU[0][0],bboxL[0][0])
+    bbox[0][1]  = Math.min(bboxU[0][1],bboxL[0][1])
+    bbox[1][0]  = Math.max(bboxU[1][0],bboxL[1][0])
+    bbox[1][1]  = Math.max(bboxU[1][1],bboxL[1][1])
+
+
+    const drawNewDistrict = true
+    this.state.map.flyToBounds(bbox)
+
+    this.state.upperDistricts.clearLayers()
+    this.state.lowerDistricts.clearLayers()
+    this.drawDistrict(districtData.upper)
+    this.drawDistrict(districtData.lower)
+   // this.state.layerControl.getContainer().show()
+  }
+
+  drawDistrict (district) {
+    let shape = []
+    for (let a in district.shape) {
+      shape[a] = []
+      for (let b in district.shape[a]) {
+        shape[a][b] = []
+        for (let c in district.shape[a][b]) {
+          shape[a][b][c] = []
+          for (let d in district.shape[a][b][c]) {
+            shape[a][b][c][d] = district.shape[a][b][c][d]
+          }
+        }
+      }
     }
 
 
+    const districtColor = district.chamber === 'upper' ? COLORS.DISTRICT.UPPER : COLORS.DISTRICT.LOWER
 
- }
+    for (let i = 0; i < shape.length; i++) { 
+      const boundary = shape[i][0].slice(1).map(x => [x[1], x[0]] )  //assumes no donuts
+      shape[i] = boundary
+    }
 
- function drawDistrict( district, districtColor ){
+    const polygon = L.polygon(shape, { color: districtColor })
+    if( district.chamber == 'upper')
+      this.state.upperDistricts.addLayer( polygon )
+    else 
+      this.state.lowerDistricts.addLayer( polygon )
 
-      var shape = district.shape;
+  }
 
-      for (i = 0; i < shape.length; i++) { 
-        var boundary = shape[i][0].slice(1).map(function(x) { return [x[1],x[0]]; });  //assumes no donuts
-        shape[i] = boundary;
-      }
-
-      var polygon = L.polygon(shape, {color: districtColor });
-      myDistricts.addLayer( polygon );  //todo name layer ?
-
- }
-
-//TODO deal with upper and lower 
- function zoomDistrict(districtData){
-
-
-  console.log(districtData);
-  var bbox = districtData.upper.bbox;  //TODO get bbox of both bboxes
-
-  var drawNewDistrict = true;
-  map.flyToBounds(bbox);
-
-  myDistricts.clearLayers();
-  drawDistrict(districtData.upper, 'blue');
-  drawDistrict(districtData.lower, 'red');
-  
-
- }
-
-// Bias the autocomplete object to the user's geographical location,
-// as supplied by the browser's 'navigator.geolocation' object.
-function geolocate() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var geolocation = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            var circle = new google.maps.Circle({
-              center: geolocation,
-              radius: position.coords.accuracy
-            });
-            // autocomplete.setBounds(circle.getBounds());
-          });
-        }
-      }
-
-
-class Map extends Component {
   componentDidMount () {
-    // this.props.connector.register(onPositionSet)
-    // initMap(this.props.connector.updatePoint)
+
+    // aka init map
+    L.mapbox.accessToken = API_KEYS.mapbox
+    const map = L.mapbox.map('map', 'mapbox.light')
+    map.fitBounds(STATE_BOUNDS)
+
+    const markers = L.featureGroup()
+    map.addLayer(markers)
+
+    const upperDistricts = L.layerGroup([])
+    const lowerDistricts = L.layerGroup([])
+    map.addLayer( upperDistricts)
+    map.addLayer(lowerDistricts)
+
+    const overlayHTMLUpper = "<span style='color:" + COLORS.DISTRICT.UPPER + "''>State Senate Districts</span>"
+    const overlayHTMLLower = "<span style='color: " + COLORS.DISTRICT.UPPER + "'>State Assembly Districts</span>"
+
+    //TODO update colors here as wll
+    const overlayMaps = {
+       overlayHTMLUpper : upperDistricts,
+       overlayHTMLLower : lowerDistricts
+    };
+
+    //const layerControl = L.control.layers(null, overlayMaps, {collapsed:false})
+    //layerControl.addTo(map);
+    //layerControl.hide()
+
+    map.on('click', this.handleClick)
+
+    const newState = { map, markers, upperDistricts, lowerDistricts}
+
+    // this setState will trigger componentDidUpdate thus positionSet
+    this.setState(Object.assign({}, this.state, newState))
+    this.resetMap()
+  }
+
+  componentDidUpdate (prevProps) {
+    console.log("MAP DID UPDATE")
+    const { lat, lng } = this.props.paramsData
+    if (lat && lng) {
+      this.positionSet(lat, lng)
+    }
   }
 
   render () {
     const styles = {
-      display: 'inline-block',
-      width: '48%'
+      display: window.innerWidth <= 600 ? 'block' : 'inline-block'
     }
+
     return (
       <div style={styles} id="map"></div>
     )
   }
 }
+
+const Map = withRouter(({history, stateDistricts, paramsData}) => (
+  <JustMap history={history} stateDistricts={stateDistricts} paramsData={paramsData} />
+))
 
 export default Map
