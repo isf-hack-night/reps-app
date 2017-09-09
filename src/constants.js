@@ -42,8 +42,8 @@ export const COLORS = {
     RED: '#ff0000',
   },
   DISTRICT: {
-  	UPPER: '#2E3192',
-    LOWER: '#00AEEF', 
+  	UPPER: '#fbb040',
+    LOWER: '#39b54a', 
   }
 
 }
