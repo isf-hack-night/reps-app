@@ -38,7 +38,7 @@ class ActionsDisplay extends Component {
 
 
     return (
-      <Panel header="Take Action:" className="ActionsDisplay">
+      <Panel header="Take Action" className="ActionsDisplay">
         <ListGroup  >
           {actionsList}
         </ListGroup>
