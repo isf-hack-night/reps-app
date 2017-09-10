@@ -1,5 +1,5 @@
 // root path to app
-export const ROOT_PATH = '/index.php/test/'
+export const ROOT_PATH = '/'
 // path to individual rep page
 export const REPS_PATH = `${ROOT_PATH}rep/`
 
