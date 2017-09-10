@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
-import { ROOT_PATH } from '../constants'
+import { ROOT_PATH, MAP_PERCISION } from '../constants'
 import utils from '../utils'
 import queryAPI from '../query_api'
 
@@ -35,8 +35,8 @@ class Autocomplete extends Component {
   getPlace () {
     const place = this.state.autocomplete.getPlace()
 
-    const lat = place.geometry.location.lat()
-    const lng = place.geometry.location.lng()
+    const lat = place.geometry.location.lat().toFixed(MAP_PERCISION)
+    const lng = place.geometry.location.lng().toFixed(MAP_PERCISION)
 
     this.updateRoute(lat, lng)
   }

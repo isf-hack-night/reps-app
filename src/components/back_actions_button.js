@@ -1,7 +1,7 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import queryAPI from '../query_api'
-import { Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap'
 
 
 class JustBTAButton extends Component {
