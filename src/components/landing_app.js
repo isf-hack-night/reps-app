@@ -21,41 +21,48 @@ class LandingApp extends Component {
     console.log('districts: ', districts)
     let stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, locOpenStates)
     stateDistricts.preloadDistricts()
-    let display
+    let display_head
+    let display_right
     const shouldDisplayAction = paramsData && paramsData.actionId
     const shouldDisplayRepsAndActions = paramsData
     if (shouldDisplayAction) {
       // TODO: add action display page
-      display = (
-        <div className="Display">
+      display_right = (
+        <div className="DisplayRight">
           <ActionPage {...paramsData} />
         </div>
       )
     } else if (shouldDisplayRepsAndActions) {
-      display = (
-        <div className="Display">
+      display_right = (
+        <div className="DisplayRight">
           <RepsWrapper {...paramsData} />
         </div>
       )
     } else {
-      display = (
-        <div className="Display">
+      display_head = (
+        <div className="DisplayHead">
           <CTABanner />
+        </div>
+      )
+      display_right = (
+        <div className="DisplayRight">
+          <div className="Tagline_text">Hold Your State Representatives Accountable!</div>
           <br></br>
-          <h3>Find actions YOU can take based on your district:</h3>
+          <div className="FindActionsText">Find actions YOU can take based on your State Senate and Assembly districts:</div>
             <AutocompleteContainer stateDistricts={stateDistricts} />
-          <h5><em>{DATA_FINE_PRINT}</em></h5>
+          <div className="DataDisclaimer">{DATA_FINE_PRINT}</div>
         </div>
       )
     }
 
     return (
       <div className="RepsApp">
+        {display_head}
         <MapWrapper paramsData={paramsData}>
           <MapHeader stateDistricts={stateDistricts} />
           <Map stateDistricts={stateDistricts} paramsData={paramsData} />
         </MapWrapper>
-        {display}
+        {display_right}
       </div>
     )
   }
