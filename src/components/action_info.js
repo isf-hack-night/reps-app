@@ -1,6 +1,7 @@
 import { h, Component } from 'preact'
 import PhoneLink from './phone_link'
-import { Panel, Button  } from 'react-bootstrap';
+import BackToActionsButton from './back_actions_button'
+import { Panel} from 'react-bootstrap';
 
 class ActionInfo extends Component {
   render () {
@@ -26,6 +27,7 @@ class ActionInfo extends Component {
         <Panel className="ActionInfo-CallScript" header="Call script">
           {callScriptMd}
         </Panel>
+        <BackToActionsButton/>
         <h4 className="ActionInfo-subheader">Background information</h4>
         <p>{callBackgroundParagraphs}</p>
 

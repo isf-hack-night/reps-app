@@ -2,7 +2,7 @@ import { ROOT_PATH, PARAM_TYPES } from './constants'
 
 function parseQuery () {
   const url = window.location.href
-  const queryParams = url.split(ROOT_PATH)[1]
+  const queryParams = url.split('.org/')[1]
   const paramData = getParamData(queryParams)
   return paramData
 }

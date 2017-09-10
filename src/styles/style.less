@@ -9,6 +9,7 @@
 @import "cta_banner.less";
 @import "autocomplete.less";
 @import "reps_card.less";
+@import "actions_display.less";
 @import "action_info.less";
 @import "action_card.less";
 @import "map_wrapper.less";
@@ -22,17 +23,17 @@
 @text_red: #ff0000;
 @border_black: #999999;
 
-#header {
-  max-width: 1000px;
-  position: relative;
-  margin: 0 auto;
-}
+
 
 #content {
   margin-top: 0;
   max-width: 1000px;
   position: relative;
   margin: 0 auto;
+}
+
+.RepsApp {
+  margin-top: 0px;
 }
 
 
@@ -52,28 +53,17 @@
     text-decoration: none;
   }
 
-.Display {
+.DisplayRight {
   width: 90%;
   display: block;
   margin: 0px auto 0 auto;
-
-  h3 {
-    margin: 10px 0;
-    text-align: center;
   }
 
-  h4 {
-    margin: 10px 0;
-    font-size: 15px;
-    text-align: center;
-  }
+.DisplayHead {
+  width: 80%;
+  display: block;
+  margin: 0px auto 40px auto;
 
- 
-  h5 {
-    margin: 10px 0;
-    font-size: 11px;
-    text-align: center;
-  }
 }
 
 @media (min-width: 599px) {
@@ -83,24 +73,22 @@
     margin: 0px;
   }
   
-  .Display {
+  .DisplayRight {
     width: 59%;
     display: inline-block;
     vertical-align: top;
     margin-top: 0px;
   
-    h4 {
-      margin: 10px 0;
-      font-size: 15px;
-      text-align: center;
-    }
-  
-    h5 {
-      margin: 10px 0;
-      font-size: 11px;
-      text-align: center;
-    }
   }
+
+  .DisplayHead {
+    width: 90%;
+    display: block;
+    margin: 0px auto 40px auto;
+
+}
+
+
 }
 
 @media (min-width: 768px) {

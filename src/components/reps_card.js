@@ -18,8 +18,8 @@ class RepsCardBase extends Component {
 
     return (
       <div className="RepsCard" onClick={this.props.goToRepPage} style={`border: 3px solid ${houseColor};`}>
-        <h5>Your {houseTitle} is: </h5>
-        <h4> {rep.legalName} (<span style={`color: ${partyColor};`}>{rep.partyCode}</span>)</h4>
+        <p> Your {houseTitle} is: </p>
+        <p> <span className="RepName"> {rep.legalName} (<span style={`color: ${partyColor};`}>{rep.partyCode}</span>)</span></p>
         <div>
           <div className="RepImageWrapper">
             <img  src={CAP_PIC} style={`border: 2px solid ${partyColor};`}/>
