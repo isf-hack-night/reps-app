@@ -2911,7 +2911,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 // root path to app
-var ROOT_PATH = exports.ROOT_PATH = '/index.php/test/';
+var ROOT_PATH = exports.ROOT_PATH = '/';
 // path to individual rep page
 var REPS_PATH = exports.REPS_PATH = ROOT_PATH + 'rep/';
 
@@ -3224,7 +3224,7 @@ var _constants = __webpack_require__(20);
 
 function parseQuery() {
   var url = window.location.href;
-  var queryParams = url.split(_constants.ROOT_PATH)[1];
+  var queryParams = url.split('.org/')[1];
   var paramData = getParamData(queryParams);
   return paramData;
 }
@@ -11410,7 +11410,7 @@ console.log('running!');
 function tryToRender() {
   setTimeout(function () {
     if (window.google && window.L.mapbox) {
-      document.querySelector('h1.title.entry-title').style.display = 'none';
+      //document.querySelector('h1.title.entry-title').style.display = 'none'
       (0, _preact.render)((0, _preact.h)(RepsApp, null), document.getElementById('reps_app_root'));
     } else {
       tryToRender();
