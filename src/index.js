@@ -20,7 +20,7 @@ console.log('running!')
 function tryToRender () {
   setTimeout(() => {
     if (window.google && window.L.mapbox) {
-     // document.querySelector('h1.title.entry-title').style.display = 'none'
+      document.querySelector('h1.title.entry-title').style.display = 'none'
       render(<RepsApp />, document.getElementById('reps_app_root'))
     } else {
       tryToRender()
