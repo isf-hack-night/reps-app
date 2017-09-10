@@ -1,8 +1,8 @@
-import { ROOT_PATH, PARAM_TYPES } from './constants'
+import { ROOT_PATH, QUERY_SPLIT, PARAM_TYPES } from './constants'
 
 function parseQuery () {
   const url = window.location.href
-  const queryParams = url.split('.org/')[1]
+  const queryParams = url.split(QUERY_SPLIT)[1]
   const paramData = getParamData(queryParams)
   return paramData
 }

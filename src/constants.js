@@ -1,5 +1,11 @@
 // root path to app
-export const ROOT_PATH = '/'
+
+const INJECTION_DEV_MODE = true
+
+export const ROOT_PATH =  INJECTION_DEV_MODE ? '/index.php/test/' : '/'
+
+export const QUERY_SPLIT = INJECTION_DEV_MODE ? '/index.php/test/' : '.org/'
+
 // path to individual rep page
 export const REPS_PATH = `${ROOT_PATH}rep/`
 
