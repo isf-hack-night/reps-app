@@ -5,7 +5,10 @@ import ActionsDisplay from './actions_display'
 class ActionDashboard extends Component {
   testAction (person, chamber, district) {
     //TODO: consider making this a util function
-    return person.chamber === chamber && person.district === district
+    if( person )
+      return person.chamber === chamber && person.district === district
+    else
+      return false
   }
 
   render () {
@@ -18,10 +21,12 @@ class ActionDashboard extends Component {
 
     // TODO: stop this spoof of 2 reps, change upperRep and lowerRep back to const
     if (!lowerRep.person && upperRep.person) {
-      lowerRep = upperRep
+      lowerRep = null
     } else if (!upperRep.person && lowerRep.person) {
-      upperRep = lowerRep
+      upperRep = null
     }
+
+    console.log("ACTION DASH")
 
     return (
       <div className="ActionDashboard">

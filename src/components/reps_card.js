@@ -7,8 +7,14 @@ import PhoneLink from './phone_link'
 
 class RepsCardBase extends Component {
   render () {
+
+    if(!this.props.rep) { return }
+    console.log("HELLO rep")
     const rep = this.props.rep.person
     if (!rep) { return }
+
+
+    console.log(rep)
 
     const houseTitle = rep.chamber === 'H' ? 'State Assemblymember' : 'State Senator'
     const houseColor = rep.chamber === 'H' ?  COLORS.DISTRICT.LOWER : COLORS.DISTRICT.UPPER
@@ -18,7 +24,6 @@ class RepsCardBase extends Component {
 
     const repClass = rep.chamber === 'H'? "RepsCard RepCardLower" : "RepsCard RepCardUpper"
 
-    console.log(rep)
 
     return (
       <div className={repClass} onClick={this.props.goToRepPage} style={`border: 3px solid ${houseColor};`}>

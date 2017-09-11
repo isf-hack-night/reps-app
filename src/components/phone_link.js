@@ -10,7 +10,7 @@ class PhoneLink extends Component {
     //const action = utils.isOnMobile() ?  'tel:${teleNum}' : 'callto:${teleNum}' 
 
     const action =  'tel:'.concat(teleNum)
-    console.log(action) 
+   // console.log(action) 
 
 
     return <a className="PhoneLink" href={action}  >
