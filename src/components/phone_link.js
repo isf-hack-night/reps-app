@@ -5,8 +5,7 @@ class PhoneLink extends Component {
   render () {
     const teleNum = utils.parseTeleNum(this.props.num)
     if (!teleNum) { return }
-    const action = utils.isOnMobile() ?  'tel:${teleNum}' : 'callto:${teleNum' 
-	// callto: doesn't work on andriod moile
+    const action = utils.isOnMobile() ?  'tel:${teleNum}' : 'callto:${teleNum}' 
 
     return <a className="PhoneLink" href={action}  >
     	<i class="fa fa-phone fa-fw" aria-hidden="true">

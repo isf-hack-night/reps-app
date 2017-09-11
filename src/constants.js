@@ -24,7 +24,9 @@ export const MAP_PERCISION = 2
 export const AMPLIFY_URL_BASE = `https://civictools.appspot-preview.com/api/v1/actions?teamId=-Kr2PPG5GTkR3oFfQ_Lq&state=${US_STATE}`
 
 // image sources
-export const CAP_PIC = 'https://nerdist.com/wp-content/uploads/2016/05/20160506_nerdistnews_capexclusive_1x1.jpg'
+//export const CAP_PIC = 'https://nerdist.com/wp-content/uploads/2016/05/20160506_nerdistnews_capexclusive_1x1.jpg'
+export const REP_PIC_PATH = 'https://s3-us-west-1.amazonaws.com/amplify-portraits/'
+
 
 // actions display nums
 // number of actions to show on initial actions display list load
