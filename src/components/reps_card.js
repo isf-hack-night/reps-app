@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
-import { REPS_PATH, CAP_PIC, COLORS } from '../constants'
+import { REPS_PATH, REP_PIC_PATH , COLORS } from '../constants'
 import { Panel  } from 'react-bootstrap';
 import PhoneLink from './phone_link'
 
@@ -14,15 +14,19 @@ class RepsCardBase extends Component {
     const houseColor = rep.chamber === 'H' ?  COLORS.DISTRICT.LOWER : COLORS.DISTRICT.UPPER
     const partyColor = rep.partyCode === 'D' ? COLORS.TEXT.BLUE : COLORS.TEXT.RED
 
+    const pixPath = REP_PIC_PATH + rep.photo
+
+    const repClass = rep.chamber === 'H'? "RepsCard RepCardLower" : "RepsCard RepCardUpper"
+
     console.log(rep)
 
     return (
-      <div className="RepsCard" onClick={this.props.goToRepPage} style={`border: 3px solid ${houseColor};`}>
+      <div className={repClass} onClick={this.props.goToRepPage} style={`border: 3px solid ${houseColor};`}>
         <p> Your {houseTitle} is: </p>
         <p> <span className="RepName"> {rep.legalName} (<span style={`color: ${partyColor};`}>{rep.partyCode}</span>)</span></p>
         <div>
           <div className="RepImageWrapper">
-            <img  src={CAP_PIC} style={`border: 2px solid ${partyColor};`}/>
+            <img  src={pixPath} style={`border: 4px solid ${partyColor};`}/>
 
           </div>
           <div className="RepsCard-info">

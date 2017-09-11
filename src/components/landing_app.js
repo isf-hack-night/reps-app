@@ -58,6 +58,7 @@ class LandingApp extends Component {
     return (
       <div className="RepsApp">
         {display_head}
+        <br></br>
         <MapWrapper paramsData={paramsData}>
           <MapHeader stateDistricts={stateDistricts} />
           <Map stateDistricts={stateDistricts} paramsData={paramsData} />
