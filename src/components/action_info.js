@@ -1,9 +1,14 @@
 import { h, Component } from 'preact'
 import PhoneLink from './phone_link'
 import BackToActionsButton from './back_actions_button'
-import { Panel} from 'react-bootstrap';
+import { Panel , Button, Accordion} from 'react-bootstrap';
 
 class ActionInfo extends Component {
+
+
+
+
+
   render () {
     const {
       preTitle,
@@ -21,15 +26,21 @@ class ActionInfo extends Component {
 
     return (
       <div className="ActionInfo">
-        <h3 className="ActionInfo-header">{preTitle} {title}</h3>
-        <PhoneLink num={person.offices[0].phone} />
+        <div className="ActionInfo-header">{preTitle} {title}</div>
+        <PhoneLink num={person.offices[0].phone} size='large' /> 
         <div>&nbsp;</div>
         <Panel className="ActionInfo-CallScript" header="Call script">
           {callScriptMd}
         </Panel>
+        <br></br>
+        <Accordion defaultActiveKey='0'>
+        <Panel header='Learn More About This Bill' >
+          {callBackgroundParagraphs}
+        </Panel>
+        </Accordion>
+        <br></br>
         <BackToActionsButton/>
-        <h4 className="ActionInfo-subheader">Background information</h4>
-        <p>{callBackgroundParagraphs}</p>
+
 
       </div>
     )
