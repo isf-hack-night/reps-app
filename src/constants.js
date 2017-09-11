@@ -18,7 +18,7 @@ export const STATE_CENTER = [37.2719, -119.2702]
 // state boundaries
 export const STATE_BOUNDS = [[32.5343, -124.4096], [42.0095, -114.1308]]
 
-export const MAP_PERCISION = 2
+export const MAP_PERCISION = 4
 
 // amplify team base url
 export const AMPLIFY_URL_BASE = `https://civictools.appspot-preview.com/api/v1/actions?teamId=-Kr2PPG5GTkR3oFfQ_Lq&state=${US_STATE}`
