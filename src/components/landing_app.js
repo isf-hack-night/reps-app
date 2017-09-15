@@ -46,7 +46,7 @@ class LandingApp extends Component {
       )
       display_right = (
         <div className="DisplayRight">
-          <div className="Tagline_text">Hold Your State Representatives Accountable!</div>
+          <div className="Tagline_text">Hold your State Representatives accountable!</div>
           <br></br>
           <div className="FindActionsText">Find actions YOU can take based on your State Senate and Assembly districts:</div>
             <AutocompleteContainer stateDistricts={stateDistricts} />
