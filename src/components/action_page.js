@@ -1,7 +1,10 @@
 import { h, Component } from 'preact'
 import queryAPI from '../query_api'
 import amplify from '../amplify'
-import ActionInfo from './action_info'
+import CallActionInfo from './call_action_info'
+import FlexActionInfo from './flex_action_info'
+import {TEST_CUSTOM_ACTION} from '../constants'
+
 
 class ActionPage extends Component {
   constructor (props) {
@@ -21,7 +24,7 @@ class ActionPage extends Component {
                const stateUpdates = {
                  successfulResponse: outcome === 'success',
                  isLoading: false,
-                 ampData: response.concreteActions
+                 ampData:  [TEST_CUSTOM_ACTION].concat( response.concreteActions) //TEMP
                }
                stateUpdates.districtLower = districtLower
                stateUpdates.districtUpper = districtUpper
@@ -52,12 +55,16 @@ class ActionPage extends Component {
     if (!this.state.isLoading && this.state.successfulResponse) {
       const { actionId } = queryAPI.parse()
       const action = this.state.ampData.find((action) => action.id === actionId)
-      return action
-      ? (
-        <ActionInfo {...action} />
-      ) : (
-        <h4>Something broke. Sad! Try refreshing the page.</h4>
-      )
+      if (action) {
+            switch (action.type){
+              case 'call' :
+                return <CallActionInfo {...action} />
+              default :
+                return <FlexActionInfo {...action} />
+              }
+      } else {
+        return <h4>Something broke. Sad! Try refreshing the page.</h4>
+      }
     } else if (this.state.isLoading) {
       //TODO: better spinny gif
       return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style="width: 75px;" />

@@ -2,7 +2,9 @@ import { h, Component } from 'preact'
 import RepsCard from './reps_card'
 import ActionsDisplay from './actions_display'
 
+
 class ActionDashboard extends Component {
+
   testAction (person, chamber, district) {
     //TODO: consider making this a util function
     if( person )
@@ -26,7 +28,6 @@ class ActionDashboard extends Component {
       upperRep = null
     }
 
-    console.log("ACTION DASH")
 
     return (
       <div className="ActionDashboard">

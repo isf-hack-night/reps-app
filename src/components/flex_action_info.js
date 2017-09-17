@@ -3,30 +3,19 @@ import PhoneLink from './phone_link'
 import BackToActionsButton from './back_actions_button'
 import { Panel , Button, Accordion} from 'react-bootstrap';
 
-class ActionInfo extends Component {
-
-
-
+class FlexActionInfo extends Component {
 
 
   render () {
     const {
       preTitle,
       title,
-      person,
-      callScriptMd,
-      callBackgroundMd
+      flexBodyMd
     } = this.props
-    console.log('callBackgroundMd: ', callBackgroundMd)
-    console.log('split? ', callBackgroundMd.split('\n'))
-    const callBackgroundParagraphs = callBackgroundMd
-      .split('\n')
-      .filter(para => para.length)
-      .map(para => <p>{para}</p>)
 
-    return (
-      <div className="ActionInfo">
-        <div className="ActionInfo-header">{preTitle} {title}</div>
+
+/*
+       <div className="ActionInfo-header">{preTitle} {title}</div>
         <PhoneLink num={person.offices[0].phone} size='large' /> 
         <div>&nbsp;</div>
         <Panel className="ActionInfo-CallScript" header="Call script">
@@ -39,6 +28,13 @@ class ActionInfo extends Component {
         </Panel>
         </Accordion>
         <br></br>
+        */
+
+    return (
+      <div className="ActionInfo">
+
+     
+
         <BackToActionsButton/>
 
 
@@ -47,4 +43,4 @@ class ActionInfo extends Component {
   }
 }
 
-export default ActionInfo
+export default FlexActionInfo
