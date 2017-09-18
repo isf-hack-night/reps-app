@@ -22,6 +22,8 @@ class CallActionInfo extends Component {
           .map(para => <p>{para}</p>)
         : ''
 
+    console.log( person.offices[0].phone)
+
     return (
       <div className="ActionInfo">
         <div className="ActionInfo-header">{preTitle} {title}</div>
