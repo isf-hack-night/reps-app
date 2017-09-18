@@ -24,7 +24,7 @@ class ActionPage extends Component {
                const stateUpdates = {
                  successfulResponse: outcome === 'success',
                  isLoading: false,
-                 ampData:  [TEST_CUSTOM_ACTION].concat( response.concreteActions) //TEMP
+                 ampData: response.concreteActions   //[TEST_CUSTOM_ACTION].concat( response.concreteActions) //TEMP
                }
                stateUpdates.districtLower = districtLower
                stateUpdates.districtUpper = districtUpper

@@ -54,8 +54,8 @@ class RepsWrapper extends Component {
     console.log('reps state: ', this.state)
     if (!this.state.isLoading && this.state.successfulResponse) {
       const { ampData, districtLower, districtUpper } = this.state
-      const testAmpData = [TEST_CUSTOM_ACTION].concat( ampData)   //TEMP
-      return <ActionDashboard ampData={testAmpData} districtLower={districtLower} districtUpper={districtUpper} />      
+     // const testAmpData =   [TEST_CUSTOM_ACTION].concat( ampData)   //TEMP
+      return <ActionDashboard ampData={ampData} districtLower={districtLower} districtUpper={districtUpper} />      
     } else if (this.state.isLoading) {
       //TODO: better spinny gif
       return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style="width: 75px;" />
