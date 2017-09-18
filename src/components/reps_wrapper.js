@@ -1,6 +1,8 @@
 import { h, Component } from 'preact'
 import amplify from '../amplify'
 import ActionDashboard from './action_dashboard'
+import { TEST_CUSTOM_ACTION} from '../constants'
+
 
 class RepsWrapper extends Component {
   constructor (props) {
@@ -21,6 +23,7 @@ class RepsWrapper extends Component {
                  successfulResponse: outcome === 'success',
                  isLoading: false,
                  ampData: response.concreteActions
+
                }
                stateUpdates.districtLower = districtLower
                stateUpdates.districtUpper = districtUpper
@@ -51,6 +54,7 @@ class RepsWrapper extends Component {
     console.log('reps state: ', this.state)
     if (!this.state.isLoading && this.state.successfulResponse) {
       const { ampData, districtLower, districtUpper } = this.state
+     // const testAmpData =   [TEST_CUSTOM_ACTION].concat( ampData)   //TEMP
       return <ActionDashboard ampData={ampData} districtLower={districtLower} districtUpper={districtUpper} />      
     } else if (this.state.isLoading) {
       //TODO: better spinny gif

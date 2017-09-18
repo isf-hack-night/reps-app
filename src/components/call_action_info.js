@@ -3,11 +3,7 @@ import PhoneLink from './phone_link'
 import BackToActionsButton from './back_actions_button'
 import { Panel , Button, Accordion} from 'react-bootstrap';
 
-class ActionInfo extends Component {
-
-
-
-
+class CallActionInfo extends Component {
 
   render () {
     const {
@@ -17,12 +13,16 @@ class ActionInfo extends Component {
       callScriptMd,
       callBackgroundMd
     } = this.props
-    console.log('callBackgroundMd: ', callBackgroundMd)
-    console.log('split? ', callBackgroundMd.split('\n'))
-    const callBackgroundParagraphs = callBackgroundMd
-      .split('\n')
-      .filter(para => para.length)
-      .map(para => <p>{para}</p>)
+
+    const displayBackground =  callBackgroundMd ? 'display:block;' : 'display:none;'
+
+    const callBackgroundParagraphs = callBackgroundMd ?
+        callBackgroundMd.split('\n')
+          .filter(para => para.length)
+          .map(para => <p>{para}</p>)
+        : ''
+
+    console.log( person.offices[0].phone)
 
     return (
       <div className="ActionInfo">
@@ -33,11 +33,13 @@ class ActionInfo extends Component {
           {callScriptMd}
         </Panel>
         <br></br>
-        <Accordion defaultActiveKey='0'>
-        <Panel header='Learn More About This Bill' >
-          {callBackgroundParagraphs}
-        </Panel>
-        </Accordion>
+        <div style={displayBackground} >
+          <Accordion defaultActiveKey='0'>
+          <Panel header='Learn More About This Bill' >
+            {callBackgroundParagraphs}
+          </Panel>
+          </Accordion>
+        </div>
         <br></br>
         <BackToActionsButton/>
 
@@ -47,4 +49,4 @@ class ActionInfo extends Component {
   }
 }
 
-export default ActionInfo
+export default CallActionInfo
