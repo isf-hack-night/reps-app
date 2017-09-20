@@ -35,7 +35,7 @@ class RepsCardBase extends Component {
 
           </div>
           <div className="RepsCard-info">
-            <p>District: {rep.district}</p>
+            <p>District {rep.district}</p>
             <PhoneLink num={rep.offices[0].phone} />
             <div className= "RepSocialWrapper">
               <a href={`${rep.website}`} alt="Homepage"><i class="fa fa-home fa-fw" aria-hidden="true"></i></a>
