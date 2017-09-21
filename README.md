@@ -20,15 +20,17 @@ If on Windows, you will probably have to restart your computer.
 
 Open up a terminal (or command prompt on Windows) and navigate to where you cloned the repository.
 
-Ask someone in ISF for the `KEYS` file and copy it to src.
+Ask someone in ISF for the `KEYS.js` file and copy it into the `src` folder of the repository. If you received a zip file with the `KEYS.js` contained inside, only copy the `KEYS.js` itself to the `src` folder.
 
 Run the following command in the terminal:
 
 >> npm install
 
-The install command may take several minutes.
+The install command may take several minutes and may produce several warnings. These are safe to ignore. Next run the following command:
 
 >> npm run watch
+
+Runnning this command will set up the local webserver bundle. It shouldn't produce any errors.
 
 Install chrome plugin ['Custom Javascript for Websites'](https://chrome.google.com/webstore/detail/custom-javascript-for-web/poakhlngfciodnhlhhgnaaelnpjljija).
 
@@ -39,6 +41,7 @@ Navigate to the CA StateStrong [website test page](https://ca.state-strong.org/i
 Click on the CJS plugin's icon, copy code from `src/extension_injection.js` into the plugin box 
 and check 'enable cjs for this host'.
 
+Finally, reload the page; it should now load with a working map. Any changes you make to the javascript should now automatically be injected into the page.
 
 
 # To Deploy to CA_SS site
