@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import API_KEYS from '../KEYS'
 import queryAPI from '../query_api'
-import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS, MAP_PERCISION} from '../constants'
+import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS, MAP_PRECISION} from '../constants'
 const defaultZoom = 6
 
 //TODO:
@@ -25,13 +25,13 @@ class JustMap extends Component {
 
   handleClick (e) {
     const { lat, lng } = e.latlng
-    this.updateRoute(lat.toFixed(MAP_PERCISION), lng.toFixed(MAP_PERCISION))
+    this.updateRoute(lat.toFixed(MAP_PRECISION), lng.toFixed(MAP_PRECISION))
   }
 
   handleDrag (e) {
     console.log(e.target)
     const {lat, lng} = e.target._latlng
-    this.updateRoute(lat.toFixed(MAP_PERCISION), lng.toFixed(MAP_PERCISION))
+    this.updateRoute(lat.toFixed(MAP_PRECISION), lng.toFixed(MAP_PRECISION))
   }
 
   resetMap () {
