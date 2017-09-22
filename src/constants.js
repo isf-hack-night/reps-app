@@ -18,8 +18,6 @@ export const STATE_CENTER = [37.2719, -119.2702]
 // state boundaries
 export const STATE_BOUNDS = [[32.5343, -124.4096], [42.0095, -114.1308]]
 
-export const MAP_PRECISION = 4
-
 // amplify team base url
 export const AMPLIFY_URL_BASE = `https://civictools.appspot-preview.com/api/v1/actions?teamId=-Kr2PPG5GTkR3oFfQ_Lq&state=${US_STATE}`
 
@@ -28,7 +26,6 @@ export const ACTION_TYPES = ['call' , 'flex']
 // image sources
 //export const CAP_PIC = 'https://nerdist.com/wp-content/uploads/2016/05/20160506_nerdistnews_capexclusive_1x1.jpg'
 export const REP_PIC_PATH = 'https://s3-us-west-1.amazonaws.com/amplify-portraits/'
-
 
 // actions display nums
 // number of actions to show on initial actions display list load

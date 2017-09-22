@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import API_KEYS from '../KEYS'
 import queryAPI from '../query_api'
-import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS, MAP_PRECISION} from '../constants'
+import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS} from '../constants'
 const defaultZoom = 6
 
 //TODO:
@@ -19,19 +19,23 @@ class JustMap extends Component {
   constructor (props) {
     super(props)
 
+    //todo local lat lng 
+
     this.handleDrag = this.handleDrag.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick (e) {
     const { lat, lng } = e.latlng
-    this.updateRoute(lat.toFixed(MAP_PRECISION), lng.toFixed(MAP_PRECISION))
+    //todo set lat lng in local state
+    this.updateRoute(lat, lng)
   }
 
   handleDrag (e) {
     console.log(e.target)
     const {lat, lng} = e.target._latlng
-    this.updateRoute(lat.toFixed(MAP_PRECISION), lng.toFixed(MAP_PRECISION))
+    //todo set lat lng in global state
+    this.updateRoute(lat, lng)
   }
 
   resetMap () {
@@ -49,13 +53,24 @@ class JustMap extends Component {
     const lowerId = districtsData.lower.id
     const upperId = districtsData.upper.id
     const newRoute = queryAPI.build({
-      lat,
-      lng,
       districtLower: lowerId,
       districtUpper: upperId
     })
     this.props.history.push(newRoute)
+    this.props.locationData.push({lat: lat, lng: lng})   
+    //or just want local latlng so doesn't flow back to autocomplete
+
   }
+
+  positionFromBBox(districtUpper, districtLower) {
+     this.state.markers.clearLayers()
+
+    //const districtData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
+    if (districtData.upper || districtData.lower) {
+      this.zoomDistrict(districtData) 
+
+  }
+
 
   positionSet (lat, lng) {
     this.state.markers.clearLayers()
@@ -165,11 +180,16 @@ class JustMap extends Component {
     this.resetMap()
   }
 
+  //TODO if district but no local lat long params, then use center of bbbox
   componentDidUpdate (prevProps) {
     console.log("MAP DID UPDATE")
-    const { lat, lng } = this.props.paramsData
+    const { lat, lng } = this.props.locationData
+    const { districtUpper, districtLower } = this.props.paramsData
     if (lat && lng) {
       this.positionSet(lat, lng)
+    } else {
+      if( districtUpper || districtLower)
+        this.positionFromBBox(districtUpper, districtLower)
     }
   }
 

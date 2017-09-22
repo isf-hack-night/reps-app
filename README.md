@@ -3,12 +3,15 @@ Homepage app for CA-StateStrong
 Contains functionality linking Mapping, Reps, Actions 
 
 
-
 # To Run Local:
+
+Make sure you have node installed
 
 check that constants.js INJECTION_DEV_MODE = true
 
->> npm install
+>> npm install  
+(only need to run this once)
+
 >> npm run watch
 
 navigate to ca.state-strong.org/index.php/test

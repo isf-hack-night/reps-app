@@ -12,10 +12,8 @@ class ActionDetails extends Component {
   }
 
   goToActionPage () {
-    const { lat, lng, districtLower, districtUpper } = queryAPI.parse()
+    const { districtLower, districtUpper } = queryAPI.parse()
     const newRoute = queryAPI.build({
-      lat,
-      lng,
       districtLower,
       districtUpper,
       actionId: this.props.action.id
