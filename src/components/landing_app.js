@@ -13,7 +13,7 @@ import AutocompleteContainer from './autocomplete'
 class LandingApp extends Component {
   render() {
     const paramsData = queryAPI.parse()
-    const locationData = {}
+    const locationData = undefined
     let locOpenStates = new OpenStatesAPI.LocalOpenStates()
     // .getDistrictsByParams will get only the districts passed by query params but map will not be useable
     // let districts = locOpenStates.getDistrictsByParams(US_STATE, paramsData) // .getDistricts(US_STATE)
@@ -61,7 +61,7 @@ class LandingApp extends Component {
         {display_head}
         <br></br>
         <MapWrapper paramsData={paramsData}>
-          <MapHeader stateDistricts={stateDistricts} />
+          <MapHeader stateDistricts={stateDistricts} locationData={locationData} />
           <Map stateDistricts={stateDistricts} locationData={locationData} paramsData={paramsData} />
         </MapWrapper>
         {display_right}

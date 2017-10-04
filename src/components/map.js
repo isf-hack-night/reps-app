@@ -62,11 +62,13 @@ class JustMap extends Component {
 
   }
 
-  positionFromBBox(districtUpper, districtLower) {
-     this.state.markers.clearLayers()
+  positionFromDistrict(districtUpper, districtLower) {
+    
+    this.state.markers.clearLayers()
 
-    //const districtData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
-    if (districtData.upper || districtData.lower) {
+    if (districtUpper || districtLower) {
+
+      const districtData = this.props.stateDistricts.findDistrictsFromIDs( districtUpper, districtLower)
       this.zoomDistrict(districtData) 
     }
 
@@ -74,6 +76,8 @@ class JustMap extends Component {
 
 
   positionSet (lat, lng) {
+
+    console.log('positionSet')
     this.state.markers.clearLayers()
     const marker = L.marker([lat,lng], { draggable: true })
       
@@ -82,6 +86,7 @@ class JustMap extends Component {
     this.state.markers.addLayer(marker)
     
     const districtData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
+    console.log('posSet districtData', districtData )
     if (districtData.upper || districtData.lower) {
       this.zoomDistrict(districtData)  //make this a callback
     } else {
@@ -184,14 +189,23 @@ class JustMap extends Component {
   //TODO if district but no local lat long params, then use center of bbbox
   componentDidUpdate (prevProps) {
     console.log("MAP DID UPDATE")
-    const { lat, lng } = this.props.locationData
-    const { districtUpper, districtLower } = this.props.paramsData
-    if (lat && lng) {
-      this.positionSet(lat, lng)
+    console.log( this.props )
+
+    if(this.props.locationData){
+      const { lat, lng } = this.props.locationData
+      if (lat && lng) {
+        this.positionSet(lat, lng)
+      }
+
     } else {
-      if( districtUpper || districtLower)
-        this.positionFromBBox(districtUpper, districtLower)
-    }
+        if (this.props.paramsData) { 
+          const { districtUpper, districtLower } = this.props.paramsData
+
+          if( districtUpper || districtLower) {
+            this.positionFromDistrict(districtUpper, districtLower)
+          }
+     }
+   }
   }
 
   render () {
@@ -205,8 +219,8 @@ class JustMap extends Component {
   }
 }
 
-const Map = withRouter(({history, stateDistricts, paramsData}) => (
-  <JustMap history={history} stateDistricts={stateDistricts} paramsData={paramsData} />
+const Map = withRouter(({history, locationData, stateDistricts, paramsData}) => (
+  <JustMap history={history} locationData={locationData} stateDistricts={stateDistricts} paramsData={paramsData} />
 ))
 
 export default Map

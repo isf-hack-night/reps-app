@@ -176,11 +176,12 @@ function DistrictList(json, state, open_states) {
 }
 
 DistrictList.prototype.getLowerDistrict = function (i) {
-	return this.lower_districts[i - 1];
+	return this.lower_districts[i - 1].getBoundary();
 }
 
 DistrictList.prototype.getUpperDistrict = function (i) {
-	return this.upper_districts[i - 1];
+
+	return this.upper_districts[i - 1].getBoundary();
 }
 
 DistrictList.prototype.findNearbyDistricts = function (lat, lon) {
@@ -213,6 +214,16 @@ DistrictList.prototype.findExactDistrictsInList = function (possibleDistricts, l
 DistrictList.prototype.findDistrictsForPoint = function(lat, lon) {
 	return this.findExactDistrictsInList(this.findNearbyDistricts(lat, lon), lat, lon);
 }
+
+DistrictList.prototype.findDistrictsFromIDs = function(upperID, lowerID) {
+
+	return { upper: this.getUpperDistrict( upperID.split('-')[2] ), 
+             lower: this.getLowerDistrict( lowerID.split('-')[2])
+            };
+}
+
+
+              
 
 DistrictList.prototype.preloadDistricts = function () {
 	if (!this.populated) {
