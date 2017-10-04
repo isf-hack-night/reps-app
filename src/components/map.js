@@ -68,6 +68,7 @@ class JustMap extends Component {
     //const districtData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
     if (districtData.upper || districtData.lower) {
       this.zoomDistrict(districtData) 
+    }
 
   }
 
