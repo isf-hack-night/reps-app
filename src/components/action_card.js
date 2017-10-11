@@ -24,7 +24,6 @@ class ActionDetails extends Component {
   render () {
     const action = this.props.action
     const icon = action.type === 'call' ? 'State Assemblymember' : 'State Senator'
-    console.log(action)
     return (
       <ListGroupItem className="ActionCard" onClick={this.goToActionPage} header= {`${action.preTitle}`}>
         {`${action.title}`}

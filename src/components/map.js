@@ -27,7 +27,6 @@ class JustMap extends Component {
 
   handleClick (e) {
     const { lat, lng } = e.latlng
-    //todo set lat lng in local state
     this.updateRoute(lat, lng)
   }
 
@@ -56,8 +55,10 @@ class JustMap extends Component {
       districtLower: lowerId,
       districtUpper: upperId
     })
+    this.props.locationData.push({lat: lat, lng: lng})  
     this.props.history.push(newRoute)
-    this.props.locationData.push({lat: lat, lng: lng})   
+    console.log(this.props)
+ 
     //or just want local latlng so doesn't flow back to autocomplete
 
   }

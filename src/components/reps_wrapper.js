@@ -51,7 +51,6 @@ class RepsWrapper extends Component {
   }
 
   render () {
-    console.log('reps state: ', this.state)
     if (!this.state.isLoading && this.state.successfulResponse) {
       const { ampData, districtLower, districtUpper } = this.state
      // const testAmpData =   [TEST_CUSTOM_ACTION].concat( ampData)   //TEMP
