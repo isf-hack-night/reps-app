@@ -39,7 +39,7 @@ Runnning this command will set up the local webserver bundle. It shouldn't produ
 ## Inject your local code into the test website:
 * Install chrome plugin ['Custom Javascript for Websites'](https://chrome.google.com/webstore/detail/custom-javascript-for-web/poakhlngfciodnhlhhgnaaelnpjljija).
 
-* Go to [https://localhost:9000](https://localhost:9000). You should see a bad certificate error. Click on the ADVANCED link on the Chrome error page, and click "Proceed anyway".
+* Go to [https://0.0.0.0:9000](https://0.0.0.0:9000). You should see a bad certificate error. Click on the ADVANCED link on the Chrome error page, and click "Proceed anyway".
 
 * Go to the CA StateStrong [website test page](https://ca.state-strong.org/index.php/test).
 
