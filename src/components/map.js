@@ -53,14 +53,10 @@ class JustMap extends Component {
     const upperId = districtsData.upper.id
     const newRoute = queryAPI.build({
       districtLower: lowerId,
-      districtUpper: upperId
+      districtUpper: upperId,
     })
-    this.props.locationData.push({lat: lat, lng: lng})  
-    this.props.history.push(newRoute)
-    console.log(this.props)
- 
-    //or just want local latlng so doesn't flow back to autocomplete
 
+    this.props.history.push(newRoute)
   }
 
   positionFromDistrict(districtUpper, districtLower) {
@@ -190,7 +186,7 @@ class JustMap extends Component {
   //TODO if district but no local lat long params, then use center of bbbox
   componentDidUpdate (prevProps) {
     console.log("MAP DID UPDATE")
-    console.log( this.props )
+    console.log( "this.props", this.props)
 
     if(this.props.locationData){
       const { lat, lng } = this.props.locationData
