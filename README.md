@@ -20,8 +20,8 @@ Ask someone in ISF for the `KEYS.js` file and copy it into the `src` folder of t
 
 ### Docker
 * Install docker
-** [Docker for mac](https://store.docker.com/editions/community/docker-ce-desktop-mac)
-** [Docker for windows](https://store.docker.com/editions/community/docker-ce-desktop-windows)
+  * [Docker for mac](https://store.docker.com/editions/community/docker-ce-desktop-mac)
+  * [Docker for windows](https://store.docker.com/editions/community/docker-ce-desktop-windows)
 * Run `docker-compose up`
 
 ### Local:
