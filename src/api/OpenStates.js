@@ -1,9 +1,10 @@
-import {API_KEYS} from 'keys';
+import API_KEYS from 'keys';
+import OPEN_STATES_URL from 'constants';
 
 class OpenStates {
   constructor(base_url = null, api_key = null) {
     this.base_url = new URL(base_url || OPEN_STATES_URL);
-    this.api_key = api_key || OPEN_STATES_API_KEY;
+    this.api_key = api_key || API_KEYS.openStates;
   }
 
   makeUrl(path, params = null) {
