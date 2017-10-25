@@ -31,6 +31,7 @@ module.exports = {
       }
     ]
   },
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
     // contentBase: path.join(__dirname, "dist"),
     compress: true,
@@ -43,6 +44,10 @@ module.exports = {
     ]
   },
   resolve: {
+    modules: [
+      path.resolve('./src'),
+      path.resolve('./node_modules'),
+    ],
     alias: {
       'react': 'preact-compat',
       'react-dom': 'preact-compat'
