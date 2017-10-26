@@ -12,10 +12,8 @@ class ActionDetails extends Component {
   }
 
   goToActionPage () {
-    const { lat, lng, districtLower, districtUpper } = queryAPI.parse()
+    const { districtLower, districtUpper } = queryAPI.parse()
     const newRoute = queryAPI.build({
-      lat,
-      lng,
       districtLower,
       districtUpper,
       actionId: this.props.action.id
@@ -26,7 +24,6 @@ class ActionDetails extends Component {
   render () {
     const action = this.props.action
     const icon = action.type === 'call' ? 'State Assemblymember' : 'State Senator'
-    console.log(action)
     return (
       <ListGroupItem className="ActionCard" onClick={this.goToActionPage} header= {`${action.preTitle}`}>
         {`${action.title}`}

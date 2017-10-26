@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
-import { ROOT_PATH, MAP_PERCISION } from '../constants'
+import { ROOT_PATH} from '../constants'
 import utils from '../utils'
 import queryAPI from '../query_api'
 
@@ -35,24 +35,23 @@ class Autocomplete extends Component {
   getPlace () {
     const place = this.state.autocomplete.getPlace()
 
-    const lat = place.geometry.location.lat().toFixed(MAP_PERCISION)
-    const lng = place.geometry.location.lng().toFixed(MAP_PERCISION)
+    const lat = place.geometry.location.lat()
+    const lng = place.geometry.location.lng()
 
     this.updateRoute(lat, lng)
   }
 
+  //TODO need to pass latlong to map somehow
   updateRoute (lat, lng) {
     const districtsData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
-    console.log('response: ', districtsData)
     const lowerId = districtsData.lower.id
     const upperId = districtsData.upper.id
     const newRoute = queryAPI.build({
-      lat,
-      lng,
       districtLower: lowerId,
       districtUpper: upperId
     })
     this.props.history.push(newRoute)
+    this.props.locationData.push({lat: lat, lng: lng})  //TODO is this getting called
   }
 
   componentDidMount () {

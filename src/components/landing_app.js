@@ -13,12 +13,13 @@ import AutocompleteContainer from './autocomplete'
 class LandingApp extends Component {
   render() {
     const paramsData = queryAPI.parse()
+    const locationData = undefined
     let locOpenStates = new OpenStatesAPI.LocalOpenStates()
     // .getDistrictsByParams will get only the districts passed by query params but map will not be useable
     // let districts = locOpenStates.getDistrictsByParams(US_STATE, paramsData) // .getDistricts(US_STATE)
     // .getDistricts will get ALL districts so map will be useable
     let districts = locOpenStates.getDistricts(US_STATE)
-    console.log('districts: ', districts)
+    //console.log('districts: ', districts)
     let stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, locOpenStates)
     stateDistricts.preloadDistricts()
     let display_head
@@ -52,7 +53,7 @@ class LandingApp extends Component {
           <div className="Tagline_text">Hold your State Representatives accountable!</div>
           <br></br>
           <div className="FindActionsText">Find actions YOU can take based on your State Senate and Assembly districts:</div>
-            <AutocompleteContainer stateDistricts={stateDistricts} />
+            <AutocompleteContainer locationData={locationData} stateDistricts={stateDistricts} />
           <div className="DataDisclaimer">{DATA_FINE_PRINT}</div>
         </div>
       )
@@ -62,9 +63,9 @@ class LandingApp extends Component {
       <div className="RepsApp">
         {display_head}
         <br></br>
-        <MapWrapper paramsData={paramsData}>
-          <MapHeader stateDistricts={stateDistricts} />
-          <Map stateDistricts={stateDistricts} paramsData={paramsData} />
+        <MapWrapper paramsData={paramsData} locationData={locationData}>
+          <MapHeader stateDistricts={stateDistricts} locationData={locationData} />
+          <Map stateDistricts={stateDistricts} locationData={locationData} paramsData={paramsData} />
         </MapWrapper>
         {display_right}
       </div>

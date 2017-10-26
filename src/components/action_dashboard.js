@@ -28,12 +28,11 @@ class ActionDashboard extends Component {
       upperRep = null
     }
 
-
     return (
       <div className="ActionDashboard">
         <div className="RepsDisplay"> 
-          <RepsCard  rep={lowerRep} />
-          <RepsCard  rep={upperRep} />
+          <RepsCard rep={lowerRep} />
+          <RepsCard rep={upperRep} />
         </div>
         <br></br>
         <ActionsDisplay actions={this.props.ampData} />

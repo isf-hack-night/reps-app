@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import API_KEYS from '../KEYS'
 import queryAPI from '../query_api'
-import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS, MAP_PERCISION} from '../constants'
+import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS} from '../constants'
 const defaultZoom = 6
 
 //TODO:
@@ -19,19 +19,22 @@ class JustMap extends Component {
   constructor (props) {
     super(props)
 
+    //todo local lat lng 
+
     this.handleDrag = this.handleDrag.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick (e) {
     const { lat, lng } = e.latlng
-    this.updateRoute(lat.toFixed(MAP_PERCISION), lng.toFixed(MAP_PERCISION))
+    this.updateRoute(lat, lng)
   }
 
   handleDrag (e) {
     console.log(e.target)
     const {lat, lng} = e.target._latlng
-    this.updateRoute(lat.toFixed(MAP_PERCISION), lng.toFixed(MAP_PERCISION))
+    //todo set lat lng in global state
+    this.updateRoute(lat, lng)
   }
 
   resetMap () {
@@ -45,19 +48,33 @@ class JustMap extends Component {
 
   updateRoute (lat, lng) {
     const districtsData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
-    console.log('response: ', districtsData)
     const lowerId = districtsData.lower.id
     const upperId = districtsData.upper.id
     const newRoute = queryAPI.build({
-      lat,
-      lng,
       districtLower: lowerId,
-      districtUpper: upperId
+      districtUpper: upperId,
     })
     this.props.history.push(newRoute)
+    console.log("NOW UPDATE LOCATION DATA")
+    this.props.locationData.push({lat: lat, lng: lng})
   }
 
+  positionFromDistrict(districtUpper, districtLower) {
+    
+    this.state.markers.clearLayers()
+
+    if (districtUpper || districtLower) {
+
+      const districtData = this.props.stateDistricts.findDistrictsFromIDs( districtUpper, districtLower)
+      this.zoomDistrict(districtData) 
+    }
+
+  }
+
+
   positionSet (lat, lng) {
+
+    console.log('POSITION SET')
     this.state.markers.clearLayers()
     const marker = L.marker([lat,lng], { draggable: true })
       
@@ -66,6 +83,7 @@ class JustMap extends Component {
     this.state.markers.addLayer(marker)
     
     const districtData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
+    console.log('posSet districtData', districtData )
     if (districtData.upper || districtData.lower) {
       this.zoomDistrict(districtData)  //make this a callback
     } else {
@@ -165,12 +183,26 @@ class JustMap extends Component {
     this.resetMap()
   }
 
+  //TODO if district but no local lat long params, then use center of bbbox
   componentDidUpdate (prevProps) {
     console.log("MAP DID UPDATE")
-    const { lat, lng } = this.props.paramsData
-    if (lat && lng) {
-      this.positionSet(lat, lng)
-    }
+    console.log( "this.props", this.props)
+
+    if(this.props.locationData){
+      const { lat, lng } = this.props.locationData
+      if (lat && lng) {
+        this.positionSet(lat, lng)
+      }
+
+    } else {
+        if (this.props.paramsData) { 
+          const { districtUpper, districtLower } = this.props.paramsData
+
+          if( districtUpper || districtLower) {
+            this.positionFromDistrict(districtUpper, districtLower)
+          }
+     }
+   }
   }
 
   render () {
@@ -184,8 +216,8 @@ class JustMap extends Component {
   }
 }
 
-const Map = withRouter(({history, stateDistricts, paramsData}) => (
-  <JustMap history={history} stateDistricts={stateDistricts} paramsData={paramsData} />
+const Map = withRouter(({history, locationData, stateDistricts, paramsData}) => (
+  <JustMap history={history} locationData={locationData} stateDistricts={stateDistricts} paramsData={paramsData} />
 ))
 
 export default Map

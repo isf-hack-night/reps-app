@@ -5,6 +5,18 @@ Contains functionality linking Mapping, Reps, Actions
 # Clone the repo:
 Download and install [Git](https://git-scm.com/downloads).
 
+<<<<<<< HEAD
+# To Run Local:
+
+Make sure you have node installed
+
+check that constants.js INJECTION_DEV_MODE = true
+
+>> npm install  
+(only need to run this once)
+
+>> npm run watch
+=======
 (Optional) Download and install [Github Desktop](https://desktop.github.com/).
 
 Clone this repository by clicking on the "Clone or Download" button above and click "Open in Desktop". After cloning the repository, navigate to the folder containing the repository.
@@ -13,6 +25,7 @@ Check that `src/constants.js` contains the following line:
 ```INJECTION_DEV_MODE = true```
 
 Ask someone in ISF for the `KEYS.js` file and copy it into the `src` folder of the repository. If you received a zip file with the `KEYS.js` contained inside, only copy the `KEYS.js` itself to the `src` folder.
+>>>>>>> master
 
 # Setup:
 

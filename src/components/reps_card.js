@@ -9,12 +9,8 @@ class RepsCardBase extends Component {
   render () {
 
     if(!this.props.rep) { return }
-    console.log("HELLO rep")
     const rep = this.props.rep.person
     if (!rep) { return }
-
-
-    console.log(rep)
 
     const houseTitle = rep.chamber === 'H' ? 'State Assemblymember' : 'State Senator'
     const houseColor = rep.chamber === 'H' ?  COLORS.DISTRICT.LOWER : COLORS.DISTRICT.UPPER
