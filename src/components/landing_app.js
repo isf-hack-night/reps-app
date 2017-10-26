@@ -41,7 +41,7 @@ class LandingApp extends Component {
     }
     // only show DisplayHead and DisplayRight if we don't have valid
     // map data (like, for instance, the "districtLower" parameter
-    if (!(paramsData.districtLower)) {
+    if (!paramsData || !(paramsData.districtLower)) {
       display_head = (
         <div className="DisplayHead">
           <CTABanner />
