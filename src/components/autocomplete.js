@@ -44,7 +44,6 @@ class Autocomplete extends Component {
   //TODO need to pass latlong to map somehow
   updateRoute (lat, lng) {
     const districtsData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
-    console.log('response: ', districtsData)
     const lowerId = districtsData.lower.id
     const upperId = districtsData.upper.id
     const newRoute = queryAPI.build({
@@ -52,7 +51,7 @@ class Autocomplete extends Component {
       districtUpper: upperId
     })
     this.props.history.push(newRoute)
-    this.props.locationData.push({lat: lat, lng: lng})
+    this.props.locationData.push({lat: lat, lng: lng})  //TODO is this getting called
   }
 
   componentDidMount () {

@@ -48,15 +48,15 @@ class JustMap extends Component {
 
   updateRoute (lat, lng) {
     const districtsData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
-    console.log('response: ', districtsData)
     const lowerId = districtsData.lower.id
     const upperId = districtsData.upper.id
     const newRoute = queryAPI.build({
       districtLower: lowerId,
       districtUpper: upperId,
     })
-
     this.props.history.push(newRoute)
+    console.log("NOW UPDATE LOCATION DATA")
+    this.props.locationData.push({lat: lat, lng: lng})
   }
 
   positionFromDistrict(districtUpper, districtLower) {
@@ -74,7 +74,7 @@ class JustMap extends Component {
 
   positionSet (lat, lng) {
 
-    console.log('positionSet')
+    console.log('POSITION SET')
     this.state.markers.clearLayers()
     const marker = L.marker([lat,lng], { draggable: true })
       

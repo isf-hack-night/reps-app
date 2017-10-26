@@ -60,7 +60,7 @@ class LandingApp extends Component {
       <div className="RepsApp">
         {display_head}
         <br></br>
-        <MapWrapper paramsData={paramsData}>
+        <MapWrapper paramsData={paramsData} locationData={locationData}>
           <MapHeader stateDistricts={stateDistricts} locationData={locationData} />
           <Map stateDistricts={stateDistricts} locationData={locationData} paramsData={paramsData} />
         </MapWrapper>
