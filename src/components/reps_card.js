@@ -20,29 +20,52 @@ class RepsCardBase extends Component {
 
     const repClass = rep.chamber === 'H'? "RepsCard RepCardLower" : "RepsCard RepCardUpper"
 
+    if(rep.twitter) {
+      return (
+        <div className={repClass} onClick={this.props.goToRepPage} style={`border: 3px solid ${houseColor};`}>
+          <p> Your {houseTitle}: </p>
+          <p> <span className="RepName"> {rep.legalName} (<span style={`color: ${partyColor};`}>{rep.partyCode}</span>)</span></p>
+          <div>
+            <div className="RepImageWrapper">
+              <img  src={pixPath} style={`border: 4px solid ${partyColor};`}/>
 
-    return (
-      <div className={repClass} onClick={this.props.goToRepPage} style={`border: 3px solid ${houseColor};`}>
-        <p> Your {houseTitle} is: </p>
-        <p> <span className="RepName"> {rep.legalName} (<span style={`color: ${partyColor};`}>{rep.partyCode}</span>)</span></p>
-        <div>
-          <div className="RepImageWrapper">
-            <img  src={pixPath} style={`border: 4px solid ${partyColor};`}/>
-
-          </div>
-          <div className="RepsCard-info">
-            <p>District: {rep.district}</p>
-            <PhoneLink num={rep.offices[0].phone} />
-            <div className= "RepSocialWrapper">
-              <a href={`${rep.website}`} alt="Homepage"><i class="fa fa-home fa-fw" aria-hidden="true"></i></a>
-              <a href={`${rep.twitter}`} alt="Twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></a>
-              <a href={`mailto:${rep.email}`} alt="Email"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></a>
             </div>
+            <div className="RepsCard-info">
+              <p>District {rep.district}</p>
+              <PhoneLink num={rep.offices[0].phone} />
+              <div className= "RepSocialWrapper">
+                <a href={`${rep.website}`} alt="Homepage"><i class="fa fa-home fa-fw" aria-hidden="true"></i></a>
+                <a href={`${rep.twitter}`} alt="Twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></a>
+                <a href={`mailto:${rep.email}`} alt="Email"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></a>
+              </div>
 
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div className={repClass} onClick={this.props.goToRepPage} style={`border: 3px solid ${houseColor};`}>
+          <p> Your {houseTitle}: </p>
+          <p> <span className="RepName"> {rep.legalName} (<span style={`color: ${partyColor};`}>{rep.partyCode}</span>)</span></p>
+          <div>
+            <div className="RepImageWrapper">
+              <img  src={pixPath} style={`border: 4px solid ${partyColor};`}/>
+
+            </div>
+            <div className="RepsCard-info">
+              <p>District {rep.district}</p>
+              <PhoneLink num={rep.offices[0].phone} />
+              <div className= "RepSocialWrapper">
+                <a href={`${rep.website}`} alt="Homepage"><i class="fa fa-home fa-fw" aria-hidden="true"></i></a>
+                <a href={`mailto:${rep.email}`} alt="Email"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      )
+    }
   }
 }
 

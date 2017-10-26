@@ -1,3 +1,5 @@
+import {OPEN_STATES_URL_BASE} from 'constants';
+
 function LocalOpenStates() {
 	this.openStatesURL = "https://ca.state-strong.org/wp-content/uploads/2017/08";
 	this.api_key = 'local';
@@ -37,7 +39,7 @@ LocalOpenStates.prototype.getDistrictBoundary = function (boundary_id) {
 }
 
 function OpenStates(api_key) {
-	this.openStatesURL = 'https://openstates.org/api/v1';
+	this.openStatesURL = OPEN_STATES_URL_BASE;
 	this.api_key = '' + api_key;
 	this.is_local = false;
 }

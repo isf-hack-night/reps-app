@@ -17,6 +17,6 @@ function inject (src) {
 var interval = setInterval(function () {
     if (window.google && L.mapbox) {
         clearInterval(interval)
-        inject('https://localhost:9000/dist/bundle.js')
+        inject('https://0.0.0.0:9000/dist/bundle.js')
     }
 }, 10)
