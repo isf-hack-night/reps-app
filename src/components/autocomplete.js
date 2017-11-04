@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
-import { ROOT_PATH} from '../constants'
+import { ROOT_PATH} from '../local_constants'
 import utils from '../utils'
 import queryAPI from '../query_api'
 

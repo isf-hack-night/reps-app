@@ -28,3 +28,5 @@ class BillDetail {
     this.votes = json.votes.map(v => new BillVote(v));
   }
 }
+
+export default BillDetail;

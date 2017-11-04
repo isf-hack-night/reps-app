@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import API_KEYS from '../KEYS'
 import queryAPI from '../query_api'
-import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS} from '../constants'
+import { ROOT_PATH, US_STATE, STATE_CENTER, STATE_BOUNDS, COLORS} from '../local_constants'
 const defaultZoom = 6
 
 //TODO:

@@ -1,4 +1,4 @@
-import {OPEN_STATES_URL_BASE} from 'constants';
+import {OPEN_STATES_URL_BASE} from 'local_constants';
 
 function LocalOpenStates() {
 	this.openStatesURL = "https://ca.state-strong.org/wp-content/uploads/2017/08";
