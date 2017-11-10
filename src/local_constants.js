@@ -24,6 +24,10 @@ export const AMPLIFY_URL_BASE = `https://civictools.appspot-preview.com/api/v1/a
 // Open states url base
 export const OPEN_STATES_URL_BASE = 'https://openstates.org/api/v1';
 
+// Legiscan url base
+export const LEGISCAN_URL_BASE = 'https://api.legiscan.com';
+
+
 export const ACTION_TYPES = ['call', 'flex'];
 
 // image sources

@@ -1,5 +1,5 @@
 import { h, Component } from 'preact'
-import { ACTIONS_DISPLAY_LIMIT, ACTIONS_DISPLAY_INCREMENT } from '../constants'
+import { ACTIONS_DISPLAY_LIMIT, ACTIONS_DISPLAY_INCREMENT } from '../local_constants'
 import ActionCard from './action_card'
 import { Panel, ListGroup, Button } from 'react-bootstrap';
 

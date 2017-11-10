@@ -1,4 +1,4 @@
-import { AMPLIFY_URL_BASE } from './constants'
+import { AMPLIFY_URL_BASE } from './local_constants'
 
 function amplify () {
   return {

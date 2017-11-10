@@ -5,7 +5,7 @@ import BillSearchRow from 'components/bills/BillSearchRow';
 class BillSearchList extends Component {
   constructor(props) {
     super(props);
-    this.columns = ['bill_id', 'title'];
+    this.columns = ['bill_id', 'title', 'calendar'];
   }
 
   render(props) {
