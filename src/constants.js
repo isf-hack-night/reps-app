@@ -1,6 +1,6 @@
 // root path to app
 
-const INJECTION_DEV_MODE = true;
+const INJECTION_DEV_MODE = false;
 
 export const ROOT_PATH = INJECTION_DEV_MODE ? '/index.php/test/' : '/';
 
