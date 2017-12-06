@@ -22,7 +22,7 @@ export const STATE_BOUNDS = [[32.5343, -124.4096], [42.0095, -114.1308]];
 export const AMPLIFY_URL_BASE = `https://civictools.appspot-preview.com/api/v1/actions?teamId=-Kr2PPG5GTkR3oFfQ_Lq&state=${US_STATE}`;
 
 // Open states url base
-export const OPEN_STATES_URL_BASE = 'https://openstates.org/api/v1';
+export const OPEN_STATES_URL_BASE = 'https://api.state-strong.org/open-states/api/v1';
 
 // Legiscan url base
 export const LEGISCAN_URL_BASE = 'https://api.legiscan.com';

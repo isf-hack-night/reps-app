@@ -45,13 +45,12 @@ function OpenStates(api_key) {
 }
 
 OpenStates.prototype.makeUrl = function(method) {
-	return this.openStatesURL + '/' + method + '/' + "?apikey=" + this.api_key;
+	return this.openStatesURL + '/' + method + '/';
 }
 
 OpenStates.prototype.callApi = function (url) {
 	var xhr = new XMLHttpRequest;
 	xhr.open('GET', url, false);
-	xhr.setRequestHeader('X-API-KEY', this.api_key);
 	xhr.send();
 	return JSON.parse(xhr.responseText);
 }
@@ -149,7 +148,7 @@ DistrictPopulator.prototype.populate = function () {
 		this.currentDistrict++;
 		var that = this;
 		var call = function() { that.populate(); };
-		setTimeout(call, 10);
+		setTimeout(call, 200);
 	}
 }
 
