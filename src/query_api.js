@@ -1,4 +1,4 @@
-import { ROOT_PATH, QUERY_SPLIT, PARAM_TYPES } from './constants'
+import { ROOT_PATH, QUERY_SPLIT, PARAM_TYPES } from './local_constants'
 
 function parseQuery () {
   const url = window.location.href
