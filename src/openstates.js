@@ -148,7 +148,7 @@ DistrictPopulator.prototype.populate = function () {
 		this.currentDistrict++;
 		var that = this;
 		var call = function() { that.populate(); };
-		setTimeout(call, 200);
+		setTimeout(call, 10);
 	}
 }
 
