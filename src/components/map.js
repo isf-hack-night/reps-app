@@ -14,7 +14,7 @@ const defaultZoom = 6
 // var stateDistricts; // get from react prop
 // var state = 'CA'; // replaced by US_STATE constant     //TODO get latlong map zoom defaults
 var openStatesApiKey = 'INSERT API KEY HERE' // TODO: is this necessary?
-
+//test
 class JustMap extends Component {
   constructor (props) {
     super(props)

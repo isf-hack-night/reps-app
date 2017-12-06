@@ -10,22 +10,16 @@ import { US_STATE, DATA_FINE_PRINT } from '../local_constants'
 import OpenStatesAPI from '../openstates'
 import AutocompleteContainer from './autocomplete'
 
-let openStates = new OpenStatesAPI.OpenStates('xxx');
+let openStates = new OpenStatesAPI.OpenStates('no_key_required');
 let districts = openStates.getDistricts(US_STATE);
 let stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, openStates);
 stateDistricts.preloadDistricts();
 
 class LandingApp extends Component {
-  render(props) {
+  render() {
     const paramsData = queryAPI.parse()
     const locationData = undefined
-    // .getDistrictsByParams will get only the districts passed by query params but map will not be useable
-    // let districts = locOpenStates.getDistrictsByParams(US_STATE, paramsData) // .getDistricts(US_STATE)
-    // .getDistricts will get ALL districts so map will be useable
-    // let districts = locOpenStates.getDistricts(US_STATE)
-    //console.log('districts: ', districts)
-    // let stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, locOpenStates)
-    // stateDistricts.preloadDistricts()
+   
     let display_head
     let display_right
     const shouldDisplayAction = paramsData && paramsData.actionId
