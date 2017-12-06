@@ -10,7 +10,7 @@ import { US_STATE, DATA_FINE_PRINT } from '../local_constants'
 import OpenStatesAPI from '../openstates'
 import AutocompleteContainer from './autocomplete'
 
-let openStates = new OpenStatesAPI.OpenStates('no_key_required');
+let openStates = new OpenStatesAPI.LocalOpenStates();
 let districts = openStates.getDistricts(US_STATE);
 let stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, openStates);
 stateDistricts.preloadDistricts();

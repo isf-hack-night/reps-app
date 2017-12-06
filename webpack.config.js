@@ -33,7 +33,7 @@ module.exports = {
   },
   devtool: 'cheap-module-eval-source-map',
   devServer: {
-   contentBase: path.join(__dirname, "dist"),
+    // contentBase: path.join(__dirname, "dist"),
     compress: true,
     port: 9000,
     headers: {
