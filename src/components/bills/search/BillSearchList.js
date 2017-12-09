@@ -1,6 +1,6 @@
 import {h, Component} from 'preact';
-import BillSearchHeader from 'components/bills/BillSearchHeader';
-import BillSearchRow from 'components/bills/BillSearchRow';
+import BillSearchHeader from 'components/bills/search/BillSearchHeader';
+import BillSearchRow from 'components/bills/search/BillSearchRow';
 
 class BillSearchList extends Component {
   constructor(props) {
