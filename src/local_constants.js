@@ -1,10 +1,13 @@
 // root path to app
 
 const INJECTION_DEV_MODE = true;
+const DEV_SITE_MODE = true;
 
-export const ROOT_PATH = INJECTION_DEV_MODE ? '/index.php/test/' : '/';
+const INJECTION_TEST_PAGE_PATH = DEV_SITE_MODE ? '/test/' : '/index.php/test/';
 
-export const QUERY_SPLIT = INJECTION_DEV_MODE ? '/index.php/test/' : '.org/';
+export const ROOT_PATH = INJECTION_DEV_MODE ? INJECTION_TEST_PAGE_PATH : '/';
+
+export const QUERY_SPLIT = INJECTION_DEV_MODE ? INJECTION_TEST_PAGE_PATH : '.org/';
 
 // path to individual rep page
 export const REPS_PATH = `${ROOT_PATH}rep/`;
