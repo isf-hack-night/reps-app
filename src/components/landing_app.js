@@ -10,13 +10,26 @@ import { US_STATE, DATA_FINE_PRINT } from '../local_constants'
 import OpenStatesAPI from '../openstates'
 import AutocompleteContainer from './autocomplete'
 
-let openStates = new OpenStatesAPI.OpenStates('no_key_required');
-let districts = openStates.getDistricts(US_STATE);
-let stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, openStates);
-stateDistricts.preloadDistricts();
-
 class LandingApp extends Component {
+  constructor(props) {
+    super(props);
+    this.open_states = new OpenStatesAPI.OpenStates('no_key_required');
+    this.state = {
+      stateDistricts: null
+    };
+  }
+
+  componentDidMount() {
+    const districts = this.open_states.getDistricts(US_STATE);
+    const stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, this.open_states);
+    stateDistricts.preloadDistricts();
+    this.setState({stateDistricts});
+  }
+
   render() {
+    if (!this.state.stateDistricts) {
+      return <div>Loading</div>;
+    }
     const paramsData = queryAPI.parse()
     const locationData = undefined
    
@@ -51,7 +64,7 @@ class LandingApp extends Component {
           <div className="Tagline_text">Hold your State Representatives accountable!</div>
           <br></br>
           <div className="FindActionsText">Find actions YOU can take based on your State Senate and Assembly districts:</div>
-            <AutocompleteContainer locationData={locationData} stateDistricts={stateDistricts} />
+            <AutocompleteContainer locationData={locationData} stateDistricts={this.state.stateDistricts} />
           <div className="DataDisclaimer">{DATA_FINE_PRINT}</div>
         </div>
       )
@@ -62,8 +75,8 @@ class LandingApp extends Component {
         {display_head}
         <br></br>
         <MapWrapper paramsData={paramsData} locationData={locationData}>
-          <MapHeader stateDistricts={stateDistricts} locationData={locationData} />
-          <Map stateDistricts={stateDistricts} locationData={locationData} paramsData={paramsData} />
+          <MapHeader stateDistricts={this.state.stateDistricts} locationData={locationData} />
+          <Map stateDistricts={this.states.stateDistricts} locationData={locationData} paramsData={paramsData} />
         </MapWrapper>
         {display_right}
       </div>

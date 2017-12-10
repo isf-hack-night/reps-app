@@ -9,6 +9,8 @@ import BillFilterContainer from 'components/bills/filter/BillFilterContainer';
 import BillDetailContainer from 'components/bills/detail/BillDetailContainer';
 import BillSearchContainer from 'components/bills/search/BillSearchContainer';
 import LandingApp from 'components/landing_app';
+import { ROOT_PATH } from 'local_constants';
+
 
 const Header = () => (
   <div>
