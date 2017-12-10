@@ -22,7 +22,7 @@ class JSONRequest {
   }
 
   getUrl() {
-    return `${this.path}${this.getParamString()}`;
+    return encodeURI(`${this.path}${this.getParamString()}`);
   }
 
   handleError(error) {
