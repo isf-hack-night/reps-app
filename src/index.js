@@ -3,14 +3,14 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
-import App from './app/app'
+import LandingApp from './components/landing_app'
 import { ROOT_PATH } from 'local_constants'
 import './styles/style.less'
 
 const RepsApp = () => (
   <Router>
     <div>
-      <Route exact path={ROOT_PATH} component={App}/>
+      <Route exact path={ROOT_PATH} component={LandingApp}/>
       {/*<Route path="/index.php/test/temp" component={RepsWrapper}/>*/}
     </div>
   </Router>
