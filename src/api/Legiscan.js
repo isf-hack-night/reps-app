@@ -47,6 +47,12 @@ class Legiscan {
   billName2Id(billName) {
     return this.searchBill(billName).then((bill) => bill.bill_id);
   }
+
+  fetchBillByName(billName) {
+    return this.billName2Id(billName).then(
+      billId => this.fetchBill(billId)
+    );
+  }
 }
 
 export default Legiscan;

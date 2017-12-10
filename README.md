@@ -10,8 +10,11 @@ Download and install [Git](https://git-scm.com/downloads).
 
 Clone this repository by clicking on the "Clone or Download" button above and click "Open in Desktop". After cloning the repository, navigate to the folder containing the repository.
 
-Check that `src/constants.js` contains the following line:
+Check that `src/local_constants.js` contains the following line:
 ```INJECTION_DEV_MODE = true```
+and if you are working with the DEV site 
+```DEV_SITE_MODE = true```
+else = false
 
 Ask someone in ISF for the `KEYS.js` file and copy it into the `src` folder of the repository. If you received a zip file with the `KEYS.js` contained inside, only copy the `KEYS.js` itself to the `src` folder.
 
@@ -51,7 +54,8 @@ Runnning this command will set up the local webserver bundle. It shouldn't produ
 
 # To Deploy to CA_SS site
 
-check that constants.js INJECTION_DEV_MODE = false
+check that local_constants.js INJECTION_DEV_MODE = false; 
+
 
 run 'webpack' to create dist/bundle.js
 
