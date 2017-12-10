@@ -21,7 +21,7 @@ const Header = () => (
 );
 
 const App = () => (
-  <Router basename="/">
+  <Router basename={ROOT_PATH}>
     <div>
       <Header />
       <Route exact path="/" component={LandingApp} />
