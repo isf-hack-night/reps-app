@@ -24,6 +24,7 @@ Ask someone in ISF for the `KEYS.js` file and copy it into the `src` folder of t
 * Install docker
   * [Docker for mac](https://store.docker.com/editions/community/docker-ce-desktop-mac)
   * [Docker for windows](https://store.docker.com/editions/community/docker-ce-desktop-windows)
+* If you added new modules to package.json, run 'docker-compose build' first
 * Run `docker-compose up`
 
 ### Local:

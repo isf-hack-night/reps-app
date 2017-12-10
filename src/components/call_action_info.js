@@ -1,7 +1,10 @@
 import { h, Component } from 'preact'
 import PhoneLink from './phone_link'
 import BackToActionsButton from './back_actions_button'
-import { Panel , Button, Accordion} from 'react-bootstrap';
+//import { Panel , Button, Accordion} from 'react-bootstrap';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+
+
 
 class CallActionInfo extends Component {
 
@@ -29,17 +32,26 @@ class CallActionInfo extends Component {
         <div className="ActionInfo-header">{preTitle} {title}</div>
         <PhoneLink num={person.offices[0].phone} size='large' /> 
         <div>&nbsp;</div>
-        <Panel className="ActionInfo-CallScript" header="Call script">
+        <div className="ActionInfo-CallScript" header="Call script">
           {callScriptMd}
-        </Panel>
-        <br></br>
-        <div style={displayBackground} >
-          <Accordion defaultActiveKey='0'>
-          <Panel header='Learn More About This Bill' >
-            {callBackgroundParagraphs}
-          </Panel>
-          </Accordion>
         </div>
+        <br></br>
+
+        <div style={displayBackground} >
+
+          <Card>
+            <CardHeader
+              title="Learn More About This Bill"
+              //subtitle="Subtitle"
+              actAsExpander={true}
+              showExpandableButton={true} />
+            <CardText expandable={true}>
+               {callBackgroundParagraphs}
+            </CardText>
+          </Card>
+
+        </div>
+
         <br></br>
         <BackToActionsButton/>
 
