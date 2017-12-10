@@ -1,7 +1,12 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import queryAPI from '../query_api'
-import { ListGroupItem } from 'react-bootstrap';
+//import { ListGroupItem } from 'react-bootstrap';
+//import { List,Icon } from 'semantic-ui-react'
+import {List, ListItem} from 'material-ui/List'
+import FontIcon from 'material-ui/FontIcon';
+
+
 
 
 class ActionDetails extends Component {
@@ -25,9 +30,25 @@ class ActionDetails extends Component {
     const action = this.props.action
     const icon = action.type === 'call' ? 'State Assemblymember' : 'State Senator'
     return (
-      <ListGroupItem className="ActionCard" onClick={this.goToActionPage} header= {`${action.preTitle}`}>
-        {`${action.title}`}
-      </ListGroupItem>
+      /*
+      <List.Item className="ActionCard" onClick={this.goToActionPage} >
+        
+      <List.Icon name='phone' size='large' verticalAlign='middle' />
+      <List.Content>
+        <List.Header as='a'>{`${action.preTitle}`}</List.Header>
+        <List.Description as='a'>{`${action.title}`}</List.Description>
+      </List.Content>
+
+      </List.Item>
+      */
+
+      <ListItem 
+        onClick={this.goToActionPage}
+        leftIcon={<FontIcon className='fa fa-phone'/>}
+        primaryText={`${action.preTitle}`} 
+        secondaryText={`${action.title}`} >
+        </ListItem>
+
     )
   }
 }

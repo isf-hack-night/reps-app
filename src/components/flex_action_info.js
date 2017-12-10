@@ -1,7 +1,10 @@
 import { h, Component } from 'preact'
 import PhoneLink from './phone_link'
 import BackToActionsButton from './back_actions_button'
-import { Panel , Button, Accordion} from 'react-bootstrap';
+//import { Panel , Button, Accordion} from 'react-bootstrap';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+
+
 
 class FlexActionInfo extends Component {
 
@@ -42,11 +45,18 @@ class FlexActionInfo extends Component {
         </Panel>
         <br></br>
         <div style={displayBackground} >
-          <Accordion defaultActiveKey='0'>
-          <Panel header='Learn More About This Bill' >
-             {callBackgroundParagraphs} 
-          </Panel>
-          </Accordion>
+
+          <Card>
+            <CardHeader
+              title="Learn More About This Bill"
+              //subtitle="Subtitle"
+              actAsExpander={true}
+              showExpandableButton={true} />
+            <CardText expandable={true}>
+               {callBackgroundParagraphs}
+            </CardText>
+          </Card>
+
         </div>
         <br></br>
 
