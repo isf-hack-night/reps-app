@@ -1,7 +1,10 @@
 import { h, Component } from 'preact'
 import { ACTIONS_DISPLAY_LIMIT, ACTIONS_DISPLAY_INCREMENT } from '../local_constants'
 import ActionCard from './action_card'
-import { Panel, ListGroup, Button } from 'react-bootstrap';
+//import { Panel, ListGroup, Button } from 'react-bootstrap';
+import FlatButton from 'material-ui/FlatButton';
+//import { Button, Segment, List, Icon } from 'semantic-ui-react'
+import {List, ListItem} from 'material-ui/List';
 
 class ActionsDisplay extends Component {
   constructor (props) {
@@ -29,21 +32,22 @@ class ActionsDisplay extends Component {
 
     const loadMoreButton = this.props.actions.length > this.state.actionsNum
       ? (
-        <Button block
+       /* <Button block
           className="ActionsDisplay-loadMore"
-          onClick={this.loadMoreActions}>
-          More actions
-        </Button>
+          onClick={this.loadMoreActions} >
+          Display more actions </Button> */
+           <FlatButton className="ActionsDisplay-loadMore" label="Display more actions" onClick={this.loadMoreActions} />
       ) : ''
 
 
     return (
-      <Panel header="Take Action" className="ActionsDisplay">
-        <ListGroup  >
+      <div className="ActionsDisplay">
+        <h3> Take Action </h3>
+        <List>
           {actionsList}
-        </ListGroup>
+        </List>
         {loadMoreButton}
-      </Panel>
+      </div>
     )
   }
 }
