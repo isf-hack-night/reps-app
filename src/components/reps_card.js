@@ -1,7 +1,6 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import { REPS_PATH, REP_PIC_PATH , COLORS } from '../local_constants'
-import { Panel  } from 'react-bootstrap';
 import PhoneLink from './phone_link'
 
 
