@@ -2,6 +2,8 @@ import {h, Component} from 'preact';
 import BillFilterNameColumn from 'components/bills/filter/columns/BillFilterNameColumn';
 import BillFilterDescriptionColumn from 'components/bills/filter/columns/BillFilterDescriptionColumn';
 import BillFilterActionLinkColumn from 'components/bills/filter/columns/BillFilterActionLinkColumn';
+import BillFilterTagColumn from 'components/bills/filter/columns/BillFilterTagColumn';
+
 import BillFilterRow from 'components/bills/filter/BillFilterRow';
 
 class BillFilterTable extends Component {
@@ -10,12 +12,13 @@ class BillFilterTable extends Component {
     this.columns = [
       BillFilterNameColumn,
       BillFilterDescriptionColumn,
-      BillFilterActionLinkColumn
+      BillFilterActionLinkColumn,
+      BillFilterTagColumn
     ]
   }
 
   header() {
-    const columns = ['Name', 'Description', 'Action'];
+    const columns = ['Name', 'Description', 'Action','Tags'];
     return (
       <thead>
         <tr>

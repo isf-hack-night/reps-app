@@ -38,6 +38,7 @@ class BillFilterContainer extends Component {
       openstates => {
         openstates['+tags'].forEach(
           tag => this.setState({tags: this.state.tags.add(tag)})
+          //todo generate colors for tags
         );
         return openstates;
       }
