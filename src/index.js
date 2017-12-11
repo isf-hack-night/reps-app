@@ -5,10 +5,6 @@ import {
 } from 'react-router-dom'
 import App from './app/app'
 import { ROOT_PATH } from 'local_constants'
-import { withStyles } from 'material-ui/styles';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import './styles/style.less'
 
 const RepsApp = () => (
@@ -25,11 +21,7 @@ function tryToRender () {
   setTimeout(() => {
     if (window.google && window.L.mapbox) {
       //document.querySelector('h1.title.entry-title').style.display = 'none'
-      render(
-        <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-          <RepsApp />
-        </MuiThemeProvider>
-        , document.getElementById('reps_app_root'))
+      render(<RepsApp />, document.getElementById('reps_app_root'))
     } else {
       tryToRender()
     }

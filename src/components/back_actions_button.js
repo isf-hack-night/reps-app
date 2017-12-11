@@ -1,7 +1,8 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import queryAPI from '../query_api'
-import FlatButton from 'material-ui/FlatButton';
+import { Button } from 'react-bootstrap'
+
 
 class JustBTAButton extends Component {
   constructor (props) {
@@ -22,7 +23,9 @@ class JustBTAButton extends Component {
   render () {
 
     return (
-      <FlatButton className="BTAButton" onClick={this.goToActionsList} label="&lt;&lt; Back To Actions List" />
+      <Button className="BTAButton" onClick={this.goToActionsList} >
+          &lt;&lt; Back To Actions List
+      </Button>
     )
   }
 }

@@ -1,8 +1,6 @@
 import { h, Component } from 'preact'
 import { ACTIONS_DISPLAY_LIMIT, ACTIONS_DISPLAY_INCREMENT } from '../local_constants'
 import ActionCard from './action_card'
-
-import FlatButton from 'material-ui/FlatButton';
 import { Panel, ListGroup, Button } from 'react-bootstrap';
 
 class ActionsDisplay extends Component {
@@ -31,19 +29,21 @@ class ActionsDisplay extends Component {
 
     const loadMoreButton = this.props.actions.length > this.state.actionsNum
       ? (
-           <FlatButton className="ActionsDisplay-loadMore" label="Display more actions" onClick={this.loadMoreActions} />
+        <Button block
+          className="ActionsDisplay-loadMore"
+          onClick={this.loadMoreActions}>
+          More actions
+        </Button>
       ) : ''
-      //todo else display fewer or make sure scrollable
 
 
     return (
-      <div className="ActionsDisplay">
-        <h3> Take Action </h3>
-        <List>
+      <Panel header="Take Action" className="ActionsDisplay">
+        <ListGroup  >
           {actionsList}
-        </List>
+        </ListGroup>
         {loadMoreButton}
-      </div>
+      </Panel>
     )
   }
 }
