@@ -2,8 +2,8 @@ import { h, Component } from 'preact'
 import { ACTIONS_DISPLAY_LIMIT, ACTIONS_DISPLAY_INCREMENT } from '../local_constants'
 import ActionCard from './action_card'
 
+import {List, ListItem} from 'material-ui/List'
 import FlatButton from 'material-ui/FlatButton';
-import { Panel, ListGroup, Button } from 'react-bootstrap';
 
 class ActionsDisplay extends Component {
   constructor (props) {

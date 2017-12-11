@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import queryAPI from '../query_api'
 import FontIcon from 'material-ui/FontIcon';
-import { Panel, ListGroup, Button } from 'react-bootstrap';
+import {List, ListItem} from 'material-ui/List'
 
 
 class ActionDetails extends Component {
