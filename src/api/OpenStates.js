@@ -28,6 +28,20 @@ class OpenStates {
     return request.send();
   }
 
+  getAllBillsCurrentTerm(page) {
+    const billSearchParams = {
+      state: this.state,
+      apikey: this.api_key,
+      search_window: `session:${this.session}`,
+      page: page,
+      per_page: 100 
+    };
+    console.log("SEARCHING INT")
+    const request = new JSONRequest(this.getPathUrl('bills'), billSearchParams);
+    return request.send();
+  }
+
+
   fetchBill(bill_id) {
     const bill_fetch_params = {
       apikey: this.api_key,

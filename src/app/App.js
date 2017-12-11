@@ -6,9 +6,13 @@ import {
   PropsRoute,
   Link
 } from 'react-router-dom';
+import BillTrackerContainer from 'components/bills/tracker/BillTrackerContainer';
+
 import BillFilterContainer from 'components/bills/filter/BillFilterContainer';
 import BillDetailContainer from 'components/bills/detail/BillDetailContainer';
 import BillSearchContainer from 'components/bills/search/BillSearchContainer';
+import BillSearchContainerDynamic from 'components/bills/search/BillSearchContainerDynamic';
+
 import LandingApp from 'components/landing_app';
 import { ROOT_PATH } from 'local_constants';
 
@@ -20,9 +24,10 @@ const style = {
 
 const Header = () => (
   <div>
-    <Link to="/"> <RaisedButton label="Find Your Rep" style={style} /></Link>
-    <Link to="/bill_search"><RaisedButton label="Bills Search (External)" style={style} /></Link>
-    <Link to="/bill_filter"><RaisedButton label="Bills Search (Internal)" style={style} /></Link>
+    <Link to="/"> <RaisedButton label="Find Your Rep (External)" style={style} /></Link>
+    <Link to="/bill_search"><RaisedButton label="Bill Search (External)" style={style} /></Link>
+    <Link to="/bill_filter"><RaisedButton label="Bill Filter (Internal)" style={style} /></Link>
+
   </div>
 );
 
@@ -35,6 +40,7 @@ const App = function (districtList) {
         <LandingApp {...props} stateDistricts={districtList} /> )} />
       <Route exact path="/bill_search" component={BillSearchContainer}/>
       <Route exact path="/bill_filter" component={BillFilterContainer}/>
+
       <Route exact path="/bills/:bill_name" component={BillDetailContainer}/>
     </div>
   </Router>

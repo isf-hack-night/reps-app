@@ -9,11 +9,31 @@ class BillSearchContainer extends Component {
     super(props);
     this.state = {
       bills: [],
+      page: 1
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.legiscan = new Legiscan();
     this.openstates = new OpenStates();
   }
+
+  componentDidMount() {
+    this.onInit();
+  }
+
+//todo - breaks with legiscan if empty
+  onInit() { 
+    //TODO only get 100 per page
+    var start_page = 1
+
+    this.openstates.getAllBillsCurrentTerm(start_page).then(
+      bills =>
+        Promise.all(bills.map(bill => this.addCalendarToBill(bill)))
+    ).then(
+      updatedBills => this.setState({bills: (this.state.bills).concat(updatedBills)})
+    );
+  }
+
+
 
   parseCalendar(calendar) {
     return <p>
@@ -35,6 +55,7 @@ class BillSearchContainer extends Component {
   }
 
   onSubmit(searchQuery) {
+    console.log( searchQuery)
     this.openstates.searchBills(searchQuery).then(
       bills =>
         Promise.all(bills.map(bill => this.addCalendarToBill(bill)))
@@ -43,7 +64,12 @@ class BillSearchContainer extends Component {
     );
   }
 
+
+  
+
   render(props, state, context) {
+   // console.log(state.bills)
+
     return (
       <div>
         <BillSearchBox onSubmit={this.onSubmit} />

@@ -12,6 +12,7 @@ class BillSearchList extends Component {
     const rows = props.bills.map((bill, index) => <BillSearchRow key={index}
                                                                  columns={this.columns}
                                                                  bill={bill}/>);
+
     return (
       <table>
         <thead>
