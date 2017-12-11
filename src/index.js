@@ -25,7 +25,7 @@ function tryToRender () {
       stateDistricts.preloadDistricts(function() {});
       render(
         <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-          <App stateDistricts={stateDistricts}/>, document.getElementById('reps_app_root')
+          <App stateDistricts={stateDistricts}/>
         </MuiThemeProvider>
         , document.getElementById('reps_app_root'))
     } else {
