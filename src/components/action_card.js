@@ -1,7 +1,8 @@
 import { h, Component } from 'preact'
 import { withRouter } from 'react-router-dom'
 import queryAPI from '../query_api'
-import { ListGroupItem } from 'react-bootstrap';
+import FontIcon from 'material-ui/FontIcon';
+import { Panel, ListGroup, Button } from 'react-bootstrap';
 
 
 class ActionDetails extends Component {
@@ -25,9 +26,12 @@ class ActionDetails extends Component {
     const action = this.props.action
     const icon = action.type === 'call' ? 'State Assemblymember' : 'State Senator'
     return (
-      <ListGroupItem className="ActionCard" onClick={this.goToActionPage} header= {`${action.preTitle}`}>
-        {`${action.title}`}
-      </ListGroupItem>
+      <ListItem 
+        onClick={this.goToActionPage}
+        leftIcon={<FontIcon className='fa fa-phone'/>}
+        primaryText={`${action.preTitle}`} 
+        secondaryText={`${action.title}`} >
+        </ListItem>
     )
   }
 }
