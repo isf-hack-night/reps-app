@@ -19,7 +19,7 @@ function tryToRender () {
     if (window.google && window.L.mapbox) {
       //document.querySelector('h1.title.entry-title').style.display = 'none'
       
-      const open_states = new OpenStatesAPI.OpenStates('no_key_required');
+      const open_states = new OpenStatesAPI.LocalOpenStates();
       const districts = open_states.getDistricts('ca');
       const stateDistricts = new OpenStatesAPI.DistrictList(districts, 'ca', open_states);
       stateDistricts.preloadDistricts(function() {});
