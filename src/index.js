@@ -6,6 +6,10 @@ import {
 import App from './app/app'
 import OpenStatesAPI from 'openstates'
 import { ROOT_PATH } from 'local_constants'
+import { withStyles } from 'material-ui/styles';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import './styles/style.less'
 
 
@@ -19,7 +23,11 @@ function tryToRender () {
       const districts = open_states.getDistricts('ca');
       const stateDistricts = new OpenStatesAPI.DistrictList(districts, 'ca', open_states);
       stateDistricts.preloadDistricts(function() {});
-      render(<App stateDistricts={stateDistricts}/>, document.getElementById('reps_app_root'))
+      render(
+        <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+          <App stateDistricts={stateDistricts}/>, document.getElementById('reps_app_root')
+        </MuiThemeProvider>
+        , document.getElementById('reps_app_root'))
     } else {
       tryToRender()
     }
