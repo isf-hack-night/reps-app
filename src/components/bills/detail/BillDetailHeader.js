@@ -1,5 +1,7 @@
 import {h, Component} from 'preact';
 import BillSupport from 'components/bills/BillSupport';
+import BillDetailFlow from 'components/bills/detail/BillDetailFlow';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
 
 class BillDetailHeader extends Component {
@@ -7,13 +9,11 @@ class BillDetailHeader extends Component {
     const bill = this.props.bill;
     const billTextUrl = bill.open_states.sources[0].url;
     return (
-      <div>
-        <div>Name: {bill.bill_name}</div>
-        <div>Title: {bill.open_states.title}</div>
-        <div>Our summary: {bill.summary}</div>
-        <BillSupport bill={bill}/>
-        <a href={billTextUrl}>Link to text</a>
-      </div>
+        <CardHeader
+            title={`${bill.bill_name} (${bill.support ? 'Support' : 'Oppose'}): ${bill.open_states.title} `}
+            subtitle={bill.summary}
+            actAsExpander={true}
+            showExpandableButton={true} />
     );
   }
 }

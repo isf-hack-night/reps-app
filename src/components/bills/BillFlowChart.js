@@ -1,11 +1,42 @@
 import {h, Component} from 'preact';
+import {
+  Step,
+  Stepper,
+  StepLabel,
+} from 'material-ui/Stepper';
+
+
 
 class BillFlowChart extends Component {
   render(props) {
     return (
       <div>
-        Current: {props.current}
-        Introduced->Policy->Fiscal->Senate Floor->Policy->Fiscal->Assembly->Governor
+        <Stepper activeStep={props.current}>
+          <Step>
+            <StepLabel>Introduced</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>{props.chambers[0]} Policy</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>{props.chambers[0]} Fiscal</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>{props.chambers[0]} Floor</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>{props.chambers[1]} Policy</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>{props.chambers[1]} Fiscal</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>{props.chambers[1]} Floor</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Governor</StepLabel>
+          </Step>
+        </Stepper>
       </div>
     );
   }

@@ -4,6 +4,8 @@ import BillDetailHeader from 'components/bills/detail/BillDetailHeader';
 import BillDetailFlow from 'components/bills/detail/BillDetailFlow';
 import BillDetailSidebar from 'components/bills/detail/BillDetailSidebar';
 import BillDetailBody from 'components/bills/detail/BillDetailBody';
+import {Card, CardActions} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 
 class BillDetailContainer extends Component {
@@ -12,18 +14,28 @@ class BillDetailContainer extends Component {
     this.bill = TRACKED_BILLS[props.match.params.bill_name]
   }
 
+  topicsList() {
+    const topics = this.props.bill.open_states['+tags'];
+    return (
+      <List style='border:2px'>
+        <Subheader>Topics</Subheader>
+        {topics.map(topic => <ListItem primaryText={topic} />)}
+      </List>
+    )
+  }
+
   render(props) {
     return (
-      <div>
-        <h4>Header Section</h4>
+      <Card>
         <BillDetailHeader bill={this.bill}/>
-        <h4>Flow Section</h4>
         <BillDetailFlow bill={this.bill}/>
-        <h4>Sidebar Section</h4>
         <BillDetailSidebar bill={this.bill}/>
-        <h4>Body Section</h4>
         <BillDetailBody bill={this.bill}/>
-      </div>
+        <CardActions>
+          <FlatButton label="Call Rep" />
+          <FlatButton label="Fax Committee" />
+        </CardActions>
+      </Card>
     )
   }
 }

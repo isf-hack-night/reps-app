@@ -1,37 +1,52 @@
 import {h, Component} from 'preact';
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import Paper from 'material-ui/Paper';
+import DataTables from 'material-ui-datatables'
+import Chip from 'material-ui/Chip'; 
 
 class BillDetailSidebar extends Component {
+  constructor(props) {
+    super(props)
+    this.styles = {
+      chip: {
+        margin: 4,
+      },
+      wrapper: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+    };
+  }
+
   topicsList() {
     const topics = this.props.bill.open_states['+tags'];
     return (
-      <ul>
-        {topics.map(topic => <li>{topic}</li>)}
-      </ul>
+      <div style={this.styles.wrapper}>
+        {topics.map(topic => (
+        <Chip style={this.styles.chip}>
+         {topic}
+        </Chip>))}
+      </div>
     )
   }
 
-  nextEvent() {
+  allEvents() {
     const calendar = this.props.bill.legiscan.calendar;
-    if (calendar.length === 0) {
-      return <div>No events scheduled</div>;
-    }
-    const event = calendar[0];
     return (
-      <div>
-        Date: {event.date} Type: {event.type} Description: {event.description}
-      </div>
+      <DataTables
+          columns={[{key: 'date', label:'Date'}, {key: 'type', label: 'Type'}, {key:'description', label: 'Description'}]}
+          data={calendar} />
     );
   }
 
   render(props) {
     return (
       <div>
-        <h5>Topics</h5>
         {this.topicsList()}
-        <h5>Current Committee</h5>
-        <h5>Scheduled Event</h5>
-        {this.nextEvent()}
+        {this.allEvents()}
       </div>
+      
     );
   }
 }
