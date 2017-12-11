@@ -12,12 +12,17 @@ import BillSearchContainer from 'components/bills/search/BillSearchContainer';
 import LandingApp from 'components/landing_app';
 import { ROOT_PATH } from 'local_constants';
 
+import RaisedButton from 'material-ui/RaisedButton';
+
+const style = {
+  margin: 12,
+};
 
 const Header = () => (
   <div>
-    <Link to="/">Find Your Rep</Link>
-    <Link to="/bill_search">Bills Search (External)</Link>
-    <Link to="/bill_filter">Bills Search (Internal)</Link>
+    <Link to="/"> <RaisedButton label="Find Your Rep" style={style} /></Link>
+    <Link to="/bill_search"><RaisedButton label="Bills Search (External)" style={style} /></Link>
+    <Link to="/bill_filter"><RaisedButton label="Bills Search (Internal)" style={style} /></Link>
   </div>
 );
 
