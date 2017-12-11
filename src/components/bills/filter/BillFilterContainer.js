@@ -10,7 +10,7 @@ class BillFilterContainer extends Component {
     this.state = {
       bills: [],
       tags: new Set(),
-      currentTag: null,
+      currentTag: 'ALL',
     };
     this.tracked_bills = Object.values(TRACKED_BILLS);
     this.legiscan = new Legiscan();
@@ -66,13 +66,17 @@ class BillFilterContainer extends Component {
   }
 
   filterBills(bills, tag) {
+    if(tag == 'ALL'){
+      return bills
+    } else {
     return bills.filter(
       bill => bill.open_states['+tags'].includes(tag)
     )
+   }
   }
 
   render(props, state, context) {
-    const options = [<option disabled selected>Please select a tag</option>];
+    const options = [<option selected id='ALL' value='ALL'>All Tags</option>];
     for (const tag of this.state.tags.values()) {
       options.push(<option id={tag} value={tag}>{tag}</option>);
     }

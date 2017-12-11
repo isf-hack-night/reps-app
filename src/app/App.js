@@ -24,9 +24,9 @@ const style = {
 
 const Header = () => (
   <div>
-    <Link to="/"> <RaisedButton label="Find Your Rep (External)" style={style} /></Link>
+    <Link to="/"> <RaisedButton label="Find Your Rep" style={style} /></Link>
     <Link to="/bill_search"><RaisedButton label="Bill Search (External)" style={style} /></Link>
-    <Link to="/bill_filter"><RaisedButton label="Bill Filter (Internal)" style={style} /></Link>
+    <Link to="/bill_filter"><RaisedButton label="Bill Tracker" style={style} /></Link>
 
   </div>
 );
