@@ -4,24 +4,22 @@ import {
   Route
 } from 'react-router-dom'
 import App from './app/app'
+import OpenStatesAPI from 'openstates'
 import { ROOT_PATH } from 'local_constants'
 import './styles/style.less'
 
-const RepsApp = () => (
-  <Router>
-    <div>
-      <Route exact path={ROOT_PATH} component={App}/>
-      {/*<Route path="/index.php/test/temp" component={RepsWrapper}/>*/}
-    </div>
-  </Router>
-)
 
 console.log('running!')
 function tryToRender () {
   setTimeout(() => {
     if (window.google && window.L.mapbox) {
       //document.querySelector('h1.title.entry-title').style.display = 'none'
-      render(<RepsApp />, document.getElementById('reps_app_root'))
+      
+      const open_states = new OpenStatesAPI.OpenStates('no_key_required');
+      const districts = open_states.getDistricts('ca');
+      const stateDistricts = new OpenStatesAPI.DistrictList(districts, 'ca', open_states);
+      stateDistricts.preloadDistricts(function() {});
+      render(<App stateDistricts={stateDistricts}/>, document.getElementById('reps_app_root'))
     } else {
       tryToRender()
     }

@@ -19,7 +19,9 @@ class JustMap extends Component {
   constructor (props) {
     super(props)
 
+    this.stateDistricts = props.stateDistricts.stateDistricts
     //todo local lat lng 
+    this.state = { mounted: false }
 
     this.handleDrag = this.handleDrag.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -47,7 +49,7 @@ class JustMap extends Component {
   }
 
   updateRoute (lat, lng) {
-    const districtsData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
+    const districtsData = this.stateDistricts.findDistrictsForPoint(lat, lng)
     const lowerId = districtsData.lower.id
     const upperId = districtsData.upper.id
     const newRoute = queryAPI.build({
@@ -56,7 +58,9 @@ class JustMap extends Component {
     })
     this.props.history.push(newRoute)
     console.log("NOW UPDATE LOCATION DATA")
-    this.props.locationData.push({lat: lat, lng: lng})
+    if (this.props.locationData) {
+      this.props.locationData.push({lat: lat, lng: lng})
+    }
   }
 
   positionFromDistrict(districtUpper, districtLower) {
@@ -65,7 +69,7 @@ class JustMap extends Component {
 
     if (districtUpper || districtLower) {
 
-      const districtData = this.props.stateDistricts.findDistrictsFromIDs( districtUpper, districtLower)
+      const districtData = this.stateDistricts.findDistrictsFromIDs( districtUpper, districtLower)
       this.zoomDistrict(districtData) 
     }
 
@@ -82,7 +86,7 @@ class JustMap extends Component {
 
     this.state.markers.addLayer(marker)
     
-    const districtData = this.props.stateDistricts.findDistrictsForPoint(lat, lng)
+    const districtData = this.stateDistricts.findDistrictsForPoint(lat, lng)
     console.log('posSet districtData', districtData )
     if (districtData.upper || districtData.lower) {
       this.zoomDistrict(districtData)  //make this a callback
@@ -150,7 +154,12 @@ class JustMap extends Component {
 
     // aka init map
     L.mapbox.accessToken = API_KEYS.mapbox
-    const map = L.mapbox.map('map', 'mapbox.light')
+    let map = null 
+    if (L.mapbox.HACK_MAP) {
+      L.mapbox.HACK_MAP.remove()
+    }
+    map = L.mapbox.map('map', 'mapbox.light')
+    L.mapbox.HACK_MAP = map
     map.fitBounds(STATE_BOUNDS)
 
     const markers = L.featureGroup()
@@ -176,7 +185,7 @@ class JustMap extends Component {
 
     map.on('click', this.handleClick)
 
-    const newState = { map, markers, upperDistricts, lowerDistricts}
+    const newState = { map, markers, upperDistricts, lowerDistricts, mounted: true}
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState))
@@ -186,7 +195,6 @@ class JustMap extends Component {
   //TODO if district but no local lat long params, then use center of bbbox
   componentDidUpdate (prevProps) {
     console.log("MAP DID UPDATE")
-    console.log( "this.props", this.props)
 
     if(this.props.locationData){
       const { lat, lng } = this.props.locationData

@@ -12,23 +12,20 @@ import AutocompleteContainer from './autocomplete'
 
 class LandingApp extends Component {
   constructor(props) {
-    super(props);
-    this.open_states = new OpenStatesAPI.OpenStates('no_key_required');
+    super(props)
     this.state = {
-      stateDistricts: null
+      stateDistricts: props.stateDistricts
     };
   }
 
   componentDidMount() {
-    const districts = this.open_states.getDistricts(US_STATE);
-    const stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, this.open_states);
-    stateDistricts.preloadDistricts(() => this.setState({stateDistricts: stateDistricts}))
   }
 
   render() {
     if (!this.state.stateDistricts) {
       return <div>Loading</div>;
     }
+    console.log(this.state.stateDistricts);
     const paramsData = queryAPI.parse()
     const locationData = undefined
    

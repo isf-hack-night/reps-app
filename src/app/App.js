@@ -3,6 +3,7 @@ import {h} from 'preact';
 import {
   BrowserRouter as Router,
   Route,
+  PropsRoute,
   Link
 } from 'react-router-dom';
 import BillFilterContainer from 'components/bills/filter/BillFilterContainer';
@@ -20,16 +21,18 @@ const Header = () => (
   </div>
 );
 
-const App = () => (
+const App = function (districtList) {
+  return  (
   <Router basename={ROOT_PATH}>
     <div>
       <Header />
-      <Route exact path="/" component={LandingApp} />
+      <Route exact path="/" render={(props) => (
+        <LandingApp {...props} stateDistricts={districtList} /> )} />
       <Route exact path="/bill_search" component={BillSearchContainer}/>
       <Route exact path="/bill_filter" component={BillFilterContainer}/>
       <Route exact path="/bills/:bill_name" component={BillDetailContainer}/>
     </div>
   </Router>
-);
+)};
 
 export default App;

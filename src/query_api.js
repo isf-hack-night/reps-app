@@ -29,7 +29,7 @@ function buildQuery (paramsObj) {
     return `${firstChar}${key}=${paramsObj[key]}`
   })
 
-  return [ROOT_PATH].concat(queryParams).join('')
+  return [''].concat(queryParams).join('')
 }
 
 const queryAPI = {
