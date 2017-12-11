@@ -49,7 +49,7 @@ class BillDetailSidebar extends Component {
       <div>
         {this.topicsList()}
         {this.props.bill.legiscan.description}
-        <a href={this.props.bill.legiscan.url}> (Full Text)</a>
+        <a href={this.props.bill.legiscan.url} target="_blank"> (Full Text)</a>
         {this.allEvents()}
       </div>
       
