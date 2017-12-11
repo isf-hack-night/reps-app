@@ -3,6 +3,8 @@ import BillFilterNameColumn from 'components/bills/filter/columns/BillFilterName
 import BillFilterDescriptionColumn from 'components/bills/filter/columns/BillFilterDescriptionColumn';
 import BillFilterActionLinkColumn from 'components/bills/filter/columns/BillFilterActionLinkColumn';
 import BillFilterTagColumn from 'components/bills/filter/columns/BillFilterTagColumn';
+import BillFilterPositionColumn from 'components/bills/filter/columns/BillFilterPositionColumn';
+
 
 import BillFilterRow from 'components/bills/filter/BillFilterRow';
 
@@ -12,13 +14,14 @@ class BillFilterTable extends Component {
     this.columns = [
       BillFilterNameColumn,
       BillFilterDescriptionColumn,
+      BillFilterPositionColumn,
       BillFilterActionLinkColumn,
       BillFilterTagColumn
     ]
   }
 
   header() {
-    const columns = ['Name', 'Description', 'Action','Tags'];
+    const columns = ['Name', 'Description','Position', 'Action','Tags'];
     return (
       <thead>
         <tr>

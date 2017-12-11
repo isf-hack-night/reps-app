@@ -5,7 +5,8 @@ import {blue500, indigo500, orange500, green500} from 'material-ui/styles/colors
 const tag_colors = [blue500, indigo500, orange500, green500]
 
 const style = {
-  backgroundColor:orange500,
+  backgroundColor:indigo500,
+  color:'white',
   display: 'inline-block',
   margin:'4px',
 };
