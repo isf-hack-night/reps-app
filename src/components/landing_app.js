@@ -22,8 +22,7 @@ class LandingApp extends Component {
   componentDidMount() {
     const districts = this.open_states.getDistricts(US_STATE);
     const stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, this.open_states);
-    stateDistricts.preloadDistricts();
-    this.setState({stateDistricts});
+    stateDistricts.preloadDistricts(() => this.setState({stateDistricts: stateDistricts}))
   }
 
   render() {
@@ -76,7 +75,7 @@ class LandingApp extends Component {
         <br></br>
         <MapWrapper paramsData={paramsData} locationData={locationData}>
           <MapHeader stateDistricts={this.state.stateDistricts} locationData={locationData} />
-          <Map stateDistricts={this.states.stateDistricts} locationData={locationData} paramsData={paramsData} />
+          <Map stateDistricts={this.state.stateDistricts} locationData={locationData} paramsData={paramsData} />
         </MapWrapper>
         {display_right}
       </div>

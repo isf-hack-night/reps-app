@@ -25,6 +25,9 @@ export const STATE_BOUNDS = [[32.5343, -124.4096], [42.0095, -114.1308]];
 // amplify team base url
 export const AMPLIFY_URL_BASE = `https://civictools.appspot-preview.com/api/v1/actions?teamId=-Kr2PPG5GTkR3oFfQ_Lq&state=${US_STATE}`;
 
+// Local copy of OpenStates url base
+export const LOCAL_OPEN_STATES_URL_BASE = "https://dev.state-strong.org/wp-content/uploads/2017/12";
+
 // Open states url base
 export const OPEN_STATES_URL_BASE = 'https://api.state-strong.org/open-states/api/v1';
 

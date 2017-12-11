@@ -1,7 +1,8 @@
 import {OPEN_STATES_URL_BASE} from 'local_constants';
+import {LOCAL_OPEN_STATES_URL_BASE} from 'local_constants';
 
 function LocalOpenStates() {
-	this.openStatesURL = "https://ca.state-strong.org/wp-content/uploads/2017/08";
+	this.openStatesURL = LOCAL_OPEN_STATES_URL_BASE;
 	this.api_key = 'local';
 	this.is_local = true;
 }
@@ -141,14 +142,17 @@ function DistrictPopulator (districtList) {
 	this.currentDistrict = 0;
 }
 
-DistrictPopulator.prototype.populate = function () {
+DistrictPopulator.prototype.populate = function (cb) {
 	if (this.currentDistrict < this.districtList.num_districts) {
 		var district_id = this.districtList.district_ids[this.currentDistrict];
 		this.districtList.districts[district_id].getBoundary();
 		this.currentDistrict++;
 		var that = this;
-		var call = function() { that.populate(); };
-		setTimeout(call, 200);
+		var call = function() { that.populate(cb); };
+		var timeout = this.districtList.open_states.is_local ? 1 : 100;
+		setTimeout(call, timeout);
+	} else {
+		cb();
 	}
 }
 
@@ -226,10 +230,10 @@ DistrictList.prototype.findDistrictsFromIDs = function(upperID, lowerID) {
 
               
 
-DistrictList.prototype.preloadDistricts = function () {
+DistrictList.prototype.preloadDistricts = function (cb) {
 	if (!this.populated) {
 		this.populated = true;
-		this.populator.populate();
+		this.populator.populate(cb);
 	}
 }
 
