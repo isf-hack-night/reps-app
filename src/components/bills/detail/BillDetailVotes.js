@@ -3,7 +3,6 @@ import {h, Component} from 'preact';
 class BillDetailVote extends Component {
 
   render(props) {
-    debugger;
     return (
       <div>
         <h5>A Vote: {this.props.vote.motion}</h5>

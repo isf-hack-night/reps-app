@@ -33,10 +33,14 @@ class BillDetailSidebar extends Component {
 
   allEvents() {
     const calendar = this.props.bill.legiscan.calendar;
+    let reversed = calendar.map((entry) => entry).reverse()
     return (
       <DataTables
           columns={[{key: 'date', label:'Date'}, {key: 'type', label: 'Type'}, {key:'description', label: 'Description'}]}
-          data={calendar} />
+          data={reversed}
+          title='Events'
+          showHeaderToolbar={true}
+          />
     );
   }
 
@@ -44,6 +48,8 @@ class BillDetailSidebar extends Component {
     return (
       <div>
         {this.topicsList()}
+        {this.props.bill.legiscan.description}
+        <a href={this.props.bill.legiscan.url}> (Full Text)</a>
         {this.allEvents()}
       </div>
       

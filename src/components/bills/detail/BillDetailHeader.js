@@ -1,7 +1,7 @@
 import {h, Component} from 'preact';
 import BillSupport from 'components/bills/BillSupport';
 import BillDetailFlow from 'components/bills/detail/BillDetailFlow';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {CardHeader} from 'material-ui/Card';
 
 
 class BillDetailHeader extends Component {
