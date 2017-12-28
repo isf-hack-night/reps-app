@@ -12,13 +12,18 @@ import AutocompleteContainer from './autocomplete'
 
 class LandingApp extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      stateDistricts: props.stateDistricts
+      stateDistricts: null
     };
   }
 
   componentDidMount() {
+    const open_states = new OpenStatesAPI.LocalOpenStates();
+    const districts = open_states.getDistricts('ca');
+    const stateDistricts = new OpenStatesAPI.DistrictList(districts, 'ca', open_states);
+    stateDistricts.preloadDistricts(function() {});
+    this.setState({stateDistricts});
   }
 
   render() {
@@ -65,7 +70,7 @@ class LandingApp extends Component {
         </div>
       )
     }
-
+    
     return (
       <div className="RepsApp">
         {display_head}
