@@ -1,9 +1,6 @@
-import {h, Component} from 'preact';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Paper from 'material-ui/Paper';
-import DataTables from 'material-ui-datatables'
-import Chip from 'material-ui/Chip'; 
+import {Component} from 'preact';
+import DataTables from 'material-ui-datatables';
+import Chip from 'material-ui/Chip';
 
 class BillDetailSidebar extends Component {
   constructor(props) {

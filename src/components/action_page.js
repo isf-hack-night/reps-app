@@ -1,9 +1,9 @@
-import { h, Component } from 'preact'
-import queryAPI from '../query_api'
-import amplify from '../amplify'
-import CallActionInfo from './call_action_info'
-import FlexActionInfo from './flex_action_info'
-import {TEST_CUSTOM_ACTION} from '../local_constants'
+import {Component} from 'preact';
+import queryAPI from '../query_api';
+import amplify from '../amplify';
+import CallActionInfo from './call_action_info';
+import FlexActionInfo from './flex_action_info';
+import {TEST_CUSTOM_ACTION} from '../local_constants';
 
 
 class ActionPage extends Component {

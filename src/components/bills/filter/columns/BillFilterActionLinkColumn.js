@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import {Component} from 'preact';
 
 class BillFilterActionLinkColumn extends Component {
   render(props) {

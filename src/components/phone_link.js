@@ -1,5 +1,5 @@
-import { h, Component } from 'preact'
-import utils from '../utils'
+import {Component} from 'preact';
+import utils from '../utils';
 
 class PhoneLink extends Component {
   render () {

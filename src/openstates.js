@@ -1,5 +1,7 @@
-import {OPEN_STATES_URL_BASE} from 'local_constants';
-import {LOCAL_OPEN_STATES_URL_BASE} from 'local_constants';
+import {
+  LOCAL_OPEN_STATES_URL_BASE,
+  OPEN_STATES_URL_BASE
+} from 'local_constants';
 
 function LocalOpenStates() {
 	this.openStatesURL = LOCAL_OPEN_STATES_URL_BASE;

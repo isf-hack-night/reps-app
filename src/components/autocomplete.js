@@ -1,8 +1,7 @@
-import { h, Component } from 'preact'
-import { withRouter } from 'react-router-dom'
-import { ROOT_PATH} from '../local_constants'
-import utils from '../utils'
-import queryAPI from '../query_api'
+import {Component} from 'preact';
+import {withRouter} from 'react-router-dom';
+import utils from '../utils';
+import queryAPI from '../query_api';
 
 class Autocomplete extends Component {
   constructor (props) {

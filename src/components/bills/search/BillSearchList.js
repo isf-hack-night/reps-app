@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import {Component} from 'preact';
 import BillSearchHeader from 'components/bills/search/BillSearchHeader';
 import BillSearchRow from 'components/bills/search/BillSearchRow';
 

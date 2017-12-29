@@ -1,4 +1,4 @@
-import { h, Component } from 'preact'
+import {Component} from 'preact';
 // import AutocompleteContainer from './autocomplete'
 
 class Display extends Component {

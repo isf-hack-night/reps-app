@@ -1,6 +1,11 @@
-import {h, Component} from 'preact';
+import {Component} from 'preact';
 import Chip from 'material-ui/Chip';
-import {blue500, indigo500, orange500, green500} from 'material-ui/styles/colors';
+import {
+  blue500,
+  green500,
+  indigo500,
+  orange500
+} from 'material-ui/styles/colors';
 
 const tag_colors = [blue500, indigo500, orange500, green500]
 

@@ -1,14 +1,14 @@
-import { h, Component } from 'preact'
-import Map from './map'
-import ActionPage from './action_page'
-import CTABanner from './cta_banner'
-import MapWrapper from './map_wrapper'
-import MapHeader from './map_header'
-import RepsWrapper from './reps_wrapper'
-import queryAPI from '../query_api'
-import { US_STATE, DATA_FINE_PRINT } from '../local_constants'
-import OpenStatesAPI from '../openstates'
-import AutocompleteContainer from './autocomplete'
+import {Component} from 'preact';
+import Map from './map';
+import ActionPage from './action_page';
+import CTABanner from './cta_banner';
+import MapWrapper from './map_wrapper';
+import MapHeader from './map_header';
+import RepsWrapper from './reps_wrapper';
+import queryAPI from '../query_api';
+import {DATA_FINE_PRINT} from '../local_constants';
+import OpenStatesAPI from '../openstates';
+import AutocompleteContainer from './autocomplete';
 
 class LandingApp extends Component {
   constructor(props) {

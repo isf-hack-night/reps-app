@@ -1,6 +1,6 @@
-import { h, Component } from 'preact'
-import AutocompleteContainer from './autocomplete'
-import { DATA_FINE_PRINT } from '../local_constants'
+import {Component} from 'preact';
+import AutocompleteContainer from './autocomplete';
+import {DATA_FINE_PRINT} from '../local_constants';
 
 class MapHeader extends Component {
   render () {

@@ -1,10 +1,4 @@
-import {h, Component} from 'preact';
-
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import BillFilterContainer from 'components/bills/filter/BillFilterContainer';
 import BillDetailContainer from 'components/bills/detail/BillDetailContainer';
 import BillSearchContainer from 'components/bills/search/BillSearchContainer';

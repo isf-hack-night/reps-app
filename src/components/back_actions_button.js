@@ -1,6 +1,6 @@
-import { h, Component } from 'preact'
-import { withRouter } from 'react-router-dom'
-import queryAPI from '../query_api'
+import {Component} from 'preact';
+import {withRouter} from 'react-router-dom';
+import queryAPI from '../query_api';
 import FlatButton from 'material-ui/FlatButton';
 
 class JustBTAButton extends Component {

@@ -1,8 +1,8 @@
-import { h, Component } from 'preact'
-import { withRouter } from 'react-router-dom'
-import queryAPI from '../query_api'
+import {Component} from 'preact';
+import {withRouter} from 'react-router-dom';
+import queryAPI from '../query_api';
 import FontIcon from 'material-ui/FontIcon';
-import {List, ListItem} from 'material-ui/List'
+import {ListItem} from 'material-ui/List';
 
 
 class ActionDetails extends Component {

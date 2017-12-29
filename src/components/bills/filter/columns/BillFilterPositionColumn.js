@@ -1,5 +1,4 @@
-import {h, Component} from 'preact';
-
+import {Component} from 'preact';
 
 
 class BillFilterPositionColumn extends Component {

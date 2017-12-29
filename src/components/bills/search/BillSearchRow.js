@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import {Component} from 'preact';
 
 class BillSearchRow extends Component {
   render(props) {
