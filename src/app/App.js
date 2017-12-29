@@ -1,10 +1,10 @@
 import {h} from 'preact';
 
 import {
-  BrowserRouter as Router,
+  HashRouter,
   Route,
   PropsRoute,
-  Link
+  Link, Redirect, Switch
 } from 'react-router-dom';
 import BillTrackerContainer from 'components/bills/tracker/BillTrackerContainer';
 
@@ -24,26 +24,27 @@ const style = {
 
 const Header = () => (
   <div>
-    <Link to="/"> <RaisedButton label="Find Your Rep" style={style} /></Link>
-    <Link to="/bill_search"><RaisedButton label="Bill Search (External)" style={style} /></Link>
-    <Link to="/bill_filter"><RaisedButton label="Bill Tracker" style={style} /></Link>
-
+    <Link to="find_rep"> <RaisedButton label="Find Your Rep" style={style} /></Link>
+    <Link to="bill_search"><RaisedButton label="Bill Search (External)" style={style} /></Link>
+    <Link to="bill_filter"><RaisedButton label="Bill Tracker" style={style} /></Link>
   </div>
 );
 
 const App = function (districtList) {
   return  (
-  <Router basename={ROOT_PATH}>
+  <HashRouter>
     <div>
       <Header />
-      <Route exact path="/" render={(props) => (
-        <LandingApp {...props} stateDistricts={districtList} /> )} />
-      <Route exact path="/bill_search" component={BillSearchContainer}/>
-      <Route exact path="/bill_filter" component={BillFilterContainer}/>
-
-      <Route exact path="/bills/:bill_name" component={BillDetailContainer}/>
+      <Switch>
+        <Route path="/find_rep" render={(props) => (
+          <LandingApp {...props} stateDistricts={districtList} /> )} />
+        <Route path="/bill_search" component={BillSearchContainer}/>
+        <Route path="/bill_filter" component={BillFilterContainer}/>
+        <Route path="/bills/:bill_name" component={BillDetailContainer}/>
+        <Redirect from="/" to="find_rep"/>
+      </Switch>
     </div>
-  </Router>
+  </HashRouter>
 )};
 
 export default App;
