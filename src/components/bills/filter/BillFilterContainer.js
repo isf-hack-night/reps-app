@@ -2,7 +2,7 @@ import {h, Component} from 'preact';
 import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
 import BillFilterTable from 'components/bills/filter/BillFilterTable';
-import TRACKED_BILLS from 'components/bills/TrackedBills';
+import StateStrong from 'api/StateStrong';
 
 class BillFilterContainer extends Component {
   constructor(props) {
@@ -12,53 +12,27 @@ class BillFilterContainer extends Component {
       tags: new Set(),
       currentTag: 'ALL',
     };
-    this.tracked_bills = Object.values(TRACKED_BILLS);
     this.legiscan = new Legiscan();
     this.openstates = new OpenStates();
+    this.statestrong = new StateStrong();
     this.onSelectTag = this.onSelectTag.bind(this);
   }
 
   componentDidMount() {
-    Promise.all(
-      this.tracked_bills.map(bill => this.addOpenStatesToBill(bill))
-    ).then(
-      bills =>
-        Promise.all(
-          this.tracked_bills.map(bill => this.addLegiscanToBill(bill))
-        )
+    this.statestrong.fetchAllBills().then(
+      bills => this.extractTags(bills)
     ).then(
       bills => this.setState({bills})
     );
   }
 
-  addOpenStatesToBill(bill) {
-    return this.openstates.fetchBill(
-      bill.bill_name
-    ).then(
-      openstates => {
-        openstates['+tags'].forEach(
-          tag => this.setState({tags: this.state.tags.add(tag)})
-          //todo generate colors for tags
-        );
-        return openstates;
-      }
-    ).then(
-       openstates => {
-         bill.open_states = openstates;
-         return bill;
-       }
+  extractTags(bills) {
+    bills.map(
+      bill => bill.open_states['+tags'].forEach(
+        tag => this.setState({tags: this.state.tags.add(tag)})
+      )
     );
-  }
-
-  addLegiscanToBill(bill) {
-    return this.legiscan.fetchBillByName(
-      bill.bill_name
-    ).then(
-       legiscan => {
-         bill.legiscan = legiscan;
-         return bill
-       }
-    );
+    return bills;
   }
 
   onSelectTag(evt) {

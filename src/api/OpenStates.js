@@ -36,11 +36,10 @@ class OpenStates {
       page: page,
       per_page: 100 
     };
-    console.log("SEARCHING INT")
+    console.log("SEARCHING INT");
     const request = new JSONRequest(this.getPathUrl('bills'), billSearchParams);
     return request.send();
   }
-
 
   fetchBill(bill_id) {
     const bill_fetch_params = {
@@ -49,7 +48,15 @@ class OpenStates {
     const bill_detail_path = `bills/${this.state}/${this.session}/${bill_id}`;
     const request = new JSONRequest(this.getPathUrl(bill_detail_path), bill_fetch_params);
     return request.send();
+  }
 
+  fetchDistrictBoundary(boundary_id) {
+    const districtBoundaryParams = {
+      apikey: this.api_key,
+    };
+    const boundary_path = `districts/boundary/${boundary_id}`;
+    const request = new JSONRequest(this.getPathUrl(boundary_path), districtBoundaryParams);
+    return request.send();
   }
 }
 
