@@ -1,3 +1,4 @@
+
 const TRACKED_BILLS = {
   'SB 562': {
     bill_name: 'SB 562',
@@ -17,7 +18,7 @@ const TRACKED_BILLS = {
     support: true,
     flow: 7,
   },
-  'AB 699': { 
+  'AB 699': {
     bill_name: 'AB 699',
     summary: 'Protects against ICE in schools',
     support: true,
@@ -37,5 +38,19 @@ const TRACKED_BILLS = {
   },
 };
 
+class BillTracker {
+  constructor() {
+    // Store everything in memory for now
+    this.tracked_bills = TRACKED_BILLS;
+  }
 
-export default TRACKED_BILLS;
+  fetchTrackedBills() {
+    return Promise.resolve(Object.keys(this.tracked_bills));
+  }
+
+  fetchBill(bill_name) {
+    return Promise.resolve(this.tracked_bills[bill_name]);
+  }
+}
+
+export default BillTracker;
