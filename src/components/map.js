@@ -141,7 +141,7 @@ class JustMap extends Component {
     }
 
     const polygon = L.polygon(shape, { color: districtColor });
-    if( district.chamber == 'upper')
+    if( district.chamber === 'upper')
       this.state.upperDistricts.addLayer( polygon );
     else 
       this.state.lowerDistricts.addLayer( polygon )

@@ -102,7 +102,7 @@ District.prototype.getBoundary = function() {
 
 District.prototype.surroundsPointApprox = function(lat, lon) {
 	const boundary = this.getBoundary();
-	if (boundary == null) return false;
+	if (boundary === null) return false;
 	const bbox = boundary.bbox;
 	return lat >= bbox[0][0] && lon >= bbox[0][1] && lat <= bbox[1][0] && lon <= bbox[1][1];
 };
@@ -114,7 +114,7 @@ function pointInPolygon(points, lat, lon) {
 	let i = 0, j = points.length - 1;
 	let c = false;
 	for (; i < points.length; j = i++) {
-		if (((points[i][1] > lat) != (points[j][1] > lat)) &&
+		if (((points[i][1] > lat) !== (points[j][1] > lat)) &&
         (lon < (points[j][0] - points[i][0]) * (lat - points[i][1]) / (points[j][1] - points[i][1]) + points[i][0]) ) {
 			c = !c;
 		}
@@ -124,12 +124,12 @@ function pointInPolygon(points, lat, lon) {
 
 District.prototype.surroundsPointExact = function(lat, lon) {
 	const boundary = this.getBoundary();
-	if (boundary == null) return false;
+	if (boundary === null) return false;
 	let donut = [];
 	for (let shape in boundary.shape) {
 		donut = boundary.shape[shape];
 		if (pointInPolygon(donut[0], lat, lon)) {
-			if (donut.length == 2) {
+			if (donut.length === 2) {
 				return !pointInPolygon(donut[1], lat, lon);
 			}
 			return true;
@@ -173,9 +173,9 @@ function DistrictList(json, state, open_states) {
 		this.districts[district.id] = district;
 		this.district_ids.push(district.id);
 		const district_num = parseInt(district.name);
-		if (district.chamber == 'upper') {
+		if (district.chamber === 'upper') {
 			this.upper_districts[district_num - 1] = district;
-		} else if (district.chamber == 'lower') {
+		} else if (district.chamber === 'lower') {
 			this.lower_districts[district_num - 1] = district;
 		}
 	}
@@ -210,9 +210,9 @@ DistrictList.prototype.findExactDistrictsInList = function (possibleDistricts, l
 	let lower = null;
 	for (let d in possibleDistricts) {
 		district = possibleDistricts[d];
-		if (!lower && district.chamber == 'lower' && district.surroundsPointExact(lat, lon)) {
+		if (!lower && district.chamber === 'lower' && district.surroundsPointExact(lat, lon)) {
 			lower = district;
-		} else if (!upper && district.chamber == 'upper' && district.surroundsPointExact(lat, lon)) {
+		} else if (!upper && district.chamber === 'upper' && district.surroundsPointExact(lat, lon)) {
 			upper = district;
 		}
 	}
