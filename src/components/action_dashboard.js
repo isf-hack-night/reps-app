@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import RepsCard from './reps_card';
 import ActionsDisplay from './actions_display';
 

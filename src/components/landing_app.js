@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import Map from './map';
 import ActionPage from './action_page';
 import CTABanner from './cta_banner';

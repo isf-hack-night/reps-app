@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import amplify from '../amplify';
 import ActionDashboard from './action_dashboard';
 import {TEST_CUSTOM_ACTION} from '../local_constants';

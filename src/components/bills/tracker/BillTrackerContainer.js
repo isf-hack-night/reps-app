@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
 import BillTrackerCard from 'components/bills/tracker/BillTrackerCard';
@@ -20,7 +20,7 @@ class BillTrackerContainer extends Component {
   fetchBills() {
     Promise.all(
       this.props.bills.map(
-
+        bill_id => this.openstates.fetchBill(bill_id))
     ).then(
       bills =>
         Promise.all(bills.map(bill => this.addCalendarToBill(bill)))

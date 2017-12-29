@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
 import BillFilterTable from 'components/bills/filter/BillFilterTable';

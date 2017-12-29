@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import {withRouter} from 'react-router-dom';
 import API_KEYS from '../KEYS';
 import queryAPI from '../query_api';
@@ -152,7 +152,7 @@ class JustMap extends Component {
 
     // aka init map
     L.mapbox.accessToken = API_KEYS.mapbox;
-    let map = null;
+    let map;
     if (L.mapbox.HACK_MAP) {
       L.mapbox.HACK_MAP.remove()
     }

@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import BillTrackerTitle from 'components/bills/tracker/BillTrackerTitle';
 import BillTrackerActions from 'components/bills/tracker/BillTrackerActions';
 import BillActionSummary from 'components/bills/tracker/BillActionSummary';

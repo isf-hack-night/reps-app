@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import BillFlowChart from 'components/bills/BillFlowChart';
 
 class BillDetailFlow extends Component {

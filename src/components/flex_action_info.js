@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import PhoneLink from './phone_link';
 import BackToActionsButton from './back_actions_button';
 import {Card, CardHeader, CardText} from 'material-ui/Card';

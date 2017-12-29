@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import BillFilterNameColumn from 'components/bills/filter/columns/BillFilterNameColumn';
 import BillFilterDescriptionColumn from 'components/bills/filter/columns/BillFilterDescriptionColumn';
 import BillFilterActionLinkColumn from 'components/bills/filter/columns/BillFilterActionLinkColumn';

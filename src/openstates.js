@@ -125,7 +125,7 @@ function pointInPolygon(points, lat, lon) {
 District.prototype.surroundsPointExact = function(lat, lon) {
 	const boundary = this.getBoundary();
 	if (boundary === null) return false;
-	let donut = [];
+	let donut;
 	for (let shape in boundary.shape) {
 		donut = boundary.shape[shape];
 		if (pointInPolygon(donut[0], lat, lon)) {
@@ -194,7 +194,7 @@ DistrictList.prototype.getUpperDistrict = function (i) {
 
 DistrictList.prototype.findNearbyDistricts = function (lat, lon) {
     const nearby = [];
-		let district = null;
+		let district;
   	for (let d in this.districts) {
     district = this.districts[d];
 		if (district.surroundsPointApprox(lat, lon)) {

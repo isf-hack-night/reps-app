@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import {CardText} from 'material-ui/Card';
 import DataTables from 'material-ui-datatables';
 import BillDetailSidebar from 'components/bills/detail/BillDetailSidebar';

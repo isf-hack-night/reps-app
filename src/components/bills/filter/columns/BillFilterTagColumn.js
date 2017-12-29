@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import Chip from 'material-ui/Chip';
 import {
   blue500,

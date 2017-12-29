@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import utils from '../utils';
 
 class PhoneLink extends Component {

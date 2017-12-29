@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import {
   ACTIONS_DISPLAY_INCREMENT,
   ACTIONS_DISPLAY_LIMIT
