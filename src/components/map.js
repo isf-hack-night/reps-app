@@ -19,7 +19,7 @@ class JustMap extends Component {
   constructor (props) {
     super(props)
 
-    this.stateDistricts = props.stateDistricts.stateDistricts
+    this.stateDistricts = props.stateDistricts
     //todo local lat lng 
     this.state = { mounted: false }
 
@@ -66,7 +66,6 @@ class JustMap extends Component {
   positionFromDistrict(districtUpper, districtLower) {
     
     this.state.markers.clearLayers()
-
     if (districtUpper || districtLower) {
 
       const districtData = this.stateDistricts.findDistrictsFromIDs( districtUpper, districtLower)

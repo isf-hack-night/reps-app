@@ -11,7 +11,7 @@ class Autocomplete extends Component {
     this.state = {
       uuid: utils.generateUUID()
     }
-    this.stateDistricts = props.stateDistricts.stateDistricts
+    this.stateDistricts = props.stateDistricts
 
     this.getPlace = this.getPlace.bind(this)
     this.geolocate = this.geolocate.bind(this)
