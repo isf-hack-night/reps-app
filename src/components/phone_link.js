@@ -3,13 +3,13 @@ import utils from '../utils';
 
 class PhoneLink extends Component {
   render () {
-    const teleNum = utils.parseTeleNum(this.props.num)
+    const teleNum = utils.parseTeleNum(this.props.num);
 
 
     if (!teleNum) { return }
     //const action = utils.isOnMobile() ?  'tel:${teleNum}' : 'callto:${teleNum}' 
 
-    const action =  'tel:'.concat(teleNum)
+    const action =  'tel:'.concat(teleNum);
    // console.log(action) 
 
 

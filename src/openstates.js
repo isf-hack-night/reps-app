@@ -11,35 +11,35 @@ function LocalOpenStates() {
 
 LocalOpenStates.prototype.makeUrl = function(method) {
 	return this.openStatesURL + '/' + method + '.json';
-}
+};
 
 LocalOpenStates.prototype.callApi = function (url) {
 	var xhr = new XMLHttpRequest;
 	xhr.open('GET', url, false);
 	xhr.send();
 	return JSON.parse(xhr.responseText);
-}
+};
 
 LocalOpenStates.prototype.getDistricts = function (state, chamber) {
 	var method = chamber || 'all_districts';
 	return this.callApi(this.makeUrl(method));
-}
+};
 
 LocalOpenStates.prototype.getDistrictsByParams = function (US_STATE, params) {
 	if (!params) {
 		return this.getDistricts(US_STATE)
 	}
 
-	var { districtLower, districtUpper } = params
-	var lowerDistrictData = districtLower ? [this.getDistricts(US_STATE, districtLower)] : []
-	var upperDistrictData = districtUpper ? [this.getDistricts(US_STATE, districtUpper)] : []
+	var { districtLower, districtUpper } = params;
+	var lowerDistrictData = districtLower ? [this.getDistricts(US_STATE, districtLower)] : [];
+	var upperDistrictData = districtUpper ? [this.getDistricts(US_STATE, districtUpper)] : [];
 	return lowerDistrictData.concat(upperDistrictData)
-}
+};
 
 LocalOpenStates.prototype.getDistrictBoundary = function (boundary_id) {
 	var method = boundary_id;
 	return this.callApi(this.makeUrl(method));
-}
+};
 
 function OpenStates(api_key) {
 	this.openStatesURL = OPEN_STATES_URL_BASE;
@@ -49,14 +49,14 @@ function OpenStates(api_key) {
 
 OpenStates.prototype.makeUrl = function(method) {
 	return this.openStatesURL + '/' + method + '/';
-}
+};
 
 OpenStates.prototype.callApi = function (url) {
 	var xhr = new XMLHttpRequest;
 	xhr.open('GET', url, false);
 	xhr.send();
 	return JSON.parse(xhr.responseText);
-}
+};
 
 OpenStates.prototype.getDistricts = function (state, chamber) {
 	var method = 'districts/' + state;
@@ -64,12 +64,12 @@ OpenStates.prototype.getDistricts = function (state, chamber) {
 		method += '/' + chamber;
 	}
 	return this.callApi(this.makeUrl(method));
-}
+};
 
 OpenStates.prototype.getDistrictBoundary = function (boundary_id) {
 	var method = 'districts/boundary/' + boundary_id;
 	return this.callApi(this.makeUrl(method));
-}
+};
 
 function District(json, open_states) {
 	this.abbr = json.abbr;
@@ -99,14 +99,14 @@ District.prototype.getBoundary = function() {
 		}
 	}
 	return this.boundary;
-}
+};
 
 District.prototype.surroundsPointApprox = function(lat, lon) {
 	var boundary = this.getBoundary();
 	if (boundary == null) return false;
 	var bbox = boundary.bbox;
 	return lat >= bbox[0][0] && lon >= bbox[0][1] && lat <= bbox[1][0] && lon <= bbox[1][1];
-}
+};
 
 // Ray-casting algorithm ported from C from 
 // https://wrf.ecse.rpi.edu//Research/Short_Notes/pnpoly.html
@@ -137,7 +137,7 @@ District.prototype.surroundsPointExact = function(lat, lon) {
 		}
 	}
 	return false;
-}
+};
 
 function DistrictPopulator (districtList) {
 	this.districtList = districtList;
@@ -156,7 +156,7 @@ DistrictPopulator.prototype.populate = function (cb) {
 	} else {
 		cb();
 	}
-}
+};
 
 function DistrictList(json, state, open_states) {
 	var district;
@@ -184,24 +184,24 @@ function DistrictList(json, state, open_states) {
 
 DistrictList.prototype.getLowerDistrict = function (i) {
 	return this.lower_districts[i - 1].getBoundary();
-}
+};
 
 DistrictList.prototype.getUpperDistrict = function (i) {
 
 	return this.upper_districts[i - 1].getBoundary();
-}
+};
 
 DistrictList.prototype.findNearbyDistricts = function (lat, lon) {
-    var nearby = []
-		var district = null
+    var nearby = [];
+		var district = null;
   	for (var d in this.districts) {
-    district = this.districts[d]
+    district = this.districts[d];
 		if (district.surroundsPointApprox(lat, lon)) {
 			nearby.push(district)
 		}
 	}
 	return nearby;
-}
+};
 
 DistrictList.prototype.findExactDistrictsInList = function (possibleDistricts, lat, lon) {
 	var district;
@@ -216,18 +216,18 @@ DistrictList.prototype.findExactDistrictsInList = function (possibleDistricts, l
 		}
 	}
 	return {upper: upper, lower: lower};
-}
+};
 
 DistrictList.prototype.findDistrictsForPoint = function(lat, lon) {
 	return this.findExactDistrictsInList(this.findNearbyDistricts(lat, lon), lat, lon);
-}
+};
 
 DistrictList.prototype.findDistrictsFromIDs = function(upperID, lowerID) {
 
 	return { upper: this.getUpperDistrict( upperID.split('-')[2] ), 
              lower: this.getLowerDistrict( lowerID.split('-')[2])
             };
-}
+};
 
 
               
@@ -237,15 +237,15 @@ DistrictList.prototype.preloadDistricts = function (cb) {
 		this.populated = true;
 		this.populator.populate(cb);
 	}
-}
+};
 
 DistrictList.prototype.createDistrictId = function (state, chamber, number) {
 	return state + '-' + chamber + '-' + number;
-}
+};
 
 DistrictList.prototype.getDistrict = function (chamber, number) {
 	return this.districts[this.createDistrictId(this.state, this.chamber, this.number)];
-}
+};
 
 const OpenStatesAPI = {
   LocalOpenStates,
@@ -253,6 +253,6 @@ const OpenStatesAPI = {
   District,
   DistrictPopulator,
   DistrictList
-}
+};
 
 export default OpenStatesAPI

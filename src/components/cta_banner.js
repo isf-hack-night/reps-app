@@ -2,7 +2,7 @@ import {Component} from 'preact';
 
 class CTABanner extends Component {
   render() {
-    const display = this.props.isVisible ? 'block' : 'none'
+    const display = this.props.isVisible ? 'block' : 'none';
 
     return (
       <div className="CTABanner" styles={`display: ${display};`}>

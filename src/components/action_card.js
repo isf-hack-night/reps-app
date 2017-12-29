@@ -7,24 +7,24 @@ import {ListItem} from 'material-ui/List';
 
 class ActionDetails extends Component {
   constructor (props) {
-    super(props)
+    super(props);
 
     this.goToActionPage = this.goToActionPage.bind(this)
   }
 
   goToActionPage () {
-    const { districtLower, districtUpper } = queryAPI.parse()
+    const { districtLower, districtUpper } = queryAPI.parse();
     const newRoute = queryAPI.build({
       districtLower,
       districtUpper,
       actionId: this.props.action.id
-    })
+    });
     this.props.history.push(newRoute)
   }
 
   render () {
-    const action = this.props.action
-    const icon = action.type === 'call' ? 'State Assemblymember' : 'State Senator'
+    const action = this.props.action;
+    const icon = action.type === 'call' ? 'State Assemblymember' : 'State Senator';
     return (
       <ListItem 
         onClick={this.goToActionPage}
@@ -38,6 +38,6 @@ class ActionDetails extends Component {
 
 const ActionCard = withRouter(({history, action}) => (
   <ActionDetails history={history} action={action} />
-))
+));
 
 export default ActionCard

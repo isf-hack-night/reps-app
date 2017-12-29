@@ -5,8 +5,8 @@ function isOnMobile () {
 }
 
 function parseTeleNum (numStr) {
-  const digits = numStr.match(/\d+/g)
-  const properNum = digits && Array.isArray(digits) && digits.length && digits.join('')
+  const digits = numStr.match(/\d+/g);
+  const properNum = digits && Array.isArray(digits) && digits.length && digits.join('');
   return properNum
 }
 
@@ -21,6 +21,6 @@ const utils = {
   isOnMobile,
   parseTeleNum,
   generateUUID
-}
+};
 
 export default utils

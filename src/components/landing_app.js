@@ -31,13 +31,13 @@ class LandingApp extends Component {
       return <div>Loading</div>;
     }
     console.log(this.state.stateDistricts);
-    const paramsData = queryAPI.parse()
-    const locationData = undefined
+    const paramsData = queryAPI.parse();
+    const locationData = undefined;
    
-    let display_head
-    let display_right
-    const shouldDisplayAction = paramsData && paramsData.actionId
-    const shouldDisplayRepsAndActions = paramsData
+    let display_head;
+    let display_right;
+    const shouldDisplayAction = paramsData && paramsData.actionId;
+    const shouldDisplayRepsAndActions = paramsData;
     if (shouldDisplayAction) {
       // TODO: add action display page
       display_right = (
@@ -59,7 +59,7 @@ class LandingApp extends Component {
         <div className="DisplayHead">
           <CTABanner />
         </div>
-      )
+      );
       display_right = (
         <div className="DisplayRight">
           <div className="Tagline_text">Hold your State Representatives accountable!</div>

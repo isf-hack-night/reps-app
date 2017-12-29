@@ -5,17 +5,17 @@ import FlatButton from 'material-ui/FlatButton';
 
 class JustBTAButton extends Component {
   constructor (props) {
-    super(props)
+    super(props);
 
     this.goToActionsList = this.goToActionsList.bind(this)
   }
 
   goToActionsList () {
-    const { districtLower, districtUpper } = queryAPI.parse()
+    const { districtLower, districtUpper } = queryAPI.parse();
     const newRoute = queryAPI.build({
       districtLower,
       districtUpper,
-    })
+    });
     this.props.history.push(newRoute)
   }
 
@@ -29,6 +29,6 @@ class JustBTAButton extends Component {
 
 const BackToActionsButton = withRouter(({history, action}) => (
   <JustBTAButton history={history} action={action} />
-))
+));
 
 export default BackToActionsButton

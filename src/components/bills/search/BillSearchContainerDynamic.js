@@ -62,7 +62,7 @@ class BillSearchContainerDynamic extends Component {
 
   onInit() { 
     //TODO only get 100 per page
-    var start_page = 1
+    var start_page = 1;
 
     this.openstates.getAllBillsCurrentTerm(start_page).then(
       bills =>
@@ -150,7 +150,7 @@ handleSortOrderChange(key, order) {
 
   render(props, state, context) {
 
-    console.log(state.bills)
+    console.log(state.bills);
 
     return (
       <div>
