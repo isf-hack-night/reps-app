@@ -5,6 +5,5 @@ services:
     command: npm run watch
     volumes:
       - .:/usr/app/
-      - /usr/app/node_modules
     ports:
       - "9000:9000"
