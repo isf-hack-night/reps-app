@@ -37,8 +37,7 @@ LocalOpenStates.prototype.getDistrictsByParams = function (US_STATE, params) {
 };
 
 LocalOpenStates.prototype.getDistrictBoundary = function (boundary_id) {
-	var method = boundary_id;
-	return this.callApi(this.makeUrl(method));
+	return this.callApi(this.makeUrl(boundary_id));
 };
 
 function OpenStates(api_key) {

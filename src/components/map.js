@@ -137,8 +137,7 @@ class JustMap extends Component {
     const districtColor = district.chamber === 'upper' ? COLORS.DISTRICT.UPPER : COLORS.DISTRICT.LOWER;
 
     for (let i = 0; i < shape.length; i++) { 
-      const boundary = shape[i][0].slice(1).map(x => [x[1], x[0]] );  //assumes no donuts
-      shape[i] = boundary
+       shape[i] = shape[i][0].slice(1).map(x => [x[1], x[0]] );  //assumes no donuts
     }
 
     const polygon = L.polygon(shape, { color: districtColor });

@@ -37,7 +37,6 @@ class LandingApp extends Component {
     let display_head;
     let display_right;
     const shouldDisplayAction = paramsData && paramsData.actionId;
-    const shouldDisplayRepsAndActions = paramsData;
     if (shouldDisplayAction) {
       // TODO: add action display page
       display_right = (
@@ -45,7 +44,7 @@ class LandingApp extends Component {
           <ActionPage {...paramsData} />
         </div>
       )
-    } else if (shouldDisplayRepsAndActions) {
+    } else if (paramsData) {
       display_right = (
         <div className="DisplayRight">
           <RepsWrapper {...paramsData} />

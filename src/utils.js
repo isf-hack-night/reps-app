@@ -6,8 +6,7 @@ function isOnMobile () {
 
 function parseTeleNum (numStr) {
   const digits = numStr.match(/\d+/g);
-  const properNum = digits && Array.isArray(digits) && digits.length && digits.join('');
-  return properNum
+  return digits && Array.isArray(digits) && digits.length && digits.join('');
 }
 
 function generateUUID () {
