@@ -1,7 +1,7 @@
 import React from 'react';
 import utils from '../utils';
 
-class PhoneLink extends Component {
+class PhoneLink extends React.Component {
   render () {
     const teleNum = utils.parseTeleNum(this.props.num);
 

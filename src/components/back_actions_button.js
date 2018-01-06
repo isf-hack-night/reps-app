@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 import queryAPI from '../query_api';
 import FlatButton from 'material-ui/FlatButton';
 
-class JustBTAButton extends Component {
+class JustBTAButton extends React.Component {
   constructor (props) {
     super(props);
 

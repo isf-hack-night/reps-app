@@ -8,7 +8,7 @@ import ActionCard from './action_card';
 import {List} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 
-class ActionsDisplay extends Component {
+class ActionsDisplay extends React.Component {
   constructor (props) {
     super(props);
 

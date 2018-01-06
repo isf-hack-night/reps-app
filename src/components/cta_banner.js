@@ -1,6 +1,6 @@
 import React from 'react';
 
-class CTABanner extends Component {
+class CTABanner extends React.Component {
   render() {
     const display = this.props.isVisible ? 'block' : 'none';
 

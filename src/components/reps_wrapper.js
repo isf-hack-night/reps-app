@@ -4,7 +4,7 @@ import ActionDashboard from './action_dashboard';
 import {TEST_CUSTOM_ACTION} from '../local_constants';
 
 
-class RepsWrapper extends Component {
+class RepsWrapper extends React.Component {
   constructor (props) {
     super(props);
 

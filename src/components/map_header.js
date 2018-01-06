@@ -2,7 +2,7 @@ import React from 'react';
 import AutocompleteContainer from './autocomplete';
 import {DATA_FINE_PRINT} from '../local_constants';
 
-class MapHeader extends Component {
+class MapHeader extends React.Component {
   render () {
     return (
       <div className="MapHeader">

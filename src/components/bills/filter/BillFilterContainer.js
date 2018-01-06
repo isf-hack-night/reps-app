@@ -4,7 +4,7 @@ import OpenStates from 'api/OpenStates';
 import BillFilterTable from 'components/bills/filter/BillFilterTable';
 import StateStrong from 'api/StateStrong';
 
-class BillFilterContainer extends Component {
+class BillFilterContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

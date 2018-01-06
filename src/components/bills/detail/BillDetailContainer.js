@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import StateStrong from 'api/StateStrong';
 
 
-class BillDetailContainer extends Component {
+class BillDetailContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

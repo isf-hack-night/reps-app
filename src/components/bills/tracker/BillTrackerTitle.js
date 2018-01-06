@@ -1,6 +1,6 @@
 import React from 'react';
 
-class BillTrackerTitle extends Component {
+class BillTrackerTitle extends React.Component {
   getLink(bill) {
     // Get the latest version
     return bill.versions[bill.versions.length-1].url;

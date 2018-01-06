@@ -42,7 +42,7 @@ const styles = {
 ];
 
 
-class BillSearchContainerDynamic extends Component {
+class BillSearchContainerDynamic extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

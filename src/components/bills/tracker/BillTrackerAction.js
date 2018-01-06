@@ -1,6 +1,6 @@
 import React from 'react';
 
-class BillTrackerAction extends Component {
+class BillTrackerAction extends React.Component {
   render(props, state, context) {
     return (
       <div>

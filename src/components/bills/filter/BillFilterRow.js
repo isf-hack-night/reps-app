@@ -1,6 +1,6 @@
 import React from 'react';
 
-class BillSearchRow extends Component {
+class BillSearchRow extends React.Component {
   constructor(props) {
     super(props);
   }

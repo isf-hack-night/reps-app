@@ -2,7 +2,7 @@ import React from 'react';
 import DataTables from 'material-ui-datatables';
 import Chip from 'material-ui/Chip';
 
-class BillDetailSidebar extends Component {
+class BillDetailSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.styles = {

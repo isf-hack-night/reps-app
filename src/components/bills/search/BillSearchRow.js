@@ -1,6 +1,6 @@
 import React from 'react';
 
-class BillSearchRow extends Component {
+class BillSearchRow extends React.Component {
   render(props) {
     const cells = props.columns.map((column) => <td>{props.bill[column]}</td>);
     return <tr>{cells}</tr>;

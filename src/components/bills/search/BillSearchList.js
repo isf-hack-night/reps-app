@@ -2,7 +2,7 @@ import React from 'react';
 import BillSearchHeader from 'components/bills/search/BillSearchHeader';
 import BillSearchRow from 'components/bills/search/BillSearchRow';
 
-class BillSearchList extends Component {
+class BillSearchList extends React.Component {
   constructor(props) {
     super(props);
     this.columns = ['bill_id', 'title', 'calendar'];

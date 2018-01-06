@@ -4,7 +4,7 @@ import {COLORS, REP_PIC_PATH} from '../local_constants';
 import PhoneLink from './phone_link';
 
 
-class RepsCardBase extends Component {
+class RepsCardBase extends React.Component {
   render () {
 
     if(!this.props.rep) { return }

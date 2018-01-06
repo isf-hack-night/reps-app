@@ -1,7 +1,7 @@
 import React from 'react';
 import BillFlowChart from 'components/bills/BillFlowChart';
 
-class BillDetailFlow extends Component {
+class BillDetailFlow extends React.Component {
   currentStatus() {
     // TODO: Use this.props.bill to determine current status
     return this.props.bill.flow;

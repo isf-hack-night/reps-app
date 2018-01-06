@@ -6,7 +6,7 @@ import FlexActionInfo from './flex_action_info';
 import {TEST_CUSTOM_ACTION} from '../local_constants';
 
 
-class ActionPage extends Component {
+class ActionPage extends React.Component {
   constructor (props) {
     super(props);
 

@@ -3,7 +3,7 @@ import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
 import BillTrackerCard from 'components/bills/tracker/BillTrackerCard';
 
-class BillTrackerContainer extends Component {
+class BillTrackerContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

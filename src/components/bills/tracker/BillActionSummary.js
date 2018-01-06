@@ -1,6 +1,6 @@
 import React from 'react';
 
-class BillActionSummary extends Component {
+class BillActionSummary extends React.Component {
   render(props, state, context) {
     return (
       <div>

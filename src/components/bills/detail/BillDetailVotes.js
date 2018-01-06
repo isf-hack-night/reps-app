@@ -1,6 +1,6 @@
 import React from 'react';
 
-class BillDetailVote extends Component {
+class BillDetailVote extends React.Component {
 
   render(props) {
     return (

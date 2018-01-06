@@ -1,6 +1,6 @@
 import React from 'react';
 
-class MapWrapper extends Component {
+class MapWrapper extends React.Component {
   render () {
     const children = this.props.children.map((child) => {
       const isHeader = child.nodeName.name === 'MapHeader';

@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 import utils from '../utils';
 import queryAPI from '../query_api';
 
-class Autocomplete extends Component {
+class Autocomplete extends React.Component {
   constructor (props) {
     super(props);
 

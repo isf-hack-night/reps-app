@@ -4,7 +4,7 @@ import BillSearchBox from 'components/bills/search/BillSearchBox';
 import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
 
-class BillSearchContainer extends Component {
+class BillSearchContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

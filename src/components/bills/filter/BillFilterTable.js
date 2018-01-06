@@ -8,7 +8,7 @@ import BillFilterPositionColumn from 'components/bills/filter/columns/BillFilter
 
 import BillFilterRow from 'components/bills/filter/BillFilterRow';
 
-class BillFilterTable extends Component {
+class BillFilterTable extends React.Component {
   constructor(props) {
     super(props);
     this.columns = [

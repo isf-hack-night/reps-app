@@ -3,7 +3,7 @@ import PhoneLink from './phone_link';
 import BackToActionsButton from './back_actions_button';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 
-class CallActionInfo extends Component {
+class CallActionInfo extends React.Component {
 
   render () {
     const {

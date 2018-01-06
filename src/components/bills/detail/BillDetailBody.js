@@ -3,7 +3,7 @@ import {CardText} from 'material-ui/Card';
 import DataTables from 'material-ui-datatables';
 import BillDetailSidebar from 'components/bills/detail/BillDetailSidebar';
 
-class BillDetailBody extends Component {
+class BillDetailBody extends React.Component {
   votes() {
     const votes = this.props.bill.open_states.votes;
     return (

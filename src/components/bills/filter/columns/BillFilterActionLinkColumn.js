@@ -1,6 +1,6 @@
 import React from 'react';
 
-class BillFilterActionLinkColumn extends Component {
+class BillFilterActionLinkColumn extends React.Component {
   render(props) {
     return (
       <td>

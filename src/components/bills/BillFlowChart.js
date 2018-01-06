@@ -2,7 +2,7 @@ import React from 'react';
 import {Step, StepLabel, Stepper} from 'material-ui/Stepper';
 
 
-class BillFlowChart extends Component {
+class BillFlowChart extends React.Component {
   render(props) {
     return (
       <div>

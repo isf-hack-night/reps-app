@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-class BillFilterNameColumn extends Component {
+class BillFilterNameColumn extends React.Component {
   render(props) {
     const bill_path = `/bills/${props.bill.bill_name}`;
     return (

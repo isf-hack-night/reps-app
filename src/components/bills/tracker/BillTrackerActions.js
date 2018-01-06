@@ -1,7 +1,7 @@
 import React from 'react';
 import BillTrackerAction from 'components/bills/tracker/BillTrackerAction';
 
-class BillTrackerActions extends Component {
+class BillTrackerActions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

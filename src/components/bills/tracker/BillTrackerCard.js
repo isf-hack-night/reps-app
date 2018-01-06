@@ -3,7 +3,7 @@ import BillTrackerTitle from 'components/bills/tracker/BillTrackerTitle';
 import BillTrackerActions from 'components/bills/tracker/BillTrackerActions';
 import BillActionSummary from 'components/bills/tracker/BillActionSummary';
 
-class BillTrackerCard extends Component {
+class BillTrackerCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

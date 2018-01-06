@@ -16,7 +16,7 @@ const style = {
   margin:'4px',
 };
 
-class BillFilterTagColumn extends Component {
+class BillFilterTagColumn extends React.Component {
   render(props) {
   	const tagsList =  props.bill.open_states['+tags'].map(tag => <Chip style={style} >{tag}</Chip>);
     return <td>

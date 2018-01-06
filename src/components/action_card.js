@@ -5,7 +5,7 @@ import FontIcon from 'material-ui/FontIcon';
 import {ListItem} from 'material-ui/List';
 
 
-class ActionDetails extends Component {
+class ActionDetails extends React.Component {
   constructor (props) {
     super(props);
 

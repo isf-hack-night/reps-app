@@ -10,7 +10,7 @@ import {DATA_FINE_PRINT} from '../local_constants';
 import OpenStatesAPI from '../openstates';
 import AutocompleteContainer from './autocomplete';
 
-class LandingApp extends Component {
+class LandingApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

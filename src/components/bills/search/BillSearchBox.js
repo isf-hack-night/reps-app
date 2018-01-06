@@ -1,6 +1,6 @@
 import React from 'react';
 
-class BillSearchBox extends Component {
+class BillSearchBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
