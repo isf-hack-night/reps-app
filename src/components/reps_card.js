@@ -1,23 +1,23 @@
-import { h, Component } from 'preact'
-import { withRouter } from 'react-router-dom'
-import { REPS_PATH, REP_PIC_PATH , COLORS } from '../local_constants'
-import PhoneLink from './phone_link'
+import {h, Component} from 'preact';
+import {withRouter} from 'react-router-dom';
+import {COLORS, REP_PIC_PATH} from '../local_constants';
+import PhoneLink from './phone_link';
 
 
 class RepsCardBase extends Component {
   render () {
 
     if(!this.props.rep) { return }
-    const rep = this.props.rep.person
+    const rep = this.props.rep.person;
     if (!rep) { return }
 
-    const houseTitle = rep.chamber === 'H' ? 'State Assemblymember' : 'State Senator'
-    const houseColor = rep.chamber === 'H' ?  COLORS.DISTRICT.LOWER : COLORS.DISTRICT.UPPER
-    const partyColor = rep.partyCode === 'D' ? COLORS.TEXT.BLUE : COLORS.TEXT.RED
+    const houseTitle = rep.chamber === 'H' ? 'State Assemblymember' : 'State Senator';
+    const houseColor = rep.chamber === 'H' ?  COLORS.DISTRICT.LOWER : COLORS.DISTRICT.UPPER;
+    const partyColor = rep.partyCode === 'D' ? COLORS.TEXT.BLUE : COLORS.TEXT.RED;
 
-    const pixPath = REP_PIC_PATH + rep.photo
+    const pixPath = REP_PIC_PATH + rep.photo;
 
-    const repClass = rep.chamber === 'H'? "RepsCard RepCardLower" : "RepsCard RepCardUpper"
+    const repClass = rep.chamber === 'H'? "RepsCard RepCardLower" : "RepsCard RepCardUpper";
 
     if(rep.twitter) {
       return (
@@ -84,6 +84,6 @@ const RepsCard = withRouter(({history, rep}) => (
       // history.push(url)
     }}
     />
-))
+));
 
 export default RepsCard

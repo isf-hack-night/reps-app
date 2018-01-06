@@ -23,7 +23,7 @@ class BillSearchContainer extends Component {
 //todo - breaks with legiscan if empty
   onInit() { 
     //TODO only get 100 per page
-    var start_page = 1
+    const start_page = 1;
 
     this.openstates.getAllBillsCurrentTerm(start_page).then(
       bills =>
@@ -55,7 +55,7 @@ class BillSearchContainer extends Component {
   }
 
   onSubmit(searchQuery) {
-    console.log( searchQuery)
+    console.log( searchQuery);
     this.openstates.searchBills(searchQuery).then(
       bills =>
         Promise.all(bills.map(bill => this.addCalendarToBill(bill)))

@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   entry: {
@@ -53,4 +53,4 @@ module.exports = {
       'react-dom': 'preact-compat'
     }
   }
-}
+};

@@ -1,13 +1,10 @@
 import {h, Component} from 'preact';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Paper from 'material-ui/Paper';
-import DataTables from 'material-ui-datatables'
-import Chip from 'material-ui/Chip'; 
+import DataTables from 'material-ui-datatables';
+import Chip from 'material-ui/Chip';
 
 class BillDetailSidebar extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.styles = {
       chip: {
         margin: 4,
@@ -33,7 +30,7 @@ class BillDetailSidebar extends Component {
 
   allEvents() {
     const calendar = this.props.bill.legiscan.calendar;
-    let reversed = calendar.map((entry) => entry).reverse()
+    let reversed = calendar.map((entry) => entry).reverse();
     return (
       <DataTables
           columns={[{key: 'date', label:'Date'}, {key: 'type', label: 'Type'}, {key:'description', label: 'Description'}]}

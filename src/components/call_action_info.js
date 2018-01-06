@@ -1,7 +1,7 @@
-import { h, Component } from 'preact'
-import PhoneLink from './phone_link'
-import BackToActionsButton from './back_actions_button'
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {h, Component} from 'preact';
+import PhoneLink from './phone_link';
+import BackToActionsButton from './back_actions_button';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 
 class CallActionInfo extends Component {
 
@@ -12,17 +12,17 @@ class CallActionInfo extends Component {
       person,
       callScriptMd,
       callBackgroundMd
-    } = this.props
+    } = this.props;
 
-    const displayBackground =  callBackgroundMd ? 'display:block;' : 'display:none;'
+    const displayBackground =  callBackgroundMd ? 'display:block;' : 'display:none;';
 
     const callBackgroundParagraphs = callBackgroundMd ?
         callBackgroundMd.split('\n')
           .filter(para => para.length)
           .map(para => <p>{para}</p>)
-        : ''
+        : '';
 
-    console.log( person.offices[0].phone)
+    console.log( person.offices[0].phone);
 
     return (
       <div className="ActionInfo">

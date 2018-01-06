@@ -41,7 +41,7 @@ class BillFilterContainer extends Component {
   }
 
   filterBills(bills, tag) {
-    if(tag == 'ALL'){
+    if(tag === 'ALL'){
       return bills
     } else {
     return bills.filter(

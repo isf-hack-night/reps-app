@@ -1,34 +1,34 @@
-import { h, Component } from 'preact'
-import queryAPI from '../query_api'
-import amplify from '../amplify'
-import CallActionInfo from './call_action_info'
-import FlexActionInfo from './flex_action_info'
-import {TEST_CUSTOM_ACTION} from '../local_constants'
+import {h, Component} from 'preact';
+import queryAPI from '../query_api';
+import amplify from '../amplify';
+import CallActionInfo from './call_action_info';
+import FlexActionInfo from './flex_action_info';
+import {TEST_CUSTOM_ACTION} from '../local_constants';
 
 
 class ActionPage extends Component {
   constructor (props) {
-    super(props)
+    super(props);
 
     this.state = {
       isLoading: true
-    }
+    };
 
     this.makeAmplifyRequestAndUpdate()
   }
 
   makeAmplifyRequestAndUpdate () {
-    const { districtLower, districtUpper } = this.props
+    const { districtLower, districtUpper } = this.props;
     amplify().get(districtLower, districtUpper)
              .then((response, outcome) => {
                const stateUpdates = {
                  successfulResponse: outcome === 'success',
                  isLoading: false,
                  ampData: response.concreteActions   //[TEST_CUSTOM_ACTION].concat( response.concreteActions) //TEMP
-               }
-               stateUpdates.districtLower = districtLower
-               stateUpdates.districtUpper = districtUpper
-               const newState = Object.assign({}, this.state, stateUpdates)
+               };
+               stateUpdates.districtLower = districtLower;
+               stateUpdates.districtUpper = districtUpper;
+               const newState = Object.assign({}, this.state, stateUpdates);
                this.setState(newState)
              })
   }
@@ -41,7 +41,7 @@ class ActionPage extends Component {
   }
 
   hasNewDistrictProps (prevProps) {
-    const { districtLower, districtUpper } = this.props
+    const { districtLower, districtUpper } = this.props;
     return districtLower !== prevProps.districtLower || districtUpper !== prevProps.districtUpper
   }
 
@@ -53,12 +53,12 @@ class ActionPage extends Component {
 
   render () {
     if (!this.state.isLoading && this.state.successfulResponse) {
-      const { actionId } = queryAPI.parse()
-      const action = this.state.ampData.find((action) => action.id === actionId)
+      const { actionId } = queryAPI.parse();
+      const action = this.state.ampData.find((action) => action.id === actionId);
       if (action) {
             switch (action.type){
               case 'call' :
-                return <CallActionInfo {...action} />
+                return <CallActionInfo {...action} />;
               default :
                 return <FlexActionInfo {...action} />
               }

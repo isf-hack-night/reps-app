@@ -1,22 +1,22 @@
-import { h, Component } from 'preact'
-import amplify from '../amplify'
-import ActionDashboard from './action_dashboard'
-import { TEST_CUSTOM_ACTION} from '../local_constants'
+import {h, Component} from 'preact';
+import amplify from '../amplify';
+import ActionDashboard from './action_dashboard';
+import {TEST_CUSTOM_ACTION} from '../local_constants';
 
 
 class RepsWrapper extends Component {
   constructor (props) {
-    super(props)
+    super(props);
 
     this.state = {
       isLoading: true
-    }
+    };
 
     this.makeAmplifyRequestAndUpdate()
   }
 
   makeAmplifyRequestAndUpdate () {
-    const { districtLower, districtUpper } = this.props
+    const { districtLower, districtUpper } = this.props;
     amplify().get(districtLower, districtUpper)
              .then((response, outcome) => {
                const stateUpdates = {
@@ -24,10 +24,10 @@ class RepsWrapper extends Component {
                  isLoading: false,
                  ampData: response.concreteActions
 
-               }
-               stateUpdates.districtLower = districtLower
-               stateUpdates.districtUpper = districtUpper
-               const newState = Object.assign({}, this.state, stateUpdates)
+               };
+               stateUpdates.districtLower = districtLower;
+               stateUpdates.districtUpper = districtUpper;
+               const newState = Object.assign({}, this.state, stateUpdates);
                this.setState(newState)
              })
   }
@@ -40,7 +40,7 @@ class RepsWrapper extends Component {
   }
 
   hasNewDistrictProps (prevProps) {
-    const { districtLower, districtUpper } = this.props
+    const { districtLower, districtUpper } = this.props;
     return districtLower !== prevProps.districtLower || districtUpper !== prevProps.districtUpper
   }
 
@@ -52,7 +52,7 @@ class RepsWrapper extends Component {
 
   render () {
     if (!this.state.isLoading && this.state.successfulResponse) {
-      const { ampData, districtLower, districtUpper } = this.state
+      const { ampData, districtLower, districtUpper } = this.state;
      // const testAmpData =   [TEST_CUSTOM_ACTION].concat( ampData)   //TEMP
       return <ActionDashboard ampData={ampData} districtLower={districtLower} districtUpper={districtUpper} />      
     } else if (this.state.isLoading) {

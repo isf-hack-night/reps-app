@@ -1,6 +1,4 @@
 import {h, Component} from 'preact';
-import BillSupport from 'components/bills/BillSupport';
-import BillDetailFlow from 'components/bills/detail/BillDetailFlow';
 import {CardHeader} from 'material-ui/Card';
 
 

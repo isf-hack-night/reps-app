@@ -1,10 +1,5 @@
 import {h, Component} from 'preact';
-import {
-  Step,
-  Stepper,
-  StepLabel,
-} from 'material-ui/Stepper';
-
+import {Step, StepLabel, Stepper} from 'material-ui/Stepper';
 
 
 class BillFlowChart extends Component {

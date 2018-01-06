@@ -1,14 +1,14 @@
-import { h, Component } from 'preact'
-import Map from './map'
-import ActionPage from './action_page'
-import CTABanner from './cta_banner'
-import MapWrapper from './map_wrapper'
-import MapHeader from './map_header'
-import RepsWrapper from './reps_wrapper'
-import queryAPI from '../query_api'
-import { US_STATE, DATA_FINE_PRINT } from '../local_constants'
-import OpenStatesAPI from '../openstates'
-import AutocompleteContainer from './autocomplete'
+import {h, Component} from 'preact';
+import Map from './map';
+import ActionPage from './action_page';
+import CTABanner from './cta_banner';
+import MapWrapper from './map_wrapper';
+import MapHeader from './map_header';
+import RepsWrapper from './reps_wrapper';
+import queryAPI from '../query_api';
+import {DATA_FINE_PRINT} from '../local_constants';
+import OpenStatesAPI from '../openstates';
+import AutocompleteContainer from './autocomplete';
 
 class LandingApp extends Component {
   constructor(props) {
@@ -31,13 +31,12 @@ class LandingApp extends Component {
       return <div>Loading</div>;
     }
     console.log(this.state.stateDistricts);
-    const paramsData = queryAPI.parse()
-    const locationData = undefined
+    const paramsData = queryAPI.parse();
+    const locationData = undefined;
    
-    let display_head
-    let display_right
-    const shouldDisplayAction = paramsData && paramsData.actionId
-    const shouldDisplayRepsAndActions = paramsData
+    let display_head;
+    let display_right;
+    const shouldDisplayAction = paramsData && paramsData.actionId;
     if (shouldDisplayAction) {
       // TODO: add action display page
       display_right = (
@@ -45,7 +44,7 @@ class LandingApp extends Component {
           <ActionPage {...paramsData} />
         </div>
       )
-    } else if (shouldDisplayRepsAndActions) {
+    } else if (paramsData) {
       display_right = (
         <div className="DisplayRight">
           <RepsWrapper {...paramsData} />
@@ -59,7 +58,7 @@ class LandingApp extends Component {
         <div className="DisplayHead">
           <CTABanner />
         </div>
-      )
+      );
       display_right = (
         <div className="DisplayRight">
           <div className="Tagline_text">Hold your State Representatives accountable!</div>
