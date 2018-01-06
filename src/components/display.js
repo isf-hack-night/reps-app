@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 // import AutocompleteContainer from './autocomplete'
 
 class Display extends Component {

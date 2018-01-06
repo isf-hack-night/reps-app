@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import {Step, StepLabel, Stepper} from 'material-ui/Stepper';
 
 

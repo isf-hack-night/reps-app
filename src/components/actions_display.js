@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import {
   ACTIONS_DISPLAY_INCREMENT,
   ACTIONS_DISPLAY_LIMIT

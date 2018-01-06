@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 
 class BillActionSummary extends Component {
   render(props, state, context) {

@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import BillSearchList from 'components/bills/search/BillSearchList';
 import BillSearchBox from 'components/bills/search/BillSearchBox';
 import Legiscan from 'api/Legiscan';

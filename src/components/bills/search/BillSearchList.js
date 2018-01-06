@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import BillSearchHeader from 'components/bills/search/BillSearchHeader';
 import BillSearchRow from 'components/bills/search/BillSearchRow';
 

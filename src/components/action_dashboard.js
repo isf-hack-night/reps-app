@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import RepsCard from './reps_card';
 import ActionsDisplay from './actions_display';
 

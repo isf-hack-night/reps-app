@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {COLORS, REP_PIC_PATH} from '../local_constants';
 import PhoneLink from './phone_link';

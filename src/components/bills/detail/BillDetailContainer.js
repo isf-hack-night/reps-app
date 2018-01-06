@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import BillDetailHeader from 'components/bills/detail/BillDetailHeader';
 import BillDetailFlow from 'components/bills/detail/BillDetailFlow';
 import BillDetailBody from 'components/bills/detail/BillDetailBody';

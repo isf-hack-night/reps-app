@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import queryAPI from '../query_api';
 import amplify from '../amplify';
 import CallActionInfo from './call_action_info';

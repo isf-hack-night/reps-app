@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import AutocompleteContainer from './autocomplete';
 import {DATA_FINE_PRINT} from '../local_constants';
 

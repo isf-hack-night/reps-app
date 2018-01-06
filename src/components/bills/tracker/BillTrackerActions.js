@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import BillTrackerAction from 'components/bills/tracker/BillTrackerAction';
 
 class BillTrackerActions extends Component {

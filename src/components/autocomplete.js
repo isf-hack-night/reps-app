@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import {withRouter} from 'react-router-dom';
 import utils from '../utils';
 import queryAPI from '../query_api';

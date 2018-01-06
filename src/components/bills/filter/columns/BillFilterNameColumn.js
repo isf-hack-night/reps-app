@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import {Link} from 'react-router-dom';
 
 class BillFilterNameColumn extends Component {

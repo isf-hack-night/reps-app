@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 
 
 class BillSupport extends Component {

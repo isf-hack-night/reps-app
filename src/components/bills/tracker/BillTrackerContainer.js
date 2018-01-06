@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
 import BillTrackerCard from 'components/bills/tracker/BillTrackerCard';

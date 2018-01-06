@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import Map from './map';
 import ActionPage from './action_page';
 import CTABanner from './cta_banner';
