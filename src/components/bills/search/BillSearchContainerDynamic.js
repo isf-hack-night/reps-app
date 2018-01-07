@@ -1,7 +1,7 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
-import DataTables from 'material-ui-datatables';
+import MUIDataTable from 'mui-datatables';
 
 const styles = {
   container: {
@@ -27,22 +27,8 @@ const styles = {
   },
 };
 
- const TABLE_COLUMNS = [
-  {
-    key: 'bill_id',
-    label: 'Bill Id',
-  }, {
-    key: 'title',
-    label: 'Title',
-  },
-  {
-    key: 'calendar',
-    label: 'Calendar',
-  }
-];
 
-
-class BillSearchContainerDynamic extends Component {
+class BillSearchContainerDynamic extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,11 +39,19 @@ class BillSearchContainerDynamic extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.legiscan = new Legiscan();
     this.openstates = new OpenStates();
+
+    this.columns = ['Bill Id','Title', 'Calendar'];
+    this.keys = ['bill_id', 'title', 'calendar'];
+    this.getRow = this.getRow.bind(this);
   }
 
 
   componentDidMount() {
     this.onInit();
+  }
+
+  getRow(entry) {
+    return this.keys.map(key => entry[key]);
   }
 
   onInit() { 
@@ -148,20 +142,18 @@ handleSortOrderChange(key, order) {
     console.log('handleInfoClick');
   }
 
-  render(props, state, context) {
-
-    console.log(state.bills);
+  render() {
 
     return (
       <div>
-      <DataTables
+      <MUIDataTable
         height={'auto'}
         showHeaderToolbar={true}
         showHeaderToolbarFilterIcon={true}
         selectable={false}
         showRowHover={false}
-        columns={TABLE_COLUMNS}
-        data={state.bills}
+        columns={this.columns}
+        data={this.state.bills.map(this.getRow)}
         showCheckboxes={true}
         onCellClick={this.handleCellClick}
         onCellDoubleClick={this.handleCellDoubleClick}

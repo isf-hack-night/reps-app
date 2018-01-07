@@ -1,27 +1,42 @@
-import {h, Component} from 'preact';
-import {CardText} from 'material-ui/Card';
-import DataTables from 'material-ui-datatables';
+import React from 'react';
+import {CardContent} from 'material-ui/Card';
+import MUIDataTable from 'mui-datatables';
 import BillDetailSidebar from 'components/bills/detail/BillDetailSidebar';
 
-class BillDetailBody extends Component {
+class BillDetailBody extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.columns = ['Date', 'Motion', 'Yes', 'No'];
+    this.keys = ['date', 'motion', 'yes_count', 'no_count'];
+    // TODO: DRYify this code with BillDetailSidebar
+    this.getRow = this.getRow.bind(this);
+
+  }
+
+  getRow(entry) {
+    return this.keys.map(key => entry[key]);
+  }
+
   votes() {
     const votes = this.props.bill.open_states.votes;
+    const rows = votes.map(this.getRow);
     return (
-      <DataTables
-          columns={[{key: 'date', label:'Date'}, {key: 'motion', label: 'Motion'}, {key:'yes_count', label: 'Yes'}, {key: 'no_count', label: 'No'}]}
-          data={votes}
-          title='Votes'
-          showHeaderToolbar={true}
-          />
+      <MUIDataTable
+        columns={this.columns}
+        data={rows}
+        title='Votes'
+        showHeaderToolbar={true}
+      />
     );
   }
 
-  render(props) {
+  render() {
     return (
-      <CardText expandable={true}>
+      <CardContent>
           <BillDetailSidebar bill={this.props.bill}/>
           {this.votes()}
-      </CardText>
+      </CardContent>
     );
   }
 }

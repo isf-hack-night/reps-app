@@ -1,7 +1,7 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import BillTrackerAction from 'components/bills/tracker/BillTrackerAction';
 
-class BillTrackerActions extends Component {
+class BillTrackerActions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +27,7 @@ class BillTrackerActions extends Component {
     }
   }
 
-  render(props, state, context) {
+  render() {
     const nextButton = (
       <button
         onClick={this.nextAction}

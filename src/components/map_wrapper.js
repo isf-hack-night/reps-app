@@ -1,7 +1,8 @@
-import {h, Component} from 'preact';
+import React from 'react';
 
-class MapWrapper extends Component {
+class MapWrapper extends React.Component {
   render () {
+    console.log(this.props);
     const children = this.props.children.map((child) => {
       const isHeader = child.nodeName.name === 'MapHeader';
       console.log('mapwrapper locationData: ', this.props.locationData);

@@ -1,7 +1,7 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import utils from '../utils';
 
-class PhoneLink extends Component {
+class PhoneLink extends React.Component {
   render () {
     const teleNum = utils.parseTeleNum(this.props.num);
 
@@ -14,7 +14,7 @@ class PhoneLink extends Component {
 
 
     return <a className="PhoneLink" href={action}  >
-    	<i class="fa fa-phone fa-fw" aria-hidden="true">
+    	<i className="fa fa-phone fa-fw" aria-hidden="true">
     	</i> 
     	{this.props.num} 
     	</a>

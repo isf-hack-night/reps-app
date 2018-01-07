@@ -1,8 +1,8 @@
-import {h, Component} from 'preact';
+import React from 'react';
 
-class BillFilterActionLinkColumn extends Component {
-  render(props) {
-    return <td>{props.bill.summary}</td>;
+class BillFilterActionLinkColumn extends React.Component {
+  render() {
+    return <td>{this.props.bill.summary}</td>;
   }
 }
 

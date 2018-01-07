@@ -1,28 +1,27 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import Chip from 'material-ui/Chip';
 import {
-  blue500,
-  green500,
-  indigo500,
-  orange500
-} from 'material-ui/styles/colors';
+  blue,
+  green,
+  indigo,
+  orange
+} from 'material-ui/colors';
 
-const tag_colors = [blue500, indigo500, orange500, green500];
+const tag_colors = [blue[500], indigo[500], orange[500], green[500]];
 
 const style = {
-  backgroundColor:indigo500,
+  backgroundColor:indigo[500],
   color:'white',
   display: 'inline-block',
   margin:'4px',
 };
 
-class BillFilterTagColumn extends Component {
-  render(props) {
-  	const tagsList =  props.bill.open_states['+tags'].map(tag => <Chip style={style} >{tag}</Chip>);
-    return <td>
-    {tagsList}
-
-    </td>;
+class BillFilterTagColumn extends React.Component {
+  render() {
+    const tagsList =  this.props.bill.open_states['+tags'].map(
+      (tag, i) => <Chip key={i} style={style} label={tag}/>
+    );
+    return <td>{tagsList}</td>;
   }
 }
 

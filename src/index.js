@@ -1,12 +1,14 @@
-import {h, render} from 'preact';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from 'app/App';
 
 
-console.log('running!');
+console.log('hello!');
+
 function tryToRender () {
   setTimeout(() => {
     if (window.google && window.L.mapbox) {
-      render(<App/>, document.getElementById('reps_app_root'));
+      ReactDOM.render(<App/>, document.getElementById('reps_app_root'));
     } else {
       tryToRender();
     }

@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import {withRouter} from 'react-router-dom';
 import API_KEYS from '../KEYS';
 import queryAPI from '../query_api';
@@ -15,7 +15,7 @@ const defaultZoom = 6;
 // var state = 'CA'; // replaced by US_STATE constant     //TODO get latlong map zoom defaults
 const openStatesApiKey = 'INSERT API KEY HERE'; // TODO: is this necessary?
 //test
-class JustMap extends Component {
+class JustMap extends React.Component {
   constructor (props) {
     super(props);
 
@@ -187,7 +187,7 @@ class JustMap extends Component {
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState));
-    this.resetMap()
+    // this.resetMap()
   }
 
   //TODO if district but no local lat long params, then use center of bbbox

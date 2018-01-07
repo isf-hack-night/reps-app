@@ -1,10 +1,10 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import amplify from '../amplify';
 import ActionDashboard from './action_dashboard';
 import {TEST_CUSTOM_ACTION} from '../local_constants';
 
 
-class RepsWrapper extends Component {
+class RepsWrapper extends React.Component {
   constructor (props) {
     super(props);
 
@@ -57,7 +57,7 @@ class RepsWrapper extends Component {
       return <ActionDashboard ampData={ampData} districtLower={districtLower} districtUpper={districtUpper} />      
     } else if (this.state.isLoading) {
       //TODO: better spinny gif
-      return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style="width: 75px;" />
+      return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style={{width: '75px'}} />
     } else {
       return <h4>Something broke. Sad! Try refreshing the page.</h4>
     }

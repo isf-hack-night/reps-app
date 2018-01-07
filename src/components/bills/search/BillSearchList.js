@@ -1,17 +1,18 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import BillSearchHeader from 'components/bills/search/BillSearchHeader';
 import BillSearchRow from 'components/bills/search/BillSearchRow';
 
-class BillSearchList extends Component {
+class BillSearchList extends React.Component {
   constructor(props) {
     super(props);
     this.columns = ['bill_id', 'title', 'calendar'];
   }
 
-  render(props) {
-    const rows = props.bills.map((bill, index) => <BillSearchRow key={index}
-                                                                 columns={this.columns}
-                                                                 bill={bill}/>);
+  render() {
+    const rows = this.props.bills.map(
+      (bill, index) =>
+        <BillSearchRow key={index} columns={this.columns} bill={bill}/>
+    );
 
     return (
       <table>

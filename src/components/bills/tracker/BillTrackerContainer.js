@@ -1,9 +1,9 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
 import BillTrackerCard from 'components/bills/tracker/BillTrackerCard';
 
-class BillTrackerContainer extends Component {
+class BillTrackerContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,14 +42,14 @@ class BillTrackerContainer extends Component {
     );
   }
 
-  render(props, state, context) {
-    if (!state.bills.length) {
+  render() {
+    if (!this.state.bills.length) {
       return <div>Loading bills</div>;
     }
 
     return (
       <div>
-        {state.bills.map((bill, i) => <BillTrackerCard id={i} bill={bill}/>)}
+        {this.state.bills.map((bill, i) => <BillTrackerCard id={i} bill={bill}/>)}
       </div>
     )
   }

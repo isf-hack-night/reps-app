@@ -1,8 +1,8 @@
-import {h, Component} from 'preact';
-import DataTables from 'material-ui-datatables';
+import React from 'react';
+import MUIDataTable from 'mui-datatables';
 import Chip from 'material-ui/Chip';
 
-class BillDetailSidebar extends Component {
+class BillDetailSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.styles = {
@@ -14,34 +14,43 @@ class BillDetailSidebar extends Component {
         flexWrap: 'wrap',
       },
     };
+    this.columns = ['Date','Type', 'Description'];
+    this.keys = ['date', 'type', 'description'];
+    this.getRow = this.getRow.bind(this);
   }
 
   topicsList() {
     const topics = this.props.bill.open_states['+tags'];
     return (
       <div style={this.styles.wrapper}>
-        {topics.map(topic => (
-        <Chip style={this.styles.chip}>
+        {topics.map((topic, i) => (
+        <Chip key={i} style={this.styles.chip}>
          {topic}
         </Chip>))}
       </div>
     )
   }
 
+  getRow(entry) {
+    return this.keys.map(key => entry[key]);
+  }
+
+
   allEvents() {
     const calendar = this.props.bill.legiscan.calendar;
-    let reversed = calendar.map((entry) => entry).reverse();
+    const data = calendar.slice().reverse().map(this.getRow);
+
     return (
-      <DataTables
-          columns={[{key: 'date', label:'Date'}, {key: 'type', label: 'Type'}, {key:'description', label: 'Description'}]}
-          data={reversed}
+      <MUIDataTable
+          columns={this.columns}
+          data={data}
           title='Events'
           showHeaderToolbar={true}
           />
     );
   }
 
-  render(props) {
+  render() {
     return (
       <div>
         {this.topicsList()}

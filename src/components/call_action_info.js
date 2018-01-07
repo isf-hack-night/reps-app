@@ -1,9 +1,9 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import PhoneLink from './phone_link';
 import BackToActionsButton from './back_actions_button';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import Card, {CardHeader, CardContent} from 'material-ui/Card';
 
-class CallActionInfo extends Component {
+class CallActionInfo extends React.Component {
 
   render () {
     const {
@@ -14,15 +14,13 @@ class CallActionInfo extends Component {
       callBackgroundMd
     } = this.props;
 
-    const displayBackground =  callBackgroundMd ? 'display:block;' : 'display:none;';
+    const displayBackground =  callBackgroundMd ? {display: 'block'} : {display: 'none'};
 
     const callBackgroundParagraphs = callBackgroundMd ?
         callBackgroundMd.split('\n')
           .filter(para => para.length)
-          .map(para => <p>{para}</p>)
+          .map((para, i) => <p key={i}>{para}</p>)
         : '';
-
-    console.log( person.offices[0].phone);
 
     return (
       <div className="ActionInfo">
@@ -35,20 +33,12 @@ class CallActionInfo extends Component {
         <br></br>
         <div style={displayBackground} >
           <Card>
-            <CardHeader
-              title="Learn More About This Bill"
-              //subtitle="Subtitle"
-              actAsExpander={true}
-              showExpandableButton={true} />
-            <CardText expandable={true}>
-               {callBackgroundParagraphs}
-            </CardText>
+            <CardHeader title="Learn More About This Bill"/>
+            <CardContent>{callBackgroundParagraphs}</CardContent>
           </Card>
         </div>
         <br></br>
         <BackToActionsButton/>
-
-
       </div>
     )
   }

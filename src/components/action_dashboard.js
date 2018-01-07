@@ -1,9 +1,9 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import RepsCard from './reps_card';
 import ActionsDisplay from './actions_display';
 
 
-class ActionDashboard extends Component {
+class ActionDashboard extends React.Component {
 
   testAction (person, chamber, district) {
     //TODO: consider making this a util function

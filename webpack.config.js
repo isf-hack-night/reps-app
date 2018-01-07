@@ -25,7 +25,7 @@ module.exports = {
         use: {
             loader: 'babel-loader',
             options: {
-            presets: ['env', 'preact']
+            presets: ['env', 'react']
           }
         }
       }
@@ -48,9 +48,5 @@ module.exports = {
       path.resolve('./src'),
       path.resolve('./node_modules'),
     ],
-    alias: {
-      'react': 'preact-compat',
-      'react-dom': 'preact-compat'
-    }
   }
 };

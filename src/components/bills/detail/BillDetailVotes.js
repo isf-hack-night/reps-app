@@ -1,8 +1,7 @@
-import {h, Component} from 'preact';
+import React from 'react';
 
-class BillDetailVote extends Component {
-
-  render(props) {
+class BillDetailVote extends React.Component {
+  render() {
     return (
       <div>
         <h5>A Vote: {this.props.vote.motion}</h5>

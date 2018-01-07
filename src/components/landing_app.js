@@ -1,8 +1,7 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import Map from './map';
 import ActionPage from './action_page';
 import CTABanner from './cta_banner';
-import MapWrapper from './map_wrapper';
 import MapHeader from './map_header';
 import RepsWrapper from './reps_wrapper';
 import queryAPI from '../query_api';
@@ -10,7 +9,7 @@ import {DATA_FINE_PRINT} from '../local_constants';
 import OpenStatesAPI from '../openstates';
 import AutocompleteContainer from './autocomplete';
 
-class LandingApp extends Component {
+class LandingApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,15 +68,14 @@ class LandingApp extends Component {
         </div>
       )
     }
+    const header = paramsData ? <MapHeader stateDistricts={this.state.stateDistricts} locationData={locationData} /> : null;
     
     return (
       <div className="RepsApp">
         {display_head}
         <br></br>
-        <MapWrapper paramsData={paramsData} locationData={locationData}>
-          <MapHeader stateDistricts={this.state.stateDistricts} locationData={locationData} />
-          <Map stateDistricts={this.state.stateDistricts} locationData={locationData} paramsData={paramsData} />
-        </MapWrapper>
+        {header}
+        <Map stateDistricts={this.state.stateDistricts} locationData={locationData} paramsData={paramsData} />
         {display_right}
       </div>
     )

@@ -1,9 +1,9 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import PhoneLink from './phone_link';
 import BackToActionsButton from './back_actions_button';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 
-class FlexActionInfo extends Component {
+class FlexActionInfo extends React.Component {
 
 
   render () {

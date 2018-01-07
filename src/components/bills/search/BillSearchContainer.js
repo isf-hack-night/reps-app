@@ -1,10 +1,10 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import BillSearchList from 'components/bills/search/BillSearchList';
 import BillSearchBox from 'components/bills/search/BillSearchBox';
 import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
 
-class BillSearchContainer extends Component {
+class BillSearchContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,8 +32,6 @@ class BillSearchContainer extends Component {
       updatedBills => this.setState({bills: (this.state.bills).concat(updatedBills)})
     );
   }
-
-
 
   parseCalendar(calendar) {
     return <p>
@@ -64,16 +62,11 @@ class BillSearchContainer extends Component {
     );
   }
 
-
-  
-
-  render(props, state, context) {
-   // console.log(state.bills)
-
+  render() {
     return (
       <div>
         <BillSearchBox onSubmit={this.onSubmit} />
-        <BillSearchList bills={state.bills} />
+        <BillSearchList bills={this.state.bills} />
       </div>
     )
   }

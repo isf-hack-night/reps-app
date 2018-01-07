@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import BillFilterNameColumn from 'components/bills/filter/columns/BillFilterNameColumn';
 import BillFilterDescriptionColumn from 'components/bills/filter/columns/BillFilterDescriptionColumn';
 import BillFilterActionLinkColumn from 'components/bills/filter/columns/BillFilterActionLinkColumn';
@@ -8,7 +8,7 @@ import BillFilterPositionColumn from 'components/bills/filter/columns/BillFilter
 
 import BillFilterRow from 'components/bills/filter/BillFilterRow';
 
-class BillFilterTable extends Component {
+class BillFilterTable extends React.Component {
   constructor(props) {
     super(props);
     this.columns = [
@@ -25,7 +25,7 @@ class BillFilterTable extends Component {
     return (
       <thead>
         <tr>
-          {columns.map(column => <th>{column}</th>)}
+          {columns.map(column => <th key={column}>{column}</th>)}
         </tr>
       </thead>
     );
@@ -39,7 +39,7 @@ class BillFilterTable extends Component {
     return <tbody>{rows}</tbody>;
   }
 
-  render(props) {
+  render() {
     return (
       <table>
         {this.header()}

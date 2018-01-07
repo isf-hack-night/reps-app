@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import queryAPI from '../query_api';
 import amplify from '../amplify';
 import CallActionInfo from './call_action_info';
@@ -6,7 +6,7 @@ import FlexActionInfo from './flex_action_info';
 import {TEST_CUSTOM_ACTION} from '../local_constants';
 
 
-class ActionPage extends Component {
+class ActionPage extends React.Component {
   constructor (props) {
     super(props);
 
@@ -67,7 +67,7 @@ class ActionPage extends Component {
       }
     } else if (this.state.isLoading) {
       //TODO: better spinny gif
-      return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style="width: 75px;" />
+      return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style={{width: '75px'}} />
     } else {
       return <h4>Something broke. Sad! Try refreshing the page.</h4>
     }

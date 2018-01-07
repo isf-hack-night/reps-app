@@ -1,7 +1,7 @@
-import {h, Component} from 'preact';
+import React from 'react';
 import BillFlowChart from 'components/bills/BillFlowChart';
 
-class BillDetailFlow extends Component {
+class BillDetailFlow extends React.Component {
   currentStatus() {
     // TODO: Use this.props.bill to determine current status
     return this.props.bill.flow;
@@ -12,11 +12,10 @@ class BillDetailFlow extends Component {
     }
     return ['Senate', 'Assembly'];
   }
-  render(props) {
-    console.log(props);
+  render() {
     return (
       <div>
-        <BillFlowChart current={this.currentStatus()} chambers={this.getChambers(props.bill.bill_name)} />
+        <BillFlowChart current={this.currentStatus()} chambers={this.getChambers(this.props.bill.bill_name)} />
       </div>
     );
   }

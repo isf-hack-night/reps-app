@@ -1,6 +1,6 @@
-import {h, Component} from 'preact';
+import React from 'react';
 
-class BillSearchBox extends Component {
+class BillSearchBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +19,7 @@ class BillSearchBox extends Component {
     event.preventDefault();
   }
 
-  render(props, state, context) {
+  render() {
     return (
       <form onSubmit={this.onSubmit}>
         <label>
