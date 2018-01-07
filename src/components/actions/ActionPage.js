@@ -1,9 +1,9 @@
 import React from 'react';
-import queryAPI from '../query_api';
-import amplify from '../amplify';
-import CallActionInfo from './call_action_info';
-import FlexActionInfo from './flex_action_info';
-import {TEST_CUSTOM_ACTION} from '../local_constants';
+import queryAPI from 'queryAPI';
+import amplify from 'amplify';
+import ActionInfo from 'components/actions/ActionInfo';
+import FlexActionInfo from 'components/actions/FlexActionInfo';
+import {TEST_CUSTOM_ACTION} from 'local_constants';
 
 
 class ActionPage extends React.Component {
@@ -58,20 +58,20 @@ class ActionPage extends React.Component {
       if (action) {
             switch (action.type){
               case 'call' :
-                return <CallActionInfo {...action} />;
+                return <ActionInfo {...action} />;
               default :
-                return <FlexActionInfo {...action} />
+                return <FlexActionInfo {...action} />;
               }
       } else {
         return <h4>Something broke. Sad! Try refreshing the page.</h4>
       }
     } else if (this.state.isLoading) {
       //TODO: better spinny gif
-      return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style={{width: '75px'}} />
+      return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style={{width: '75px'}} />;
     } else {
-      return <h4>Something broke. Sad! Try refreshing the page.</h4>
+      return <h4>Something broke. Sad! Try refreshing the page.</h4>;
     }
   }
 }
 
-export default ActionPage
+export default ActionPage;

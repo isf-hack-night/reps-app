@@ -1,9 +1,9 @@
 import React from 'react';
-import PhoneLink from './phone_link';
-import BackToActionsButton from './back_actions_button';
+import PhoneLink from 'components/actions/PhoneLink';
+import BackToActionsButton from 'components/actions/BackToActionsButton';
 import Card, {CardHeader, CardContent} from 'material-ui/Card';
 
-class CallActionInfo extends React.Component {
+class ActionInfo extends React.Component {
 
   render () {
     const {
@@ -44,4 +44,4 @@ class CallActionInfo extends React.Component {
   }
 }
 
-export default CallActionInfo
+export default ActionInfo

@@ -1,10 +1,10 @@
 import React from 'react';
-import amplify from '../amplify';
-import ActionDashboard from './action_dashboard';
-import {TEST_CUSTOM_ACTION} from '../local_constants';
+import amplify from 'amplify';
+import ActionDashboard from 'components/actions/ActionDashboard';
+import {TEST_CUSTOM_ACTION} from 'local_constants';
 
 
-class RepsWrapper extends React.Component {
+class RepsContainer extends React.Component {
   constructor (props) {
     super(props);
 
@@ -64,4 +64,4 @@ class RepsWrapper extends React.Component {
   }
 }
 
-export default RepsWrapper
+export default RepsContainer

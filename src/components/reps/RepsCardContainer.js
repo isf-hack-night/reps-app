@@ -1,10 +1,10 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import {COLORS, REP_PIC_PATH} from '../local_constants';
-import PhoneLink from './phone_link';
+import {COLORS, REP_PIC_PATH} from 'local_constants';
+import PhoneLink from 'components/actions/PhoneLink';
 
 
-class RepsCardBase extends React.Component {
+class RepsCard extends React.Component {
   render () {
 
     if(!this.props.rep) { return }
@@ -74,9 +74,9 @@ class RepsCardBase extends React.Component {
             //<i class="fa fa-twitter-square" aria-hidden="true"></i>
             //<i class="fa fa-facebook-square" aria-hidden="true"></i>
 
-
-const RepsCard = withRouter(({history, rep}) => (
-  <RepsCardBase
+// TODO: Move this to calling code. Make this a "dumb" component
+const RepsCardContainer = withRouter(({history, rep}) => (
+  <RepsCard
     rep={rep}
     goToRepPage={() => {
       // build rep page url using REPS_PATH
@@ -86,4 +86,4 @@ const RepsCard = withRouter(({history, rep}) => (
     />
 ));
 
-export default RepsCard
+export default RepsCardContainer

@@ -1,8 +1,8 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import API_KEYS from '../KEYS';
-import queryAPI from '../query_api';
-import {COLORS, STATE_BOUNDS} from '../local_constants';
+import API_KEYS from 'KEYS';
+import queryAPI from 'queryAPI';
+import {COLORS, STATE_BOUNDS} from 'local_constants';
 const defaultZoom = 6;
 
 //TODO:
@@ -15,7 +15,7 @@ const defaultZoom = 6;
 // var state = 'CA'; // replaced by US_STATE constant     //TODO get latlong map zoom defaults
 const openStatesApiKey = 'INSERT API KEY HERE'; // TODO: is this necessary?
 //test
-class JustMap extends React.Component {
+class DistrictMap extends React.Component {
   constructor (props) {
     super(props);
 
@@ -222,8 +222,9 @@ class JustMap extends React.Component {
   }
 }
 
-const Map = withRouter(({history, locationData, stateDistricts, paramsData}) => (
-  <JustMap history={history} locationData={locationData} stateDistricts={stateDistricts} paramsData={paramsData} />
+// TODO: Move this to calling code. Make this a "dumb" component
+const DistrictMapContainer = withRouter(({history, locationData, stateDistricts, paramsData}) => (
+  <DistrictMap history={history} locationData={locationData} stateDistricts={stateDistricts} paramsData={paramsData} />
 ));
 
-export default Map
+export default DistrictMapContainer

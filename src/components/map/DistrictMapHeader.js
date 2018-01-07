@@ -1,12 +1,12 @@
 import React from 'react';
-import AutocompleteContainer from './autocomplete';
-import {DATA_FINE_PRINT} from '../local_constants';
+import AutocompleteContainer from 'components/map/AddressAutoCompleteContainer';
+import {DATA_FINE_PRINT} from 'local_constants';
 
-class MapHeader extends React.Component {
+class DistrictMapHeader extends React.Component {
   render () {
     return (
-      <div className="MapHeader">
-        <div className="MapHeader-left">
+      <div className="DistrictMapHeader">
+        <div className="DistrictMapHeader-left">
           <h5>Change address:</h5>
           <AutocompleteContainer locationData={this.props.locationData} stateDistricts={this.props.stateDistricts} />
           <h6>{DATA_FINE_PRINT}</h6>
@@ -17,4 +17,4 @@ class MapHeader extends React.Component {
   }
 }
 
-export default MapHeader
+export default DistrictMapHeader

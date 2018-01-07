@@ -1,19 +1,18 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import queryAPI from '../query_api';
+import queryAPI from 'queryAPI';
 import Icon from 'material-ui/Icon';
-import { ListItem } from 'material-ui/List';
+import {ListItem} from 'material-ui/List';
 
 
 class ActionDetails extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
-
     this.goToActionPage = this.goToActionPage.bind(this)
   }
 
-  goToActionPage () {
-    const { districtLower, districtUpper } = queryAPI.parse();
+  goToActionPage() {
+    const {districtLower, districtUpper} = queryAPI.parse();
     const newRoute = queryAPI.build({
       districtLower,
       districtUpper,
@@ -22,7 +21,7 @@ class ActionDetails extends React.Component {
     this.props.history.push(newRoute)
   }
 
-  render () {
+  render() {
     const action = this.props.action;
     const icon = action.type === 'call' ? 'State Assemblymember' : 'State Senator';
     return (
@@ -31,12 +30,12 @@ class ActionDetails extends React.Component {
         <h5>{action.preTitle}</h5>
         <div>{action.title}</div>
       </ListItem>
-    )
+    );
   }
 }
 
 const ActionCard = withRouter(({history, action}) => (
-  <ActionDetails history={history} action={action} />
+  <ActionDetails history={history} action={action}/>
 ));
 
-export default ActionCard
+export default ActionCard;

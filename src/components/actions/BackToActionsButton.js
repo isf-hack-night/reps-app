@@ -1,6 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import queryAPI from '../query_api';
+import queryAPI from 'queryAPI';
 import Button from 'material-ui/Button';
 
 class JustBTAButton extends React.Component {
