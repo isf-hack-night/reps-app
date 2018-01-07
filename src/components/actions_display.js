@@ -5,16 +5,16 @@ import {
 } from '../local_constants';
 import ActionCard from './action_card';
 
-import {List} from 'material-ui/List';
-import FlatButton from 'material-ui/FlatButton';
+import List from 'material-ui/List';
+import Button from 'material-ui/Button';
 
 class ActionsDisplay extends React.Component {
   constructor (props) {
     super(props);
 
-    this.setState({
+    this.state = {
       actionsNum: ACTIONS_DISPLAY_LIMIT
-    });
+    };
 
     this.loadMoreActions = this.loadMoreActions.bind(this)
   }
@@ -30,11 +30,11 @@ class ActionsDisplay extends React.Component {
 
   render () {
     const actionsList = this.props.actions.slice(0, this.state.actionsNum)
-                                          .map(action => <ActionCard action={action} />);
+                                          .map((action, i) => <ActionCard key={i} action={action} />);
 
     const loadMoreButton = this.props.actions.length > this.state.actionsNum
       ? (
-           <FlatButton className="ActionsDisplay-loadMore" label="Display more actions" onClick={this.loadMoreActions} />
+           <Button className="ActionsDisplay-loadMore" label="Display more actions" onClick={this.loadMoreActions} />
       ) : '';
       //todo else display fewer or make sure scrollable
 

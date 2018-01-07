@@ -33,8 +33,6 @@ class BillSearchContainer extends React.Component {
     );
   }
 
-
-
   parseCalendar(calendar) {
     return <p>
       {calendar.map(event => `${event.type}: ${event.date} ${event.time}`).join('\n')}
@@ -64,16 +62,11 @@ class BillSearchContainer extends React.Component {
     );
   }
 
-
-  
-
-  render(props, state, context) {
-   // console.log(state.bills)
-
+  render() {
     return (
       <div>
         <BillSearchBox onSubmit={this.onSubmit} />
-        <BillSearchList bills={state.bills} />
+        <BillSearchList bills={this.state.bills} />
       </div>
     )
   }

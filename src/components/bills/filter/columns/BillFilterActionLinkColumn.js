@@ -1,7 +1,7 @@
 import React from 'react';
 
 class BillFilterActionLinkColumn extends React.Component {
-  render(props) {
+  render() {
     return (
       <td>
         <a href="google.com">TODO</a>

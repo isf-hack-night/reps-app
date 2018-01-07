@@ -1,8 +1,8 @@
 import React from 'react';
 
 class BillSearchRow extends React.Component {
-  render(props) {
-    const cells = props.columns.map((column) => <td>{props.bill[column]}</td>);
+  render() {
+    const cells = this.props.columns.map((column, i) => <td key={i}>{this.props.bill[column]}</td>);
     return <tr>{cells}</tr>;
   }
 }

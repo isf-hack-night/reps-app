@@ -5,14 +5,14 @@ class BillTrackerTitle extends React.Component {
     // Get the latest version
     return bill.versions[bill.versions.length-1].url;
   }
-  render(props, state, context) {
+  render() {
     return (
       <div>
         <h5>
-          <a href={this.getLink(props.bill)}>
-            {props.bill.bill_id}
+          <a href={this.getLink(this.props.bill)}>
+            {this.props.bill.bill_id}
           </a>
-          : {props.bill.title}
+          : {this.props.bill.title}
         </h5>
       </div>
     )

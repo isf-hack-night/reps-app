@@ -25,7 +25,7 @@ class BillFilterTable extends React.Component {
     return (
       <thead>
         <tr>
-          {columns.map(column => <th>{column}</th>)}
+          {columns.map(column => <th key={column}>{column}</th>)}
         </tr>
       </thead>
     );
@@ -39,7 +39,7 @@ class BillFilterTable extends React.Component {
     return <tbody>{rows}</tbody>;
   }
 
-  render(props) {
+  render() {
     return (
       <table>
         {this.header()}

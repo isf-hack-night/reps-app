@@ -42,14 +42,14 @@ class BillTrackerContainer extends React.Component {
     );
   }
 
-  render(props, state, context) {
-    if (!state.bills.length) {
+  render() {
+    if (!this.state.bills.length) {
       return <div>Loading bills</div>;
     }
 
     return (
       <div>
-        {state.bills.map((bill, i) => <BillTrackerCard id={i} bill={bill}/>)}
+        {this.state.bills.map((bill, i) => <BillTrackerCard id={i} bill={bill}/>)}
       </div>
     )
   }

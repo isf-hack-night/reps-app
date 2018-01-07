@@ -1,8 +1,7 @@
 import React from 'react';
 
 class BillDetailVote extends React.Component {
-
-  render(props) {
+  render() {
     return (
       <div>
         <h5>A Vote: {this.props.vote.motion}</h5>

@@ -7,6 +7,9 @@ function parseQuery () {
 }
 
 function getParamData (params) {
+  if (!params) {
+    return {};
+  }
   let paramsObj;
   const paramsArr = params.match(/([?&])([^=]+)\=([^&]+)/g);
   if (paramsArr && paramsArr.length) {

@@ -19,7 +19,7 @@ class BillSearchBox extends React.Component {
     event.preventDefault();
   }
 
-  render(props, state, context) {
+  render() {
     return (
       <form onSubmit={this.onSubmit}>
         <label>

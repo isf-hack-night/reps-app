@@ -12,11 +12,10 @@ class BillDetailFlow extends React.Component {
     }
     return ['Senate', 'Assembly'];
   }
-  render(props) {
-    console.log(props);
+  render() {
     return (
       <div>
-        <BillFlowChart current={this.currentStatus()} chambers={this.getChambers(props.bill.bill_name)} />
+        <BillFlowChart current={this.currentStatus()} chambers={this.getChambers(this.props.bill.bill_name)} />
       </div>
     );
   }

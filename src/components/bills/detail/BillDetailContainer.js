@@ -2,10 +2,9 @@ import React from 'react';
 import BillDetailHeader from 'components/bills/detail/BillDetailHeader';
 import BillDetailFlow from 'components/bills/detail/BillDetailFlow';
 import BillDetailBody from 'components/bills/detail/BillDetailBody';
-import {Card, CardActions} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Card, {CardActions} from 'material-ui/Card';
+import Button from 'material-ui/Button';
 import StateStrong from 'api/StateStrong';
-
 
 class BillDetailContainer extends React.Component {
   constructor(props) {
@@ -23,7 +22,7 @@ class BillDetailContainer extends React.Component {
     );
   }
 
-  render(props) {
+  render() {
     if (!this.state.bill) {
       return <div>Loading</div>;
     }
@@ -33,8 +32,8 @@ class BillDetailContainer extends React.Component {
         <BillDetailFlow bill={this.state.bill}/>
         <BillDetailBody bill={this.state.bill}/>
         <CardActions>
-          <FlatButton label="Call Rep" />
-          <FlatButton label="Fax Committee" />
+          <Button>Call Rep</Button>
+          <Button>Fax Committee</Button>
         </CardActions>
       </Card>
     )

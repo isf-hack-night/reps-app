@@ -1,8 +1,8 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import queryAPI from '../query_api';
-import FontIcon from 'material-ui/FontIcon';
-import {ListItem} from 'material-ui/List';
+import Icon from 'material-ui/Icon';
+import { ListItem } from 'material-ui/List';
 
 
 class ActionDetails extends React.Component {
@@ -26,12 +26,11 @@ class ActionDetails extends React.Component {
     const action = this.props.action;
     const icon = action.type === 'call' ? 'State Assemblymember' : 'State Senator';
     return (
-      <ListItem 
-        onClick={this.goToActionPage}
-        leftIcon={<FontIcon className='fa fa-phone'/>}
-        primaryText={`${action.preTitle}`} 
-        secondaryText={`${action.title}`} >
-        </ListItem>
+      <ListItem onClick={this.goToActionPage}>
+        <Icon className='fa fa-phone'/>
+        <h5>{action.preTitle}</h5>
+        <div>{action.title}</div>
+      </ListItem>
     )
   }
 }

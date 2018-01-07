@@ -1,11 +1,10 @@
 import React from 'react';
 
 class BillSearchRow extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render(props) {
-    const cells = this.props.columns.map((Column) => <Column bill={props.bill} />);
+  render() {
+    const cells = this.props.columns.map(
+      (Column, i) => <Column key={i} bill={this.props.bill} />
+    );
     return <tr>{cells}</tr>;
   }
 }

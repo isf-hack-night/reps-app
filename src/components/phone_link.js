@@ -14,7 +14,7 @@ class PhoneLink extends React.Component {
 
 
     return <a className="PhoneLink" href={action}  >
-    	<i class="fa fa-phone fa-fw" aria-hidden="true">
+    	<i className="fa fa-phone fa-fw" aria-hidden="true">
     	</i> 
     	{this.props.num} 
     	</a>

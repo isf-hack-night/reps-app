@@ -8,10 +8,11 @@ class BillSearchList extends React.Component {
     this.columns = ['bill_id', 'title', 'calendar'];
   }
 
-  render(props) {
-    const rows = props.bills.map((bill, index) => <BillSearchRow key={index}
-                                                                 columns={this.columns}
-                                                                 bill={bill}/>);
+  render() {
+    const rows = this.props.bills.map(
+      (bill, index) =>
+        <BillSearchRow key={index} columns={this.columns} bill={bill}/>
+    );
 
     return (
       <table>

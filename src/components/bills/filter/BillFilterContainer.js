@@ -50,10 +50,10 @@ class BillFilterContainer extends React.Component {
    }
   }
 
-  render(props, state, context) {
-    const options = [<option selected id='ALL' value='ALL'>All Tags</option>];
+  render() {
+    const options = [<option key="ALL" id='ALL' value='ALL'>All Tags</option>];
     for (const tag of this.state.tags.values()) {
-      options.push(<option id={tag} value={tag}>{tag}</option>);
+      options.push(<option key={tag} id={tag} value={tag}>{tag}</option>);
     }
     const filteredBills = this.filterBills(this.state.bills, this.state.currentTag);
     let filter = null;

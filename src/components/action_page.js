@@ -67,7 +67,7 @@ class ActionPage extends React.Component {
       }
     } else if (this.state.isLoading) {
       //TODO: better spinny gif
-      return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style="width: 75px;" />
+      return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style={{width: '75px'}} />
     } else {
       return <h4>Something broke. Sad! Try refreshing the page.</h4>
     }

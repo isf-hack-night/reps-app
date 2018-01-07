@@ -27,7 +27,7 @@ class BillTrackerActions extends React.Component {
     }
   }
 
-  render(props, state, context) {
+  render() {
     const nextButton = (
       <button
         onClick={this.nextAction}

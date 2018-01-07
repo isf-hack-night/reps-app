@@ -1,8 +1,8 @@
 import React from 'react';
 
 class BillFilterActionLinkColumn extends React.Component {
-  render(props) {
-    return <td>{props.bill.summary}</td>;
+  render() {
+    return <td>{this.props.bill.summary}</td>;
   }
 }
 

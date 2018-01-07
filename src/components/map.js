@@ -187,7 +187,7 @@ class JustMap extends React.Component {
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState));
-    this.resetMap()
+    // this.resetMap()
   }
 
   //TODO if district but no local lat long params, then use center of bbbox
