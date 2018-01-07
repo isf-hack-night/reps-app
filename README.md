@@ -53,6 +53,14 @@ Runnning this command will set up the local webserver bundle. It shouldn't produ
 
 * Reload the page. It should now load with a working map. Any changes you make to the javascript should now automatically be injected into the page.
 
+# Style
+This is just a rough guideline for style. Not all these guidelines have been followed in the past.
+* One component per file
+* Try to follow the presentational vs container patterns here: https://www.andrewhfarmer.com/react-ajax-best-practices/
+* Also this guide: https://github.com/rwaldron/idiomatic.js
+* Absolute imports: use `components/actions/ActionCard` instead of `../../ActionCard`
+
+
 # To Deploy to CA_SS site
 
 check that local_constants.js INJECTION_DEV_MODE = false; 

@@ -1,7 +1,6 @@
 import React from 'react';
-import RepsCard from './reps_card';
-import ActionsDisplay from './actions_display';
-
+import RepsCard from 'components/reps/RepsCardContainer';
+import ActionsDisplay from 'components/actions/ActionsDisplay';
 
 class ActionDashboard extends React.Component {
 
@@ -41,4 +40,4 @@ class ActionDashboard extends React.Component {
   }
 }
 
-export default ActionDashboard
+export default ActionDashboard;

@@ -1,9 +1,9 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import utils from '../utils';
-import queryAPI from '../query_api';
+import utils from 'utils';
+import queryAPI from 'queryAPI';
 
-class Autocomplete extends React.Component {
+class AddressAutocomplete extends React.Component {
   constructor (props) {
     super(props);
 
@@ -71,7 +71,7 @@ class Autocomplete extends React.Component {
     return (
       <input
         id={this.state.uuid}
-        className="Autocomplete"
+        className="AddressAutocomplete"
         placeholder="Enter your address or click on map"
         type="text"
         onFocus={this.geolocate}
@@ -80,8 +80,9 @@ class Autocomplete extends React.Component {
   }
 }
 
-const AutocompleteContainer = withRouter(({history, stateDistricts}) => (
-  <Autocomplete history={history} stateDistricts={stateDistricts} />
+// TODO: Move this to calling code. Make this a "dumb" component
+const AddressAutocompleteContainer = withRouter(({history, stateDistricts}) => (
+  <AddressAutocomplete history={history} stateDistricts={stateDistricts} />
 ));
 
-export default AutocompleteContainer
+export default AddressAutocompleteContainer

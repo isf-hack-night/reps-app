@@ -1,4 +1,4 @@
-import {PARAM_TYPES, QUERY_SPLIT} from './local_constants';
+import {PARAM_TYPES, QUERY_SPLIT} from 'local_constants';
 
 function parseQuery () {
   const url = window.location.href;

@@ -1,13 +1,13 @@
 import React from 'react';
-import Map from './map';
-import ActionPage from './action_page';
-import CTABanner from './cta_banner';
-import MapHeader from './map_header';
-import RepsWrapper from './reps_wrapper';
-import queryAPI from '../query_api';
-import {DATA_FINE_PRINT} from '../local_constants';
-import OpenStatesAPI from '../openstates';
-import AutocompleteContainer from './autocomplete';
+import DistrictMapContainer from 'components/map/DistrictMapContainer';
+import ActionPage from 'components/actions/ActionPage';
+import CTABanner from 'components/CTABanner';
+import MapHeader from 'components/map/DistrictMapHeader';
+import RepsContainer from 'components/reps/RepsContainer';
+import queryAPI from 'queryAPI';
+import {DATA_FINE_PRINT} from 'local_constants';
+import OpenStatesAPI from 'openstates';
+import AddressAutocompleteContainer from 'components/map/AddressAutoCompleteContainer';
 
 class LandingApp extends React.Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class LandingApp extends React.Component {
     } else if (paramsData) {
       display_right = (
         <div className="DisplayRight">
-          <RepsWrapper {...paramsData} />
+          <RepsContainer {...paramsData} />
         </div>
       )
     }
@@ -63,7 +63,7 @@ class LandingApp extends React.Component {
           <div className="Tagline_text">Hold your State Representatives accountable!</div>
           <br></br>
           <div className="FindActionsText">Find actions YOU can take based on your State Senate and Assembly districts:</div>
-            <AutocompleteContainer locationData={locationData} stateDistricts={this.state.stateDistricts} />
+            <AddressAutocompleteContainer locationData={locationData} stateDistricts={this.state.stateDistricts} />
           <div className="DataDisclaimer">{DATA_FINE_PRINT}</div>
         </div>
       )
@@ -75,7 +75,7 @@ class LandingApp extends React.Component {
         {display_head}
         <br></br>
         {header}
-        <Map stateDistricts={this.state.stateDistricts} locationData={locationData} paramsData={paramsData} />
+        <DistrictMapContainer stateDistricts={this.state.stateDistricts} locationData={locationData} paramsData={paramsData} />
         {display_right}
       </div>
     )

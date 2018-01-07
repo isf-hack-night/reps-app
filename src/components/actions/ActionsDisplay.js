@@ -2,8 +2,8 @@ import React from 'react';
 import {
   ACTIONS_DISPLAY_INCREMENT,
   ACTIONS_DISPLAY_LIMIT
-} from '../local_constants';
-import ActionCard from './action_card';
+} from 'local_constants';
+import ActionCard from 'components/actions/ActionCard';
 
 import List from 'material-ui/List';
 import Button from 'material-ui/Button';
@@ -29,13 +29,18 @@ class ActionsDisplay extends React.Component {
   }
 
   render () {
-    const actionsList = this.props.actions.slice(0, this.state.actionsNum)
-                                          .map((action, i) => <ActionCard key={i} action={action} />);
+    const actionsList = this.props.actions.slice(0, this.state.actionsNum).map(
+      (action, i) => <ActionCard key={i} action={action} />);
 
     const loadMoreButton = this.props.actions.length > this.state.actionsNum
       ? (
-           <Button className="ActionsDisplay-loadMore" label="Display more actions" onClick={this.loadMoreActions} />
-      ) : '';
+        <Button
+          className="ActionsDisplay-loadMore"
+          onClick={this.loadMoreActions}
+        >
+          Display more actions
+        </Button>
+      ) : null;
       //todo else display fewer or make sure scrollable
 
 

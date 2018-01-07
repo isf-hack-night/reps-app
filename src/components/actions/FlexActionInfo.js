@@ -1,11 +1,9 @@
 import React from 'react';
-import PhoneLink from './phone_link';
-import BackToActionsButton from './back_actions_button';
+import PhoneLink from 'components/actions/PhoneLink';
+import BackToActionsButton from 'components/actions/BackToActionsButton';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 
 class FlexActionInfo extends React.Component {
-
-
   render () {
     const {
       preTitle,

@@ -11,7 +11,7 @@ import BillFilterContainer from 'components/bills/filter/BillFilterContainer';
 import BillDetailContainer from 'components/bills/detail/BillDetailContainer';
 import BillSearchContainer from 'components/bills/search/BillSearchContainer';
 
-import LandingApp from 'components/landing_app';
+import LandingApp from 'components/LandingApp';
 
 import 'styles/style.less';
 import Button from 'material-ui/Button';
