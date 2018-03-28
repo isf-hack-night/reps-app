@@ -1,3 +1,4 @@
+import WPAPI from "wpapi";
 
 const TRACKED_BILLS = {
   'SB 562': {
@@ -39,9 +40,8 @@ const TRACKED_BILLS = {
 };
 
 class BillTracker {
-  constructor() {
-    // Store everything in memory for now
-    this.tracked_bills = TRACKED_BILLS;
+  constructor(url='https://dev.state-strong.org') {
+    this.apiPromise = WPAPI.discover(url);
   }
 
   fetchTrackedBills() {

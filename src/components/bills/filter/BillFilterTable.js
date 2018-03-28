@@ -1,9 +1,9 @@
 import React from 'react';
-import BillFilterNameColumn from 'components/bills/filter/columns/BillFilterNameColumn';
-import BillFilterDescriptionColumn from 'components/bills/filter/columns/BillFilterDescriptionColumn';
-import BillFilterActionLinkColumn from 'components/bills/filter/columns/BillFilterActionLinkColumn';
-import BillFilterTagColumn from 'components/bills/filter/columns/BillFilterTagColumn';
-import BillFilterPositionColumn from 'components/bills/filter/columns/BillFilterPositionColumn';
+import BillFilterNameColumn from 'components/bills/table/columns/BillFilterNameColumn';
+import BillFilterDescriptionColumn from 'components/bills/table/columns/BillFilterDescriptionColumn';
+import BillFilterActionLinkColumn from 'components/bills/table/columns/BillFilterActionLinkColumn';
+import BillFilterTagColumn from 'components/bills/table/columns/BillFilterTagColumn';
+import BillFilterPositionColumn from 'components/bills/table/columns/BillFilterPositionColumn';
 
 
 import BillFilterRow from 'components/bills/filter/BillFilterRow';
@@ -21,7 +21,7 @@ class BillFilterTable extends React.Component {
   }
 
   header() {
-    const columns = ['Name', 'Description','Position', 'Action','Tags'];
+    const columns = [this.columns[0].header, 'Description','Position', 'Action','Tags'];
     return (
       <thead>
         <tr>
@@ -32,7 +32,7 @@ class BillFilterTable extends React.Component {
   }
 
   body() {
-    const rows = this.props.bills.map(
+    const rows = Object.values(this.props.bills).map(
       (bill, index) =>
         <BillFilterRow key={index} bill={bill} columns={this.columns}/>
     );

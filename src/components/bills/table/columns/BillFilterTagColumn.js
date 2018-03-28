@@ -18,8 +18,8 @@ const style = {
 
 class BillFilterTagColumn extends React.Component {
   render() {
-    const tagsList =  this.props.bill.open_states['+tags'].map(
-      (tag, i) => <Chip key={i} style={style} label={tag}/>
+    const tagsList =  this.props.bill['issue'].map(
+      (tag, i) => <Chip key={i} style={style} label={tag.name}/>
     );
     return <td>{tagsList}</td>;
   }

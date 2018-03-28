@@ -1,5 +1,5 @@
 import React from 'react';
-import {CardContent} from 'material-ui/Card';
+import CardText from 'material-ui/Card';
 import MUIDataTable from 'mui-datatables';
 import BillDetailSidebar from 'components/bills/detail/BillDetailSidebar';
 
@@ -7,8 +7,8 @@ class BillDetailBody extends React.Component {
   constructor(props) {
     super(props);
 
-    this.columns = ['Date', 'Motion', 'Yes', 'No'];
-    this.keys = ['date', 'motion', 'yes_count', 'no_count'];
+    this.columns = ['Date', 'Description', 'Yes', 'No'];
+    this.keys = ['date', 'desc', 'yea', 'nay'];
     // TODO: DRYify this code with BillDetailSidebar
     this.getRow = this.getRow.bind(this);
 
@@ -19,8 +19,9 @@ class BillDetailBody extends React.Component {
   }
 
   votes() {
-    const votes = this.props.bill.open_states.votes;
+    const votes = this.props.bill.votes;
     const rows = votes.map(this.getRow);
+    console.log(rows);
     return (
       <MUIDataTable
         columns={this.columns}
@@ -33,10 +34,10 @@ class BillDetailBody extends React.Component {
 
   render() {
     return (
-      <CardContent>
+      <CardText>
           <BillDetailSidebar bill={this.props.bill}/>
           {this.votes()}
-      </CardContent>
+      </CardText>
     );
   }
 }

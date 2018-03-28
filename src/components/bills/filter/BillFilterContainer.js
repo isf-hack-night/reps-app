@@ -1,73 +1,115 @@
+import {BillFilterDropdown} from 'components/bills/filter/BillFilterDropdown';
+import BillTable from 'components/bills/table/BillTable';
+import {Toolbar} from 'material-ui';
 import React from 'react';
-import Legiscan from 'api/Legiscan';
-import OpenStates from 'api/OpenStates';
+// import Legiscan from 'api/Legiscan';
+// import OpenStates from 'api/OpenStates';
 import BillFilterTable from 'components/bills/filter/BillFilterTable';
-import StateStrong from 'api/StateStrong';
+// import StateStrong from 'api/StateStrong';
+import WPAPI from 'wpapi';
+import utils from 'utils';
+
 
 class BillFilterContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.filterOptions = [
+      'position',
+      'interest',
+      'issue'
+    ];
     this.state = {
-      bills: [],
-      tags: new Set(),
-      currentTag: 'ALL',
+      legislation: null,
+      filters: {}
     };
-    this.legiscan = new Legiscan();
-    this.openstates = new OpenStates();
-    this.statestrong = new StateStrong();
-    this.onSelectTag = this.onSelectTag.bind(this);
+    this.filterOptions.forEach((option) => this.state[option] = null);
+    this.wordPressAPIPromise = WPAPI.discover( 'https://dev.state-strong.org' );
   }
 
   componentDidMount() {
-    this.statestrong.fetchAllBills().then(
-      bills => this.extractTags(bills)
+    for (const option of this.filterOptions) {
+      this.wordPressAPIPromise.then(
+        api => api[option]().get()
+      ).then(
+        optionList => {this.setState({[option]: utils.arrayToObject('id', optionList)})}
+      );
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (this.optionsLoaded() && this.state.legislation === null) {
+      this.fetchLegislation();
+    } else if (prevState.filters !== this.state.filters) {
+      this.fetchLegislation();
+    }
+  }
+
+  optionsLoaded() {
+    return this.filterOptions.every((option) => this.state[option] !== null);
+  }
+
+  translateAssociations(legislationItem) {
+    this.filterOptions.forEach(option => {
+      const translatedAssociation = [];
+      for (const association of legislationItem[option]) {
+        translatedAssociation.push(this.state[option][association]);
+      }
+      legislationItem[option] = translatedAssociation;
+    });
+  }
+
+  fetchLegislation() {
+    this.wordPressAPIPromise.then(
+      api => {
+        let request = api.legislation();
+        for (const filterKey in this.state.filters) {
+          const filterValue = this.state.filters[filterKey];
+          if (filterValue) {
+            request = request.param(filterKey, filterValue)
+          }
+        }
+        return request.get();
+      }
     ).then(
-      bills => this.setState({bills})
+      legislation => {
+        legislation.forEach(legislationItem => this.translateAssociations(legislationItem));
+        this.setState({legislation: utils.arrayToObject('id', legislation)})
+      }
     );
   }
 
-  extractTags(bills) {
-    bills.map(
-      bill => bill.open_states['+tags'].forEach(
-        tag => this.setState({tags: this.state.tags.add(tag)})
-      )
-    );
-    return bills;
-  }
-
-  onSelectTag(evt) {
-    const tag = evt.target.value;
-    this.setState({currentTag: tag});
-  }
-
-  filterBills(bills, tag) {
-    if(tag === 'ALL'){
-      return bills
-    } else {
-    return bills.filter(
-      bill => bill.open_states['+tags'].includes(tag)
-    )
-   }
+  renderDropdown(name) {
+    let onSelect = (selectedItem) => {
+      this.setState((prevState) => {
+        const filters = Object.assign({}, prevState.filters);
+        if (selectedItem) {
+          filters[name] = selectedItem.id;
+        } else {
+          delete filters[name];
+        }
+        return {filters};
+      });
+    };
+    onSelect = onSelect.bind(this);
+    return <BillFilterDropdown key={`${name}_dropdown`} name={name} items={this.state[name]} onSelect={onSelect}/>
   }
 
   render() {
-    const options = [<option key="ALL" id='ALL' value='ALL'>All Tags</option>];
-    for (const tag of this.state.tags.values()) {
-      options.push(<option key={tag} id={tag} value={tag}>{tag}</option>);
+    if (!this.state.legislation) {
+      return <div>Loading data</div>;
     }
-    const filteredBills = this.filterBills(this.state.bills, this.state.currentTag);
-    let filter = null;
-    if (this.state.currentTag) {
-      filter = <div>Search results for: {this.state.currentTag}</div>;
+    const dropDowns = [];
+    for (const option of this.filterOptions) {
+      dropDowns.push(this.renderDropdown(option));
     }
-
     return (
       <div>
-        <select onChange={this.onSelectTag}>
-          {options}
-        </select>
-        {filter}
-        <BillFilterTable bills={filteredBills} />
+        <Toolbar>
+          {dropDowns}
+        </Toolbar>
+        <div>
+          <BillTable bills={this.state.legislation} />
+        </div>
       </div>
     )
   }
