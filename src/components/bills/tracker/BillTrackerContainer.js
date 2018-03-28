@@ -2,6 +2,7 @@ import React from 'react';
 import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
 import BillTrackerCard from 'components/bills/tracker/BillTrackerCard';
+import WPAPI from 'wpapi';
 
 class BillTrackerContainer extends React.Component {
   constructor(props) {

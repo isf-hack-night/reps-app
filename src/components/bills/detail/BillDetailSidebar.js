@@ -20,13 +20,13 @@ class BillDetailSidebar extends React.Component {
   }
 
   topicsList() {
-    const topics = this.props.bill.open_states['+tags'];
+    const topics = this.props.bill.issue;
+    console.log({topics});
     return (
       <div style={this.styles.wrapper}>
         {topics.map((topic, i) => (
-        <Chip key={i} style={this.styles.chip}>
-         {topic}
-        </Chip>))}
+        <Chip key={i} style={this.styles.chip} label={`TODO: translate this id to a topic name: ${topic}`}/>
+        ))}
       </div>
     )
   }
@@ -37,7 +37,7 @@ class BillDetailSidebar extends React.Component {
 
 
   allEvents() {
-    const calendar = this.props.bill.legiscan.calendar;
+    const calendar = this.props.bill.calendar;
     const data = calendar.slice().reverse().map(this.getRow);
 
     return (
@@ -51,11 +51,12 @@ class BillDetailSidebar extends React.Component {
   }
 
   render() {
+    // TODO: Fix this raw html injection
     return (
       <div>
         {this.topicsList()}
-        {this.props.bill.legiscan.description}
-        <a href={this.props.bill.legiscan.url} target="_blank"> (Full Text)</a>
+        <div dangerouslySetInnerHTML={{__html: this.props.bill.content.rendered}} />
+        <a href={this.props.bill.link} target="_blank"> (Full Text)</a>
         {this.allEvents()}
       </div>
       

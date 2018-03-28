@@ -16,7 +16,10 @@ function generateUUID () {
   });
 }
 
+const arrayToObject = (key, array) => array.reduce((obj, item) => {obj[item[key]] = item; return obj}, {});
+
 const utils = {
+  arrayToObject,
   isOnMobile,
   parseTeleNum,
   generateUUID

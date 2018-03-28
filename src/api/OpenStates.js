@@ -45,7 +45,7 @@ class OpenStates {
     const bill_fetch_params = {
       apikey: this.api_key,
     };
-    const bill_detail_path = `bills/${this.state}/${this.session}/${bill_id}`;
+    const bill_detail_path = `bills/${bill_id}`;
     const request = new JSONRequest(this.getPathUrl(bill_detail_path), bill_fetch_params);
     return request.send();
   }
