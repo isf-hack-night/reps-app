@@ -13,7 +13,6 @@ const defaultZoom = 6;
 // const caBounds = [[32.5343, -124.4096], [42.0095, -114.1308]] // replace by STATE_BOUNDS constant
 // var stateDistricts; // get from react prop
 // var state = 'CA'; // replaced by US_STATE constant     //TODO get latlong map zoom defaults
-const openStatesApiKey = 'INSERT API KEY HERE'; // TODO: is this necessary?
 //test
 class DistrictMap extends React.Component {
   constructor (props) {
@@ -149,6 +148,22 @@ class DistrictMap extends React.Component {
   }
 
   componentDidMount () {
+    
+
+    let gmap;
+
+    let zoom = 14;
+    let lat = 37.774929;
+    let lng = -122.419416;
+    const center = new google.maps.LatLng(lat, lng);
+    const mapConfig = Object.assign({}, {
+      center: center,
+      zoom: zoom
+    })
+
+    gmap = new google.maps.Map(document.getElementById('gmap'), mapConfig);
+
+
 
     // aka init map
     L.mapbox.accessToken = API_KEYS.mapbox;
@@ -156,6 +171,7 @@ class DistrictMap extends React.Component {
     if (L.mapbox.HACK_MAP) {
       L.mapbox.HACK_MAP.remove()
     }
+
     map = L.mapbox.map('map', 'mapbox.light');
     L.mapbox.HACK_MAP = map;
     map.fitBounds(STATE_BOUNDS);
@@ -216,8 +232,17 @@ class DistrictMap extends React.Component {
       display: window.innerWidth <= 600 ? 'block' : 'inline-block'
     };
 
+    const gstyles = {
+      display: window.innerWidth <= 600 ? 'block' : 'inline-block',
+      height: 600 ,
+      width: 600 
+    };
+
     return (
-      <div style={styles} id="map"></div>
+      <div>
+        <div style={gstyles} id="gmap"></div>
+        <div style={styles} id="map"></div>
+      </div>
     )
   }
 }
