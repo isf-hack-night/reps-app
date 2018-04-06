@@ -1,16 +1,17 @@
 import React from 'react';
-import {CardHeader} from 'material-ui/Card';
-
+import BillNameLink from 'components/bills/BillNameLink';
+import BillPosition from 'components/bills/BillPosition';
+import {Grid} from 'material-ui';
 
 class BillDetailHeader extends React.Component {
   render() {
     const bill = this.props.bill;
     return (
-      <CardHeader
-          title={`${bill.slug} (${bill.support ? 'Support' : 'Oppose'}): ${bill.title.rendered} `}
-          // TODOD: Fix this raw html injection
-          subheader={<div dangerouslySetInnerHTML={{__html: bill.excerpt.rendered}} />}
-      />
+      <div>
+        <BillNameLink bill={bill}/>
+        <BillPosition bill={bill}/>
+        {bill.title.rendered}
+      </div>
     );
   }
 }

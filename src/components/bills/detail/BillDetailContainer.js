@@ -6,6 +6,14 @@ import Card, {CardActions} from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import StateStrong from 'api/StateStrong';
 import WPAPI from 'wpapi';
+import BillDetailSidebar from 'components/bills/detail/BillDetailSidebar';
+import {CardHeader, Grid} from 'material-ui';
+
+import BillIssues from 'components/bills/BillIssues';
+import BillSponsors from 'components/bills/BillSponsors';
+import BillContent from 'components/bills/BillContent';
+import BillExcerpt from 'components/bills/BillExcerpt';
+import BillVotes from 'components/bills/BillVotes';
 
 class BillDetailContainer extends React.Component {
   constructor(props) {
@@ -26,20 +34,66 @@ class BillDetailContainer extends React.Component {
     );
   }
 
+  sidebar(bill) {
+    return (
+      <Grid container direction="column" spacing={24}>
+        <Grid item xs={12}>
+          <h3>Topics</h3>
+          <BillIssues bill={bill}/>
+        </Grid>
+        <Grid item xs={12}>
+          <h3>Sponsors</h3>
+          <BillSponsors bill={bill}/>
+        </Grid>
+      </Grid>
+    );
+  }
+
+  body(bill) {
+    return (
+      <Grid container direction="column" spacing={24}>
+        <Grid item xs={12}>
+          <h3>Description</h3>
+          <BillContent bill={bill}/>
+        </Grid>
+        <Grid item xs={12}>
+          <BillVotes bill={bill}/>
+        </Grid>
+      </Grid>
+    );
+  }
+
   render() {
     if (!this.state.bill) {
       return <div>Loading</div>;
     }
+    const bill = this.state.bill;
     return (
-      <Card>
-        <BillDetailHeader bill={this.state.bill}/>
-        <BillDetailFlow bill={this.state.bill}/>
-        <BillDetailBody bill={this.state.bill}/>
-        <CardActions>
-          <Button>Call Rep</Button>
-          <Button>Fax Committee</Button>
-        </CardActions>
-      </Card>
+      <div>
+        <Card>
+          <Grid container spacing={24}>
+            <Grid item xs={12}>
+              <BillDetailHeader bill={bill}/>
+            </Grid>
+            <Grid item xs={12}>
+              <BillExcerpt bill={bill}/>
+            </Grid>
+            <Grid item xs={12}>
+              <BillDetailFlow bill={bill}/>
+            </Grid>
+            <Grid item xs={12} >
+              <Grid container spacing={24}>
+                <Grid item xs={4} >
+                  {this.sidebar(bill)}
+                </Grid>
+                <Grid item xs={8} >
+                  {this.body(bill)}
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Card>
+      </div>
     )
   }
 }

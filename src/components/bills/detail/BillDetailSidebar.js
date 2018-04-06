@@ -1,6 +1,7 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import Chip from 'material-ui/Chip';
+import BillIssues from 'components/bills/BillIssues';
 
 class BillDetailSidebar extends React.Component {
   constructor(props) {
@@ -17,18 +18,6 @@ class BillDetailSidebar extends React.Component {
     this.columns = ['Date','Type', 'Description'];
     this.keys = ['date', 'type', 'description'];
     this.getRow = this.getRow.bind(this);
-  }
-
-  topicsList() {
-    const topics = this.props.bill.issue;
-    console.log({topics});
-    return (
-      <div style={this.styles.wrapper}>
-        {topics.map((topic, i) => (
-        <Chip key={i} style={this.styles.chip} label={`TODO: translate this id to a topic name: ${topic}`}/>
-        ))}
-      </div>
-    )
   }
 
   getRow(entry) {
@@ -54,8 +43,8 @@ class BillDetailSidebar extends React.Component {
     // TODO: Fix this raw html injection
     return (
       <div>
-        {this.topicsList()}
-        <div dangerouslySetInnerHTML={{__html: this.props.bill.content.rendered}} />
+
+
         <a href={this.props.bill.link} target="_blank"> (Full Text)</a>
         {this.allEvents()}
       </div>

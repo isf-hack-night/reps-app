@@ -1,17 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import BillNameLink from "../../BillNameLink";
 
 class BillFilterNameColumn extends React.Component {
   render() {
-    const bill_path = `/bills/${this.props.bill.id}`;
     return (
       <td>
-        <Link to={bill_path}>{this.props.bill.slug}</Link>
+        <BillNameLink bill={this.props.bill} />
       </td>
     );
   }
 }
-
-BillFilterNameColumn.header = 'test';
 
 export default BillFilterNameColumn;
