@@ -1,23 +1,46 @@
-import JSONRequest from 'api/JSONRequest';
 import WPAPI from 'wpapi';
+import utils from 'utils';
 
 class WordPress {
   constructor(url='https://dev.state-strong.org') {
     this.apiPromise = WPAPI.discover(url);
+    this.billMetadata = {
+      position: null,
+      interest: null,
+      issue: null,
+    };
+    this.metadataLoaded = false
   }
 
-  fetchLegislation(slug) {
-    return apiPromise.slug(slug)
+  fetchMetadata() {
+    // Returns a promise with the metadata
+    if (this.metadataLoaded === true) {
+      return Promise.resolve(this.billMetadata);
+    }
+    const promises = Object.keys(this.billMetadata).map(key =>
+      this.apiPromise.then(
+        api => api[key]().get()
+      ).then(
+        metadataList => this.billMetadata[key] = utils.arrayToObject('id', metadataList)
+      )
+    );
+    return Promise.all(promises).then(
+      () => {
+        this.metadataLoaded = true;
+        return this.billMetadata;
+      }
+    );
   }
 
-  fetchPost(id, type) {
-    const request = new JSONRequest(`${this.getPathUrl(type)}/${id}`);
-    return request.send();
-  }
-
-  searchPosts(queryParams, type) {
-    const request = new JSONRequest(`${this.getPathUrl(type)}`, queryParams);
-    return request.send();
+  annotateBillMetadata(bill) {
+    return this.fetchMetadata().then(
+      metadata => {
+        Object.keys(metadata).forEach(key => {
+          bill[key] = bill[key].map(id => metadata[key][id])
+        });
+        return bill;
+      }
+    );
   }
 }
 
