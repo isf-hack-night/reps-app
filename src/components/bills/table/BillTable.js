@@ -21,7 +21,7 @@ class BillTable extends React.Component {
       BILL_NAME_COLUMN,
       BILL_TITLE_COLUMN,
       BILL_POSITION_COLUMN,
-      BILL_ACTIONS_COLUMN,
+      // BILL_ACTIONS_COLUMN,
       BILL_ISSUES_COLUMN
     ];
   }

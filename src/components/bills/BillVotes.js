@@ -1,10 +1,7 @@
 import React from 'react';
-import CardText from 'material-ui/Card';
 import MUIDataTable from 'mui-datatables';
-import BillDetailSidebar from 'components/bills/detail/BillDetailSidebar';
-import {Card} from 'material-ui';
 
-class BillDetailBody extends React.Component {
+class BillVotes extends React.Component {
   constructor(props) {
     super(props);
 
@@ -19,10 +16,9 @@ class BillDetailBody extends React.Component {
     return this.keys.map(key => entry[key]);
   }
 
-  votes() {
+  render() {
     const votes = this.props.bill.votes;
     const rows = votes.map(this.getRow);
-    console.log(rows);
     return (
       <MUIDataTable
         columns={this.columns}
@@ -32,14 +28,6 @@ class BillDetailBody extends React.Component {
       />
     );
   }
-
-  render() {
-    return (
-      <Card>
-          {this.votes()}
-      </Card>
-    );
-  }
 }
 
-export default BillDetailBody;
+export default BillVotes;

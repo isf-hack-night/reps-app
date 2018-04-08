@@ -17,6 +17,7 @@ const style = {
 };
 
 const BillIssues = ({bill}) => {
+  console.log(bill['issue']);
   const issuesChips =  bill['issue'].map(
     (issue, i) => <Chip key={i} style={style} label={issue.name}/>
   );
