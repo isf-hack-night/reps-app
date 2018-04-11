@@ -68,14 +68,12 @@ class BillFilterContainer extends React.Component {
     };
     onSelect = onSelect.bind(this);
     return (
-      <Grid item xs={4}>
         <BillFilterDropdown
           key={`${name}_dropdown`}
           name={name}
           items={this.state.filterOptions[name]}
           onSelect={onSelect}
         />
-      </Grid>
     );
   }
 
@@ -90,9 +88,9 @@ class BillFilterContainer extends React.Component {
     }
     return (
       <div>
-        <Grid container>
+        <form autoComplete="off">
           {dropDowns}
-        </Grid>
+        </form>
         <div>
           <BillTable bills={this.state.bills} />
         </div>

@@ -32,16 +32,15 @@ export class BillFilterDropdown extends React.Component {
       this.props.onSelect(value ? this.props.items[value] : null);
     };
     return (
-      <div style={{margin:'4px'}}>
-        <FormControl margin="normal">
-          <div>
-            <InputLabel htmlFor={capName}>{capName}</InputLabel>
-            <Select value={this.state.item} onChange={onChange} autoWidth>
-              {options}
-            </Select>
-          </div>
-        </FormControl>
-      </div>
+      <FormControl style={{
+          margin: 12,
+          minWidth: 120,
+        }}>
+          <InputLabel htmlFor={capName}>{capName}</InputLabel>
+          <Select value={this.state.item} onChange={onChange} autoWidth>
+            {options}
+          </Select>
+      </FormControl>
     );
   }
 }
