@@ -21,14 +21,14 @@ class BillDetailContainer extends React.Component {
     this.state = {
       bill: null
     };
-    this.bill_name = props.match.params.bill_name;
+    this.bill_slug = props.match.params.bill_slug;
     this.wordPressAPIPromise = WPAPI.discover( 'https://dev.state-strong.org' );
     this.wordPress = new WordPress();
   }
 
   componentDidMount() {
     this.wordPressAPIPromise.then(
-      api => api.legislation().id(this.bill_name)
+      api => api.legislation().id(this.bill_slug)
     ).then(
       bill => this.wordPress.annotateBillMetadata(bill)
     ).then(
