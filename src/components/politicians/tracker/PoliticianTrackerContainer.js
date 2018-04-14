@@ -1,40 +1,36 @@
 import FilterDropdown from 'components/table/FilterDropdown';
-import BillTable from 'components/bills/table/BillTable';
+import PoliticianTable from 'components/politicians/table/PoliticianTable';
 import React from 'react';
 import WPAPI from 'wpapi';
 import utils from 'utils';
-import WordPress from 'api/WordPress';
 
 
-class BillTrackerContainer extends React.Component {
+class PoliticianTrackerContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      billMetadata: null,
-      bills: null,
+      politicianMetadata: null,
+      politicians: null,
       filters: {}
     };
+    this.filterOptions = [];
     this.wordPressAPIPromise = WPAPI.discover( 'https://dev.state-strong.org' );
-    this.wordPress = new WordPress();
-    this.filterOptions = ['position', 'issue'];
   }
 
   componentDidMount() {
-    this.wordPress.fetchMetadata().then(
-      metadata => this.setState({billMetadata: metadata})
-    ).then(() => this.fetchBills());
+    this.fetchPoliticians();
   }
 
   componentDidUpdate(_, prevState) {
     if (prevState.filters !== this.state.filters) {
-      this.fetchBills();
+      this.fetchPoliticians();
     }
   }
 
-  fetchBills() {
+  fetchPoliticians() {
     this.wordPressAPIPromise.then(
       api => {
-        let request = api.legislation();
+        let request = api.politician();
         for (const filterKey in this.state.filters) {
           const filterValue = this.state.filters[filterKey];
           if (filterValue) {
@@ -44,13 +40,7 @@ class BillTrackerContainer extends React.Component {
         return request.get();
       }
     ).then(
-      bills => {
-        Promise.all(
-          bills.map(bill => this.wordPress.annotateBillMetadata(bill))
-        ).then(
-          () => this.setState({bills: utils.arrayToObject('id', bills)})
-        );
-      }
+      politicians => this.setState({politicians: utils.arrayToObject('id', politicians)})
     );
   }
 
@@ -71,14 +61,14 @@ class BillTrackerContainer extends React.Component {
         <FilterDropdown
           key={`${name}_dropdown`}
           name={name}
-          items={this.state.billMetadata[name]}
+          items={this.state.politicianMetadata[name]}
           onSelect={onSelect}
         />
     );
   }
 
   render() {
-    if (!this.state.bills || !this.state.billMetadata) {
+    if (!this.state.politicians) {
       return <div>Loading data</div>;
     }
     const dropDowns = [];
@@ -91,11 +81,11 @@ class BillTrackerContainer extends React.Component {
           {dropDowns}
         </form>
         <div>
-          <BillTable bills={this.state.bills} />
+          <PoliticianTable politicians={this.state.politicians} />
         </div>
       </div>
     )
   }
 }
 
-export default BillTrackerContainer;
+export default PoliticianTrackerContainer;

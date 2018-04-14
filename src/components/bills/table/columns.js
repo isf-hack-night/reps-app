@@ -4,7 +4,7 @@ import BillIssues from 'components/bills/BillIssues';
 import BillNameLink from 'components/bills/BillNameLink';
 import BillPosition from 'components/bills/BillPosition';
 import BillTitle from 'components/bills/BillTitle';
-import TableColumn from 'components/bills/table/TableColumn';
+import TableColumn from 'components/table/TableColumn';
 
 export const BILL_NAME_COLUMN = new TableColumn({
   key: 'name',

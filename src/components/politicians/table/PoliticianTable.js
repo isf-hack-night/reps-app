@@ -1,7 +1,3 @@
-import {
-  BILL_ISSUES_COLUMN, BILL_NAME_COLUMN, BILL_POSITION_COLUMN,
-  BILL_TITLE_COLUMN
-} from 'components/bills/table/columns';
 import React from 'react';
 import Table, {
   TableBody,
@@ -12,17 +8,14 @@ import Table, {
   TableRow,
   TableSortLabel,
 } from 'material-ui/Table';
+import {POLITICIAN_NAME_COLUMN} from 'components/politicians/table/columns';
 
 
-class BillTable extends React.Component {
+class PoliticianTable extends React.Component {
   constructor(props) {
     super(props);
     this.columns = [
-      BILL_NAME_COLUMN,
-      BILL_TITLE_COLUMN,
-      BILL_POSITION_COLUMN,
-      // BILL_ACTIONS_COLUMN,
-      BILL_ISSUES_COLUMN
+      POLITICIAN_NAME_COLUMN
     ];
   }
 
@@ -40,7 +33,7 @@ class BillTable extends React.Component {
   }
 
   body() {
-    const rows = Object.values(this.props.bills).map((bill) => this.row(bill));
+    const rows = Object.values(this.props.politicians).map((politician) => this.row(politician));
     return (
       <TableBody>
         {rows}
@@ -48,12 +41,12 @@ class BillTable extends React.Component {
     )
   }
 
-  row(bill) {
+  row(politician) {
     return (
-      <TableRow key={bill.id}>
+      <TableRow key={politician.id}>
         {this.columns.map(
           (col, i) =>
-            <TableCell key={i}>{col.Cell({bill})}</TableCell>
+            <TableCell key={i}>{col.Cell({politician})}</TableCell>
         )}
       </TableRow>
     );
@@ -78,4 +71,4 @@ class BillTable extends React.Component {
   }
 }
 
-export default BillTable;
+export default PoliticianTable;
