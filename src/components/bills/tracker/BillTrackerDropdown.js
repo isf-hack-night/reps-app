@@ -1,7 +1,7 @@
 import {FormControl, InputLabel, MenuItem, Select, withStyles} from 'material-ui';
 import React from 'react';
 
-export class BillFilterDropdown extends React.Component {
+export class BillTrackerDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,7 @@ export class BillFilterDropdown extends React.Component {
     if (!this.props.items) {
       return null;
     }
-    const capName = this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1)
+    const capName = this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
     const options = [
       <MenuItem
         key={'ALL'}
@@ -45,4 +45,4 @@ export class BillFilterDropdown extends React.Component {
   }
 }
 
-export default BillFilterDropdown;
+export default BillTrackerDropdown;

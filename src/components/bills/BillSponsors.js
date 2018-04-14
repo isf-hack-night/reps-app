@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid} from 'material-ui';
+import Grid from 'material-ui/Grid';
 
 const BillSponsors = ({bill}) => {
   // TODO: Make this a link to the politician

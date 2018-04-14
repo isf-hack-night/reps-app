@@ -1,56 +1,98 @@
+import BillTrackerDropdown from 'components/bills/tracker/BillTrackerDropdown';
+import BillTable from 'components/bills/table/BillTable';
 import React from 'react';
-import Legiscan from 'api/Legiscan';
-import OpenStates from 'api/OpenStates';
-import BillTrackerCard from 'components/bills/tracker/BillTrackerCard';
 import WPAPI from 'wpapi';
+import utils from 'utils';
+import WordPress from 'api/WordPress';
+
 
 class BillTrackerContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bills: []
+      billMetadata: null,
+      bills: null,
+      filters: {}
     };
-    this.legiscan = new Legiscan();
-    this.openstates = new OpenStates();
+    this.wordPressAPIPromise = WPAPI.discover( 'https://dev.state-strong.org' );
+    this.wordPress = new WordPress();
+    this.filterOptions = ['position', 'issue'];
   }
 
   componentDidMount() {
-    this.fetchBills();
+    this.wordPress.fetchMetadata().then(
+      metadata => this.setState({billMetadata: metadata})
+    ).then(() => this.fetchBills());
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.filters !== this.state.filters) {
+      this.fetchBills();
+    }
   }
 
   fetchBills() {
-    Promise.all(
-      this.props.bills.map(
-        bill_id => this.openstates.fetchBill(bill_id))
+    this.wordPressAPIPromise.then(
+      api => {
+        let request = api.legislation();
+        for (const filterKey in this.state.filters) {
+          const filterValue = this.state.filters[filterKey];
+          if (filterValue) {
+            request = request.param(filterKey, filterValue)
+          }
+        }
+        return request.get();
+      }
     ).then(
-      bills =>
-        Promise.all(bills.map(bill => this.addCalendarToBill(bill)))
-    ).then(
-      bills => this.setState({bills: bills})
-    );
-  }
-
-  addCalendarToBill(openStatesBill) {
-    const searchTerm = openStatesBill.bill_id.replace(/ /g,'');
-    return this.legiscan.searchBill(searchTerm).then(
-      billSearchResult => this.legiscan.fetchBill(billSearchResult.bill_id)
-    ).then(
-      legiscanBill => {
-        const updatedBill = Object.assign({}, openStatesBill);
-        updatedBill.calendar = legiscanBill.calendar;
-        return updatedBill;
+      bills => {
+        Promise.all(
+          bills.map(bill => this.wordPress.annotateBillMetadata(bill))
+        ).then(
+          () => this.setState({bills: utils.arrayToObject('id', bills)})
+        );
       }
     );
   }
 
-  render() {
-    if (!this.state.bills.length) {
-      return <div>Loading bills</div>;
-    }
+  renderDropdown(name) {
+    let onSelect = (selectedItem) => {
+      this.setState((prevState) => {
+        const filters = Object.assign({}, prevState.filters);
+        if (selectedItem) {
+          filters[name] = selectedItem.id;
+        } else {
+          delete filters[name];
+        }
+        return {filters};
+      });
+    };
+    onSelect = onSelect.bind(this);
+    return (
+        <BillTrackerDropdown
+          key={`${name}_dropdown`}
+          name={name}
+          items={this.state.billMetadata[name]}
+          onSelect={onSelect}
+        />
+    );
+  }
 
+  render() {
+    if (!this.state.bills || !this.state.billMetadata) {
+      return <div>Loading data</div>;
+    }
+    const dropDowns = [];
+    for (const option of this.filterOptions) {
+      dropDowns.push(this.renderDropdown(option));
+    }
     return (
       <div>
-        {this.state.bills.map((bill, i) => <BillTrackerCard id={i} bill={bill}/>)}
+        <form autoComplete="off">
+          {dropDowns}
+        </form>
+        <div>
+          <BillTable bills={this.state.bills} />
+        </div>
       </div>
     )
   }

@@ -1,13 +1,6 @@
 import React from 'react';
 import Chip from 'material-ui/Chip';
-import {
-  blue,
-  green,
-  indigo,
-  orange
-} from 'material-ui/colors';
-
-const tag_colors = [blue[500], indigo[500], orange[500], green[500]];
+import {indigo} from 'material-ui/colors';
 
 const style = {
   backgroundColor:indigo[500],
@@ -17,9 +10,14 @@ const style = {
 };
 
 const BillIssues = ({bill}) => {
-  console.log(bill['issue']);
+  const parser = new DOMParser();
   const issuesChips =  bill['issue'].map(
-    (issue, i) => <Chip key={i} style={style} label={issue.name}/>
+    (issue, i) =>
+      <Chip
+        key={i}
+        style={style}
+        label={parser.parseFromString(issue.name, "text/html").body.textContent}
+      />
   );
   return (
     <div style={

@@ -1,11 +1,11 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
 
-class BillVotes extends React.Component {
+class BillCalendar extends React.Component {
   constructor(props) {
     super(props);
-    this.columns = ['Date', 'Description', 'Yes', 'No'];
-    this.keys = ['date', 'desc', 'yea', 'nay'];
+    this.columns = ['Date','Type', 'Description'];
+    this.keys = ['date', 'type', 'description'];
     this.getRow = this.getRow.bind(this);
   }
 
@@ -14,17 +14,17 @@ class BillVotes extends React.Component {
   }
 
   render() {
-    const votes = this.props.bill.votes;
-    const rows = votes.map(this.getRow);
+    const votes = this.props.bill.calendar;
+    const rows = votes.map(this.getRow).reverse();
     return (
       <MUIDataTable
         columns={this.columns}
         data={rows}
-        title='Votes'
+        title='Calendar'
         showHeaderToolbar={true}
       />
     );
   }
 }
 
-export default BillVotes;
+export default BillCalendar;

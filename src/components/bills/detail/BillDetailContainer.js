@@ -1,13 +1,8 @@
 import React from 'react';
 import BillDetailHeader from 'components/bills/detail/BillDetailHeader';
-import BillDetailFlow from 'components/bills/detail/BillDetailFlow';
-import BillDetailBody from 'components/bills/detail/BillDetailBody';
-import Card, {CardActions} from 'material-ui/Card';
-import Button from 'material-ui/Button';
-import StateStrong from 'api/StateStrong';
+import Card from 'material-ui/Card';
 import WPAPI from 'wpapi';
-import BillDetailSidebar from 'components/bills/detail/BillDetailSidebar';
-import {CardHeader, Grid} from 'material-ui';
+import Grid from 'material-ui/Grid';
 
 import BillIssues from 'components/bills/BillIssues';
 import BillSponsors from 'components/bills/BillSponsors';
@@ -18,6 +13,7 @@ import BillCurrentHouse from 'components/bills/BillCurrentHouse';
 import BillCurrentCommittee from 'components/bills/BillCurrentCommittee';
 import BillNextHearing from 'components/bills/BillNextHearing';
 import WordPress from 'api/WordPress';
+import BillFlowChart from 'components/bills/BillFlowChart';
 
 class BillDetailContainer extends React.Component {
   constructor(props) {
@@ -46,6 +42,10 @@ class BillDetailContainer extends React.Component {
     return (
       <Grid container direction="column" spacing={8}>
         <Grid item xs={12}>
+          <h3>Sponsors</h3>
+          <BillSponsors bill={bill}/>
+        </Grid>
+        <Grid item xs={12}>
           <h3>Topics</h3>
           <BillIssues bill={bill}/>
         </Grid>
@@ -61,10 +61,6 @@ class BillDetailContainer extends React.Component {
           <h3>Next Hearing</h3>
           <BillNextHearing bill={bill}/>
         </Grid>
-        <Grid item xs={12}>
-          <h3>Sponsors</h3>
-          <BillSponsors bill={bill}/>
-        </Grid>
       </Grid>
     );
   }
@@ -73,7 +69,7 @@ class BillDetailContainer extends React.Component {
     return (
       <Grid container direction="column" spacing={24}>
         <Grid item xs={12}>
-          <h3>Description</h3>
+          <h3>Summary</h3>
           <BillContent bill={bill}/>
         </Grid>
         <Grid item xs={12}>
@@ -96,11 +92,11 @@ class BillDetailContainer extends React.Component {
               <BillDetailHeader bill={bill}/>
             </Grid>
             <Grid item xs={12}>
-              <h3>Excerpt</h3>
+              <h3>Description</h3>
               <BillExcerpt bill={bill}/>
             </Grid>
             <Grid item xs={12}>
-              <BillDetailFlow bill={bill}/>
+              <BillFlowChart bill={bill}/>
             </Grid>
             <Grid item xs={12} >
               <Grid container spacing={24}>

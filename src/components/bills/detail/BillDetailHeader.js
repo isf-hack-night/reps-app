@@ -1,7 +1,7 @@
 import React from 'react';
 import BillNameLink from 'components/bills/BillNameLink';
 import BillPosition from 'components/bills/BillPosition';
-import {Grid} from 'material-ui';
+import Grid from 'material-ui/Grid';
 import BillTitle from 'components/bills/BillTitle';
 
 class BillDetailHeader extends React.Component {

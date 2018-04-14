@@ -19,12 +19,12 @@ const BillNextHearing = ({bill}) => {
   const now = Date.now();
   for (const event of bill.calendar) {
     const eventDate = new Date(event.date);
-    // if (eventDate > now) {
+    if (eventDate > now) {
       return <BillCalendarEvent event={event}/>;
-    // }
+    }
   }
 
-  return <div>No scheduled events</div>;
+  return <div>No upcoming hearings.</div>;
 };
 
 export default BillNextHearing;
