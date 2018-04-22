@@ -12,13 +12,13 @@ const PoliticianDetailHeader = ({politician}) => {
         <PoliticianNameLink politician={politician}/>
       </Grid>
       <Grid item xs={3}>
-        <PoliticianParty politician={politician}/>
+        Party: <PoliticianParty politician={politician}/>
       </Grid>
       <Grid item xs={3}>
-        <PoliticianChamber politician={politician}/>
+        Chamber: <PoliticianChamber politician={politician}/>
       </Grid>
       <Grid item xs={3}>
-        <PoliticianDistrict politician={politician}/>
+        District: <PoliticianDistrict politician={politician}/>
       </Grid>
     </Grid>
   );

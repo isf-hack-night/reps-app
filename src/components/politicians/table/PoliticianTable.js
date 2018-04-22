@@ -8,14 +8,22 @@ import Table, {
   TableRow,
   TableSortLabel,
 } from 'material-ui/Table';
-import {POLITICIAN_NAME_COLUMN} from 'components/politicians/table/columns';
+import {
+  POLITICIAN_CHAMBER_COLUMN,
+  POLITICIAN_DISTRICT_COLUMN,
+  POLITICIAN_NAME_COLUMN,
+  POLITICIAN_PARTY_COLUMN
+} from 'components/politicians/table/columns';
 
 
 class PoliticianTable extends React.Component {
   constructor(props) {
     super(props);
     this.columns = [
-      POLITICIAN_NAME_COLUMN
+      POLITICIAN_NAME_COLUMN,
+      POLITICIAN_PARTY_COLUMN,
+      POLITICIAN_CHAMBER_COLUMN,
+      POLITICIAN_DISTRICT_COLUMN
     ];
   }
 

@@ -21,6 +21,9 @@ const PoliticianCommittee = ({committee}) => {
 };
 
 const PoliticianCommittees = ({politician}) => {
+  if (!politician.roles) {
+    return null;
+  }
   const committees = politician.roles.filter(role => role.committee_id);
   const committeeListItems = committees.map(
     (committee, i) => {

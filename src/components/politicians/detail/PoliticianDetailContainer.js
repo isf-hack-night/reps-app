@@ -20,10 +20,11 @@ class PoliticianDetailContainer extends React.Component {
 
   componentDidMount() {
     this.wordPressAPIPromise.then(
-      api => api.politician().id(this.politician_slug)
+      api => api.politician().slug(this.politician_slug)
     ).then(
-      politician => {
-        this.setState({politician});
+      politicians => {
+        // the above fetch returns a list, even though we only expect 1 item
+        this.setState({politician: politicians[0]});
       }
     )
   }
