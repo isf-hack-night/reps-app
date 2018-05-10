@@ -36,7 +36,6 @@ class DistrictMap extends React.Component {
   }
 
   handleDrag (e) {
-    console.log(e.target);
 
     if( e.target._latlng){
         const {lat, lng} = e.target._latlng;
@@ -44,7 +43,7 @@ class DistrictMap extends React.Component {
         this.updateRoute(lat, lng)
 
     } else {
-
+      console.log(e.target);
       if(e.target.latLng){
         const lat = e.target.latLng.lat();
         const lng = e.target.latLng.lng();
@@ -60,6 +59,7 @@ class DistrictMap extends React.Component {
     return new google.maps.LatLngBounds(sw,ne);
   }
 
+
   resetMap () {
     this.state.markers.clearLayers();
     this.state.upperDistricts.clearLayers();
@@ -69,16 +69,14 @@ class DistrictMap extends React.Component {
   // document.getElementById('autocomplete').value = '';
 
 
-  //TODO
-      //todo clear gmarker
-    //todo clear gpolygons
-
+    thi.state.gmarker.setMap(null);
+    this.state.gupperDistricts.setMap(null);
+    this.state.glowerDistricts.setMap(null);
     this.state.gmap.fitBounds(this.calcGBounds( STATE_BOUNDS ));
   }
 
   updateRoute (lat, lng) {
 
-    console.log(lat, lng);
     const districtsData = this.stateDistricts.findDistrictsForPoint(lat, lng);
     const lowerId = districtsData.lower.id;
     const upperId = districtsData.upper.id;
@@ -96,7 +94,7 @@ class DistrictMap extends React.Component {
   positionFromDistrict(districtUpper, districtLower) {
     
     this.state.markers.clearLayers();
-    //TODO clear gmarker
+    thi.state.gmarker.setMap(null);
 
     if (districtUpper || districtLower) {
 
@@ -109,21 +107,30 @@ class DistrictMap extends React.Component {
 
   positionSet (lat, lng) {
 
+    //TODO clear g marker
     this.state.markers.clearLayers();
     const marker = L.marker([lat,lng], { draggable: true });
       
     marker.on('dragend', this.handleDrag);
 
     this.state.markers.addLayer(marker);
+
+    //TODO create g marker
+    this.state.gmarker.position(new google.maps.LatLng( lat, lng ));
+    this.state.gmarker.setMap(this.state.gmap);
     
     const districtData = this.stateDistricts.findDistrictsForPoint(lat, lng);
     console.log('posSet districtData', districtData );
     if (districtData.upper || districtData.lower) {
       this.zoomDistrict(districtData)  //make this a callback
     } else {
+
       this.state.upperDistricts.clearLayers();
       this.state.lowerDistricts.clearLayers()
      // this.state.layerControl.getContainer.hide()
+
+      this.state.gupperDistricts.setMap(null);
+      this.state.glowerDistricts.setMap(null);
 
     }
   }
@@ -145,7 +152,11 @@ class DistrictMap extends React.Component {
     this.state.upperDistricts.clearLayers();
     this.state.lowerDistricts.clearLayers();
 
+
+    this.state.gupperDistricts.setMap(null);
+    this.state.glowerDistricts.setMap(null);
     this.state.gmap.fitBounds(this.calcGBounds( bbox ));
+
 
     this.drawDistrict(districtData.upper);
     this.drawDistrict(districtData.lower)
@@ -170,15 +181,21 @@ class DistrictMap extends React.Component {
 
     const districtColor = district.chamber === 'upper' ? COLORS.DISTRICT.UPPER : COLORS.DISTRICT.LOWER;
 
+    let gshape = [];
     for (let i = 0; i < shape.length; i++) { 
        shape[i] = shape[i][0].slice(1).map(x => [x[1], x[0]] );  //assumes no donuts
+       gshape.push( new google.maps.LatLng(shape[i][1],  shape[i][0] )) ;
     }
 
-    const polygon = L.polygon(shape, { color: districtColor });
-    if( district.chamber === 'upper')
+    if( district.chamber === 'upper'){
       this.state.upperDistricts.addLayer( polygon );
-    else 
+      this.state.gupperDistrict.paths = gshape;
+      this.state.gupperDistricts.setMap(this.state.gmap);
+    } else {
       this.state.lowerDistricts.addLayer( polygon )
+      this.state.gupperDistrict.paths = gshape;
+      this.state.glowerDistricts.setMap(this.state.gmap);
+    }
 
   }
 
@@ -229,9 +246,16 @@ class DistrictMap extends React.Component {
 
     map.on('click', this.handleClick);
 
+
+    let gmarker = new google.map.Marker({map: gmap, draggable: true})
+    let gupperDistrict = new google.map.Polygon({map: gmap, strokeColor: COLORS.DISTRICT.UPPER});
+    let glowerDistrict = new google.map.Polygon({map: gmap, strokeColor: COLORS.DISTRICT.LOWER});
+    gmarker.addListener('dragend' , this.handleDrag);
     gmap.addListener('click', this.handleClick  );
 
-    const newState = { map, gmap, markers, upperDistricts, lowerDistricts, mounted: true};
+    const newState = { map,  markers, upperDistricts, lowerDistricts, 
+      gmap, gmarkers, gupperDistricts, gLowerDistricts,
+     mounted: true};
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState));
