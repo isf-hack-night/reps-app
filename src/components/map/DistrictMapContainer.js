@@ -61,13 +61,6 @@ class DistrictMap extends React.Component {
 
 
   resetMap () {
-    this.state.markers.clearLayers();
-    this.state.upperDistricts.clearLayers();
-    this.state.lowerDistricts.clearLayers();
-   // this.state.layerControl.getContainer.hide()
-    this.state.map.flyToBounds(STATE_BOUNDS)
-  // document.getElementById('autocomplete').value = '';
-
 
     thi.state.gmarker.setMap(null);
     this.state.gupperDistrict.setMap(null);
@@ -93,7 +86,6 @@ class DistrictMap extends React.Component {
 
   positionFromDistrict(districtUpper, districtLower) {
     
-    this.state.markers.clearLayers();
     this.state.gmarker.setMap(null);
 
     if (districtUpper || districtLower) {
@@ -107,15 +99,6 @@ class DistrictMap extends React.Component {
 
   positionSet (lat, lng) {
 
-    //TODO clear g marker
-    this.state.markers.clearLayers();
-    const marker = L.marker([lat,lng], { draggable: true });
-      
-    marker.on('dragend', this.handleDrag);
-
-    this.state.markers.addLayer(marker);
-
-    //TODO create g marker
     this.state.gmarker.position(new google.maps.LatLng( lat, lng ));
     this.state.gmarker.setMap(this.state.gmap);
     
@@ -124,10 +107,6 @@ class DistrictMap extends React.Component {
     if (districtData.upper || districtData.lower) {
       this.zoomDistrict(districtData)  //make this a callback
     } else {
-
-      this.state.upperDistricts.clearLayers();
-      this.state.lowerDistricts.clearLayers()
-     // this.state.layerControl.getContainer.hide()
 
       this.state.gupperDistrict.setMap(null);
       this.state.glowerDistrict.setMap(null);
@@ -147,11 +126,6 @@ class DistrictMap extends React.Component {
 
 
     const drawNewDistrict = true;
-    this.state.map.flyToBounds(bbox);
-
-    this.state.upperDistricts.clearLayers();
-    this.state.lowerDistricts.clearLayers();
-
 
     this.state.gupperDistrict.setMap(null);
     this.state.glowerDistrict.setMap(null);
@@ -160,7 +134,6 @@ class DistrictMap extends React.Component {
 
     this.drawDistrict(districtData.upper);
     this.drawDistrict(districtData.lower)
-   // this.state.layerControl.getContainer().show()
   }
 
   drawDistrict (district) {
@@ -178,23 +151,16 @@ class DistrictMap extends React.Component {
       }
     }
 
-
-    const districtColor = district.chamber === 'upper' ? COLORS.DISTRICT.UPPER : COLORS.DISTRICT.LOWER;
-
     let gshape = [];
     for (let i = 0; i < shape.length; i++) { 
        shape[i] = shape[i][0].slice(1).map(x => [x[1], x[0]] );  //assumes no donuts
        gshape.push( new google.maps.LatLng(shape[i][1],  shape[i][0] )) ;
     }
 
-    const polygon = L.polygon(shape, { color: districtColor });
-
     if( district.chamber === 'upper'){
-      this.state.upperDistricts.addLayer( polygon );
       this.state.gupperDistrict.paths = gshape;
       this.state.gupperDistrict.setMap(this.state.gmap);
     } else {
-      this.state.lowerDistricts.addLayer( polygon )
       this.state.gupperDistrict.paths = gshape;
       this.state.glowerDistrict.setMap(this.state.gmap);
     }
@@ -213,42 +179,6 @@ class DistrictMap extends React.Component {
     });
 
     gmap.fitBounds( this.calcGBounds( STATE_BOUNDS ));
-    
-
-    // aka init map
-    L.mapbox.accessToken = API_KEYS.mapbox;
-    let map;
-    if (L.mapbox.HACK_MAP) {
-      L.mapbox.HACK_MAP.remove()
-    }
-
-    map = L.mapbox.map('map', 'mapbox.light');
-    L.mapbox.HACK_MAP = map;
-    map.fitBounds(STATE_BOUNDS);
-
-    const markers = L.featureGroup();
-    map.addLayer(markers);
-
-    const upperDistricts = L.layerGroup([]);
-    const lowerDistricts = L.layerGroup([]);
-    map.addLayer( upperDistricts);
-    map.addLayer( lowerDistricts);
-
-    const overlayHTMLUpper = "<span style='color:" + COLORS.DISTRICT.UPPER + "''>State Senate Districts</span>";
-    const overlayHTMLLower = "<span style='color: " + COLORS.DISTRICT.UPPER + "'>State Assembly Districts</span>";
-
-    //TODO update colors here as wll
-    const overlayMaps = {
-       overlayHTMLUpper : upperDistricts,
-       overlayHTMLLower : lowerDistricts
-    };
-
-    //const layerControl = L.control.layers(null, overlayMaps, {collapsed:false})
-    //layerControl.addTo(map);
-    //layerControl.hide()
-
-    map.on('click', this.handleClick);
-
 
     let gmarker = new google.maps.Marker({map: gmap, draggable: true})
     let gupperDistrict = new google.maps.Polygon({map: gmap, strokeColor: COLORS.DISTRICT.UPPER});
@@ -256,9 +186,7 @@ class DistrictMap extends React.Component {
     gmarker.addListener('dragend' , this.handleDrag);
     gmap.addListener('click', this.handleClick  );
 
-    const newState = { map,  markers, upperDistricts, lowerDistricts, 
-                      gmap, gmarker, gupperDistrict, glowerDistrict,
-                      mounted: true};
+    const newState = { gmap, gmarker, gupperDistrict, glowerDistrict, mounted: true};
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState));
@@ -287,13 +215,11 @@ class DistrictMap extends React.Component {
   }
 
   render () {
-    const styles = {
-      display: window.innerWidth <= 600 ? 'block' : 'inline-block'
-    };
 
+    //todo make this responsive ( but needs initial size or won't render)
     const gstyles = {
       display: window.innerWidth <= 600 ? 'block' : 'inline-block',
-      width: 600,
+      minWidth: 600,
       height: 600,
     };
 
@@ -301,7 +227,6 @@ class DistrictMap extends React.Component {
     return (
       <div>
         <div style={gstyles} id="gmap"></div>
-        <div style={styles} id="map"></div>
       </div>
     )
   }
