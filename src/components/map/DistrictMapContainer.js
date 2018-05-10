@@ -70,8 +70,8 @@ class DistrictMap extends React.Component {
 
 
     thi.state.gmarker.setMap(null);
-    this.state.gupperDistricts.setMap(null);
-    this.state.glowerDistricts.setMap(null);
+    this.state.gupperDistrict.setMap(null);
+    this.state.glowerDistrict.setMap(null);
     this.state.gmap.fitBounds(this.calcGBounds( STATE_BOUNDS ));
   }
 
@@ -94,7 +94,7 @@ class DistrictMap extends React.Component {
   positionFromDistrict(districtUpper, districtLower) {
     
     this.state.markers.clearLayers();
-    thi.state.gmarker.setMap(null);
+    this.state.gmarker.setMap(null);
 
     if (districtUpper || districtLower) {
 
@@ -129,8 +129,8 @@ class DistrictMap extends React.Component {
       this.state.lowerDistricts.clearLayers()
      // this.state.layerControl.getContainer.hide()
 
-      this.state.gupperDistricts.setMap(null);
-      this.state.glowerDistricts.setMap(null);
+      this.state.gupperDistrict.setMap(null);
+      this.state.glowerDistrict.setMap(null);
 
     }
   }
@@ -153,8 +153,8 @@ class DistrictMap extends React.Component {
     this.state.lowerDistricts.clearLayers();
 
 
-    this.state.gupperDistricts.setMap(null);
-    this.state.glowerDistricts.setMap(null);
+    this.state.gupperDistrict.setMap(null);
+    this.state.glowerDistrict.setMap(null);
     this.state.gmap.fitBounds(this.calcGBounds( bbox ));
 
 
@@ -187,14 +187,16 @@ class DistrictMap extends React.Component {
        gshape.push( new google.maps.LatLng(shape[i][1],  shape[i][0] )) ;
     }
 
+    const polygon = L.polygon(shape, { color: districtColor });
+
     if( district.chamber === 'upper'){
       this.state.upperDistricts.addLayer( polygon );
       this.state.gupperDistrict.paths = gshape;
-      this.state.gupperDistricts.setMap(this.state.gmap);
+      this.state.gupperDistrict.setMap(this.state.gmap);
     } else {
       this.state.lowerDistricts.addLayer( polygon )
       this.state.gupperDistrict.paths = gshape;
-      this.state.glowerDistricts.setMap(this.state.gmap);
+      this.state.glowerDistrict.setMap(this.state.gmap);
     }
 
   }
@@ -206,6 +208,7 @@ class DistrictMap extends React.Component {
     gmap = new google.maps.Map(document.getElementById('gmap'), {
       mapTypeControl: false,
       streetViewControl: false,
+      clickableIcons: false,
       styles: GMAP_STYLE
     });
 
@@ -247,15 +250,15 @@ class DistrictMap extends React.Component {
     map.on('click', this.handleClick);
 
 
-    let gmarker = new google.map.Marker({map: gmap, draggable: true})
-    let gupperDistrict = new google.map.Polygon({map: gmap, strokeColor: COLORS.DISTRICT.UPPER});
-    let glowerDistrict = new google.map.Polygon({map: gmap, strokeColor: COLORS.DISTRICT.LOWER});
+    let gmarker = new google.maps.Marker({map: gmap, draggable: true})
+    let gupperDistrict = new google.maps.Polygon({map: gmap, strokeColor: COLORS.DISTRICT.UPPER});
+    let glowerDistrict = new google.maps.Polygon({map: gmap, strokeColor: COLORS.DISTRICT.LOWER});
     gmarker.addListener('dragend' , this.handleDrag);
     gmap.addListener('click', this.handleClick  );
 
     const newState = { map,  markers, upperDistricts, lowerDistricts, 
-      gmap, gmarkers, gupperDistricts, gLowerDistricts,
-     mounted: true};
+                      gmap, gmarker, gupperDistrict, glowerDistrict,
+                      mounted: true};
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState));
