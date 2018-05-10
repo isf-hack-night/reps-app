@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from 'app/App';
 
 
-console.log('hello!');
+console.log('hello WORlD!');
 
 function tryToRender () {
   setTimeout(() => {

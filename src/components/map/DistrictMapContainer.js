@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import API_KEYS from 'KEYS';
 import queryAPI from 'queryAPI';
-import {COLORS, STATE_BOUNDS} from 'local_constants';
+import {COLORS, STATE_BOUNDS, STATE_CENTER} from 'local_constants';
 const defaultZoom = 6;
 
 //TODO:
@@ -149,21 +149,18 @@ class DistrictMap extends React.Component {
 
   componentDidMount () {
     
-
+    console.log('hello GMAP');
+    
     let gmap;
 
-    let zoom = 14;
-    let lat = 37.774929;
-    let lng = -122.419416;
-    const center = new google.maps.LatLng(lat, lng);
-    const mapConfig = Object.assign({}, {
-      center: center,
-      zoom: zoom
-    })
+    const sw =  new google.maps.LatLng( STATE_BOUNDS[0][0] , STATE_BOUNDS[0][1] );
+    const ne =  new google.maps.LatLng( STATE_BOUNDS[1][0] , STATE_BOUNDS[1][1] );
 
-    gmap = new google.maps.Map(document.getElementById('gmap'), mapConfig);
+    const bounds = new google.maps.LatLngBounds(sw,ne);
 
-
+    gmap = new google.maps.Map(document.getElementById('gmap'), {});
+    gmap.fitBounds(bounds);
+    
 
     // aka init map
     L.mapbox.accessToken = API_KEYS.mapbox;
@@ -198,8 +195,9 @@ class DistrictMap extends React.Component {
     //layerControl.hide()
 
     map.on('click', this.handleClick);
+   // gmap.on('click', this.handleClick);
 
-    const newState = { map, markers, upperDistricts, lowerDistricts, mounted: true};
+    const newState = { map, gmap, markers, upperDistricts, lowerDistricts, mounted: true};
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState));
@@ -234,9 +232,10 @@ class DistrictMap extends React.Component {
 
     const gstyles = {
       display: window.innerWidth <= 600 ? 'block' : 'inline-block',
-      height: 600 ,
-      width: 600 
+      width: 600,
+      height: 600,
     };
+
 
     return (
       <div>
