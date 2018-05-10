@@ -22,15 +22,36 @@ class DistrictMap extends React.Component {
   }
 
   handleClick (e) {
-    const { lat, lng } = e.latlng;
-    this.updateRoute(lat, lng)
+    if(e.latlng){
+      const { lat, lng } = e.latlng;
+      this.updateRoute(lat, lng)
+    } else {
+
+      if(e.latLng){
+        const lat = e.latLng.lat;
+        const lng = e.latLng.lng;
+        this.updateRoute(lat, lng)
+      }
+    }
   }
 
   handleDrag (e) {
     console.log(e.target);
-    const {lat, lng} = e.target._latlng;
-    //todo set lat lng in global state
-    this.updateRoute(lat, lng)
+
+    if( e.target._latlng){
+        const {lat, lng} = e.target._latlng;
+        //todo set lat lng in global state
+        this.updateRoute(lat, lng)
+
+    } else {
+
+      if(e.target.latLng){
+        const lat = e.target.latLng.lat;
+        const lng = e.target.latLng.lng;
+        this.updateRoute(lat, lng)
+      }
+    }
+
   }
 
   resetMap () {
@@ -40,6 +61,13 @@ class DistrictMap extends React.Component {
    // this.state.layerControl.getContainer.hide()
     this.state.map.flyToBounds(STATE_BOUNDS)
   // document.getElementById('autocomplete').value = '';
+
+
+    const sw =  new google.maps.LatLng( STATE_BOUNDS[0][0] , STATE_BOUNDS[0][1] );
+    const ne =  new google.maps.LatLng( STATE_BOUNDS[1][0] , STATE_BOUNDS[1][1] );
+    const bounds = new google.maps.LatLngBounds(sw,ne);
+
+    this.state.gmap.fitBounds(bounds);
   }
 
   updateRoute (lat, lng) {
@@ -196,10 +224,8 @@ class DistrictMap extends React.Component {
 
     map.on('click', this.handleClick);
 
-    let clickHandler = this.updateRoute;
-    google.maps.event.addListener(gmap, 'click', function(event) {
-       clickHandler(event.latLng.lat, event.latLng.lng);
-    });
+
+    gmap.addListener('click', this.handleClick  );
 
     const newState = { map, gmap, markers, upperDistricts, lowerDistricts, mounted: true};
 
