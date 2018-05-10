@@ -28,8 +28,8 @@ class DistrictMap extends React.Component {
     } else {
 
       if(e.latLng){
-        const lat = e.latLng.lat;
-        const lng = e.latLng.lng;
+        const lat = e.latLng.lat();
+        const lng = e.latLng.lng();
         this.updateRoute(lat, lng)
       }
     }
@@ -46,12 +46,18 @@ class DistrictMap extends React.Component {
     } else {
 
       if(e.target.latLng){
-        const lat = e.target.latLng.lat;
-        const lng = e.target.latLng.lng;
+        const lat = e.target.latLng.lat();
+        const lng = e.target.latLng.lng();
         this.updateRoute(lat, lng)
       }
     }
 
+  }
+
+  calcGBounds( bounds ){
+    const sw =  new google.maps.LatLng( bounds[0][0] , bounds[0][1] );
+    const ne =  new google.maps.LatLng( bounds[1][0] , bounds[1][1] );
+    return new google.maps.LatLngBounds(sw,ne);
   }
 
   resetMap () {
@@ -63,14 +69,16 @@ class DistrictMap extends React.Component {
   // document.getElementById('autocomplete').value = '';
 
 
-    const sw =  new google.maps.LatLng( STATE_BOUNDS[0][0] , STATE_BOUNDS[0][1] );
-    const ne =  new google.maps.LatLng( STATE_BOUNDS[1][0] , STATE_BOUNDS[1][1] );
-    const bounds = new google.maps.LatLngBounds(sw,ne);
+  //TODO
+      //todo clear gmarker
+    //todo clear gpolygons
 
-    this.state.gmap.fitBounds(bounds);
+    this.state.gmap.fitBounds(this.calcGBounds( STATE_BOUNDS ));
   }
 
   updateRoute (lat, lng) {
+
+    console.log(lat, lng);
     const districtsData = this.stateDistricts.findDistrictsForPoint(lat, lng);
     const lowerId = districtsData.lower.id;
     const upperId = districtsData.upper.id;
@@ -88,6 +96,8 @@ class DistrictMap extends React.Component {
   positionFromDistrict(districtUpper, districtLower) {
     
     this.state.markers.clearLayers();
+    //TODO clear gmarker
+
     if (districtUpper || districtLower) {
 
       const districtData = this.stateDistricts.findDistrictsFromIDs( districtUpper, districtLower);
@@ -99,7 +109,6 @@ class DistrictMap extends React.Component {
 
   positionSet (lat, lng) {
 
-    console.log('POSITION SET');
     this.state.markers.clearLayers();
     const marker = L.marker([lat,lng], { draggable: true });
       
@@ -135,6 +144,9 @@ class DistrictMap extends React.Component {
 
     this.state.upperDistricts.clearLayers();
     this.state.lowerDistricts.clearLayers();
+
+    this.state.gmap.fitBounds(this.calcGBounds( bbox ));
+
     this.drawDistrict(districtData.upper);
     this.drawDistrict(districtData.lower)
    // this.state.layerControl.getContainer().show()
@@ -172,13 +184,7 @@ class DistrictMap extends React.Component {
 
   componentDidMount () {
     
-    
     let gmap;
-
-    const sw =  new google.maps.LatLng( STATE_BOUNDS[0][0] , STATE_BOUNDS[0][1] );
-    const ne =  new google.maps.LatLng( STATE_BOUNDS[1][0] , STATE_BOUNDS[1][1] );
-
-    const bounds = new google.maps.LatLngBounds(sw,ne);
 
     gmap = new google.maps.Map(document.getElementById('gmap'), {
       mapTypeControl: false,
@@ -186,8 +192,7 @@ class DistrictMap extends React.Component {
       styles: GMAP_STYLE
     });
 
-
-    gmap.fitBounds(bounds);
+    gmap.fitBounds( this.calcGBounds( STATE_BOUNDS ));
     
 
     // aka init map
@@ -223,7 +228,6 @@ class DistrictMap extends React.Component {
     //layerControl.hide()
 
     map.on('click', this.handleClick);
-
 
     gmap.addListener('click', this.handleClick  );
 
