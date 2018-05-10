@@ -2,18 +2,13 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import API_KEYS from 'KEYS';
 import queryAPI from 'queryAPI';
-import {COLORS, STATE_BOUNDS, STATE_CENTER} from 'local_constants';
+import {COLORS, STATE_BOUNDS, STATE_CENTER, GMAP_STYLE} from 'local_constants';
 const defaultZoom = 6;
 
 //TODO:
 // went forward (map didn't render in this view) hit back and got "Error: Map container is already initialized."
 // how to handle a single action's page... the map should lock in this case? or moving/clicking opens the rep/actions list view?
 
-// const caCenter = [37.2719, -119.2702] // replaced by STATE_CENTER constant
-// const caBounds = [[32.5343, -124.4096], [42.0095, -114.1308]] // replace by STATE_BOUNDS constant
-// var stateDistricts; // get from react prop
-// var state = 'CA'; // replaced by US_STATE constant     //TODO get latlong map zoom defaults
-//test
 class DistrictMap extends React.Component {
   constructor (props) {
     super(props);
@@ -149,7 +144,6 @@ class DistrictMap extends React.Component {
 
   componentDidMount () {
     
-    console.log('hello GMAP');
     
     let gmap;
 
@@ -159,169 +153,12 @@ class DistrictMap extends React.Component {
     const bounds = new google.maps.LatLngBounds(sw,ne);
 
     gmap = new google.maps.Map(document.getElementById('gmap'), {
-      styles:[
-  {
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#f5f5f5"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.icon",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#616161"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#f5f5f5"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#bdbdbd"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#eeeeee"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#757575"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#e5e5e5"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#9e9e9e"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#ffffff"
-      }
-    ]
-  },
-  {
-    "featureType": "road.arterial",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#757575"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#dadada"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#616161"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#9e9e9e"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.line",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#e5e5e5"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.station",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#eeeeee"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#c9c9c9"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#9e9e9e"
-      }
-    ]
-  }
-]
-
-
+      mapTypeControl: false,
+      streetViewControl: false,
+      styles: GMAP_STYLE
     });
+
+
     gmap.fitBounds(bounds);
     
 
@@ -342,7 +179,7 @@ class DistrictMap extends React.Component {
     const upperDistricts = L.layerGroup([]);
     const lowerDistricts = L.layerGroup([]);
     map.addLayer( upperDistricts);
-    map.addLayer(lowerDistricts);
+    map.addLayer( lowerDistricts);
 
     const overlayHTMLUpper = "<span style='color:" + COLORS.DISTRICT.UPPER + "''>State Senate Districts</span>";
     const overlayHTMLLower = "<span style='color: " + COLORS.DISTRICT.UPPER + "'>State Assembly Districts</span>";
