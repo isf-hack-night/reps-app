@@ -195,7 +195,11 @@ class DistrictMap extends React.Component {
     //layerControl.hide()
 
     map.on('click', this.handleClick);
-   // gmap.on('click', this.handleClick);
+
+    let clickHandler = this.updateRoute;
+    google.maps.event.addListener(gmap, 'click', function(event) {
+       clickHandler(event.latLng.lat, event.latLng.lng);
+    });
 
     const newState = { map, gmap, markers, upperDistricts, lowerDistricts, mounted: true};
 
