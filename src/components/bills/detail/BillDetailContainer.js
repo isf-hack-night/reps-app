@@ -86,30 +86,28 @@ class BillDetailContainer extends React.Component {
     const bill = this.state.bill;
     return (
       <div>
-        <Card>
-          <Grid container spacing={24}>
-            <Grid item xs={12}>
-              <BillDetailHeader bill={bill}/>
-            </Grid>
-            <Grid item xs={12}>
-              <h3>Description</h3>
-              <BillExcerpt bill={bill}/>
-            </Grid>
-            <Grid item xs={12}>
-              <BillFlowChart bill={bill}/>
-            </Grid>
-            <Grid item xs={12} >
-              <Grid container spacing={24}>
-                <Grid item xs={3} >
-                  {this.sidebar(bill)}
-                </Grid>
-                <Grid item xs={9} >
-                  {this.body(bill)}
-                </Grid>
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <BillDetailHeader bill={bill}/>
+          </Grid>
+          <Grid item xs={12}>
+            <h3>Description</h3>
+            <BillExcerpt bill={bill}/>
+          </Grid>
+          <Grid item xs={12}>
+            <BillFlowChart bill={bill}/>
+          </Grid>
+          <Grid item xs={12} >
+            <Grid container spacing={24}>
+              <Grid item xs={3} >
+                {this.sidebar(bill)}
+              </Grid>
+              <Grid item xs={9} >
+                {this.body(bill)}
               </Grid>
             </Grid>
           </Grid>
-        </Card>
+        </Grid>
       </div>
     )
   }

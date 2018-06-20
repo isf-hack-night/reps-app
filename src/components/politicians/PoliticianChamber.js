@@ -22,7 +22,7 @@ const PoliticianChamber = ({politician}) => {
     }
   }
 
-  return <div>{chamber}</div>;
+  return <span>{chamber}</span>;
 };
 
 export default PoliticianChamber;

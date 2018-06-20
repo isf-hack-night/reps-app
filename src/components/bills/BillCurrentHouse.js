@@ -1,7 +1,8 @@
 import React from 'react';
 
 const BillCurrentHouse = ({bill}) => {
-  return <div>TODO: include in api</div>;
+  // TODO: include in api
+  return null;
 };
 
 export default BillCurrentHouse;
