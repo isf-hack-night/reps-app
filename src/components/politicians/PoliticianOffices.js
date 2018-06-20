@@ -9,23 +9,18 @@ import {List, ListItem, ListItemText} from 'material-ui';
 // email: "BSmith@leg.state.vt.us"
 // },
 
-const orNA = (thing) => thing ? thing : 'N/A';
-
 const PoliticianOffice = ({office}) => {
+  const phone = office.phone ? <ListItem>Phone: {office.phone}</ListItem> : null;
+  const address = office.address ? <ListItem>Address: {office.address}</ListItem> : null;
+  const email = office.email ? <ListItem>Email: {office.email}</ListItem> : null;
 
   return (
     <div>
       <h5>{office.name}</h5>
       <List component="nav">
-        <ListItem>
-          Phone: {orNA(office.phone)}
-        </ListItem>
-        <ListItem>
-          Address: {orNA(office.address)}
-        </ListItem>
-        <ListItem>
-          Email: {orNA(office.email)}
-        </ListItem>
+        {phone}
+        {address}
+        {email}
       </List>
     </div>
   );

@@ -19,10 +19,12 @@ const PoliticianDistrict = ({politician}) => {
     const districtRole = politician.roles.filter(role => role.district).shift();
     if (districtRole) {
       district = districtRole.district;
+      // Capitalize first letter
+      district = district.charAt(0).toUpperCase() + district.substr(1)
     }
   }
 
-  return <div>{district}</div>;
+  return <span>{district}</span>;
 };
 
 export default PoliticianDistrict;

@@ -21,7 +21,7 @@ const PoliticianParty = ({politician}) => {
     }
   }
 
-  return <div>{party}</div>;
+  return <span>{party}</span>;
 };
 
 export default PoliticianParty;

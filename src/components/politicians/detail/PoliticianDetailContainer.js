@@ -36,26 +36,25 @@ class PoliticianDetailContainer extends React.Component {
     const politician = this.state.politician;
     return (
       <div>
-        <Card>
-          <PoliticianDetailHeader politician={politician} />
-          <Grid container spacing={24}>
-            <Grid item xs={3}>
-              <PoliticianPicture politician={politician} />
-            </Grid>
-            <Grid item xs={3}>
-              <h3>Offices</h3>
-              <PoliticianOffices politician={politician} />
-            </Grid>
-            <Grid item xs={3}>
-              <h3>Election Info</h3>
-              <PoliticianElectionInfo politician={politician} />
-            </Grid>
-            <Grid item xs={3}>
-              <h3>Committees</h3>
-              <PoliticianCommittees politician={politician} />
-            </Grid>
+        <PoliticianDetailHeader politician={politician} />
+        <Grid container spacing={12}>
+          <Grid item xs={3}>
+            <PoliticianPicture politician={politician} />
           </Grid>
-        </Card>
+          <Grid item xs={3}>
+            <h3>Offices</h3>
+            <PoliticianOffices politician={politician} />
+          </Grid>
+          {/*TODO: Implement*/}
+          {/*<Grid item xs={3}>*/}
+            {/*<h3>Election Info</h3>*/}
+            {/*<PoliticianElectionInfo politician={politician} />*/}
+          {/*</Grid>*/}
+          <Grid item xs={3}>
+            <h3>Committees</h3>
+            <PoliticianCommittees politician={politician} />
+          </Grid>
+        </Grid>
       </div>
     );
   }
