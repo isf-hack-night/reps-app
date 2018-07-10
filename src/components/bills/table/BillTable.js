@@ -62,7 +62,15 @@ class BillTable extends React.Component {
   footer() {
     return (
       <TableFooter>
-        {/*<TablePagination/>*/}
+        <TableRow>
+          <TablePagination
+            onChangePage={this.props.onChangePage}
+            onChangeRowsPerPage={this.props.onChangeRowsPerPage}
+            page={this.props.page-1}
+            count={this.props.count}
+            rowsPerPage={this.props.rowsPerPage}
+          />
+        </TableRow>
       </TableFooter>
     );
   }

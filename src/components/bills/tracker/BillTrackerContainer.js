@@ -4,19 +4,26 @@ import React from 'react';
 import WPAPI from 'wpapi';
 import utils from 'utils';
 import WordPress from 'api/WordPress';
+import {Button, FormControl, TextField} from 'material-ui';
 
 
 class BillTrackerContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      billMetadata: null,
-      bills: null,
-      filters: {}
+      billMetadata: [],
+      bills: {},
+      filters: {},
+      count: 0,
+      page: 1,
+      rowsPerPage: 10,
+      search: '',
     };
     this.wordPressAPIPromise = WPAPI.discover( 'https://dev.state-strong.org' );
     this.wordPress = new WordPress();
     this.filterOptions = ['position', 'issue'];
+    this.onChangePage = this.onChangePage.bind(this);
+    this.onChangeRowsPerPage = this.onChangeRowsPerPage.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +41,10 @@ class BillTrackerContainer extends React.Component {
   fetchBills() {
     this.wordPressAPIPromise.then(
       api => {
-        let request = api.legislation();
+        let request = api.legislation()
+          .perPage(this.state.rowsPerPage)
+          .page(this.state.page)
+          .search(this.state.search);
         for (const filterKey in this.state.filters) {
           const filterValue = this.state.filters[filterKey];
           if (filterValue) {
@@ -48,10 +58,22 @@ class BillTrackerContainer extends React.Component {
         Promise.all(
           bills.map(bill => this.wordPress.annotateBillMetadata(bill))
         ).then(
-          () => this.setState({bills: utils.arrayToObject('id', bills)})
+          () => this.setState({
+            bills: utils.arrayToObject('id', bills),
+            count: parseInt(bills._paging ? bills._paging.total : 0),
+          })
         );
       }
     );
+  }
+
+  onChangePage(e, nextPageNum) {
+    // Material ui pagination is 0-indexed, but WP api is 1-indexed
+    this.setState({page: nextPageNum + 1}, () => this.fetchBills());
+  }
+
+  onChangeRowsPerPage(e) {
+    this.setState({rowsPerPage: e.target.value}, () => this.fetchBills());
   }
 
   renderDropdown(name) {
@@ -63,7 +85,8 @@ class BillTrackerContainer extends React.Component {
         } else {
           delete filters[name];
         }
-        return {filters};
+        // reset pagination when filters change.
+        return {filters, page: 1};
       });
     };
     onSelect = onSelect.bind(this);
@@ -77,21 +100,48 @@ class BillTrackerContainer extends React.Component {
     );
   }
 
+  renderSearchButton() {
+    return (
+      <FormControl>
+        <Button onClick={() => this.fetchBills()}>Search</Button>
+      </FormControl>
+    );
+  }
+
+  renderSearchField() {
+    return (
+      <FormControl>
+        <TextField
+          id="search"
+          label="Search"
+          type="search"
+          onChange={e => this.setState({search: e.target.value})}
+        />
+      </FormControl>
+    );
+  }
+
   render() {
-    if (!this.state.bills || !this.state.billMetadata) {
-      return <div>Loading data</div>;
-    }
     const dropDowns = [];
     for (const option of this.filterOptions) {
       dropDowns.push(this.renderDropdown(option));
     }
+    dropDowns.push(this.renderSearchField());
+    dropDowns.push(this.renderSearchButton());
     return (
       <div>
         <form autoComplete="off">
           {dropDowns}
         </form>
         <div>
-          <BillTable bills={this.state.bills} />
+          <BillTable
+            bills={this.state.bills}
+            onChangePage={this.onChangePage}
+            onChangeRowsPerPage={this.onChangeRowsPerPage}
+            page={this.state.page}
+            count={this.state.count}
+            rowsPerPage={this.state.rowsPerPage}
+          />
         </div>
       </div>
     )
