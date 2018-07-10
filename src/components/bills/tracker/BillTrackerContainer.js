@@ -85,6 +85,7 @@ class BillTrackerContainer extends React.Component {
         } else {
           delete filters[name];
         }
+        // reset pagination when filters change.
         return {filters, page: 1};
       });
     };
