@@ -19,7 +19,7 @@ const PoliticianChamber = ({politician}) => {
     const chamberRole = politician.roles.filter(role => role.chamber).shift();
     if (chamberRole) {
       // Capitalize first letter
-      chamber = chamberRole.chamber.charAt(0).toUpperCase() + chamberRole.chamber.substr(1);
+      chamber = chamberRole.chamber === 'upper' ? 'Senate' : 'Assembly';
     }
   }
 

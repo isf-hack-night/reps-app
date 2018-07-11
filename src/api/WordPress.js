@@ -8,6 +8,7 @@ class WordPress {
       position: null,
       interest: null,
       issue: null,
+      bill_status: null,
     };
     this.metadataLoaded = false
   }
