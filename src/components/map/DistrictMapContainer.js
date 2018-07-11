@@ -131,10 +131,10 @@ class DistrictMap extends React.Component {
 
     const drawNewDistrict = true;
 
-    this.drawDistrict(districtData.upper);
-    this.drawDistrict(districtData.lower);
-
     this.state.gmap.fitBounds(this.calcGBounds( bbox ));
+    this.drawDistrict(districtData.lower);
+    this.drawDistrict(districtData.upper);
+
 
   }
 
@@ -153,13 +153,15 @@ class DistrictMap extends React.Component {
       }
     }
 
-    let gshape = [];
+    let gshapes = [];
     for (let i = 0; i < shape.length; i++) { 
-       shape[i] = shape[i][0].slice(1).map(x => [x[1], x[0]] );  //assumes no donuts
-       gshape.push( new google.maps.LatLng(shape[i][1],  shape[i][0] )) ;
+       gshapes.push( 
+        new google.maps.Data.Polygon(
+          [ shape[i][0].slice(1).map(x => new google.maps.LatLng(x[1], x[0]) ) ]
+       ));  //assumes no donuts
     }
   
-    this.state.gmap.data.getFeatureById(district.chamber).setGeometry(new google.maps.Data.Polygon([gshape])); 
+    this.state.gmap.data.getFeatureById(district.chamber).setGeometry(new google.maps.Data.MultiPolygon(gshapes)); 
 
   }
 
@@ -195,7 +197,8 @@ class DistrictMap extends React.Component {
             strokeWeight: 2,
             fillOpacity: 0.35,
             fillColor: feature.getProperty('color'),
-            strokeColor: feature.getProperty('color')
+            strokeColor: feature.getProperty('color'),
+            clickable: false,
           });
         });
 
