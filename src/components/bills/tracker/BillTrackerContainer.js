@@ -101,9 +101,10 @@ class BillTrackerContainer extends React.Component {
   }
 
   renderSearchButton() {
+    // Reset page and then re-fetch
     return (
       <FormControl>
-        <Button onClick={() => this.fetchBills()}>Search</Button>
+        <Button onClick={() => this.setState({page: 1}, () => this.fetchBills())}>Search</Button>
       </FormControl>
     );
   }
