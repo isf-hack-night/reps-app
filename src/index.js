@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom';
 import App from 'app/App';
 
 
-console.log('hello WORlD!');
-
 function tryToRender () {
   setTimeout(() => {
-    if (window.google && window.L.mapbox) {
+    if (window.google) {
       ReactDOM.render(<App/>, document.getElementById('reps_app_root'));
     } else {
       tryToRender();

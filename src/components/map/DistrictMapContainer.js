@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import API_KEYS from 'KEYS';
 import queryAPI from 'queryAPI';
-import {COLORS, STATE_BOUNDS, STATE_CENTER, GMAP_STYLE} from 'local_constants';
+import {COLORS, STATE_BOUNDS, STATE_CENTER, GMAP_STYLE, STATE_BOUNDS_PADDING} from 'local_constants';
 const defaultZoom = 6;
 
 //TODO:
@@ -22,6 +22,7 @@ class DistrictMap extends React.Component {
   }
 
   handleClick (e) {
+
     if(e.latlng){
       const { lat, lng } = e.latlng;
       this.updateRoute(lat, lng)
@@ -62,14 +63,13 @@ class DistrictMap extends React.Component {
 
   resetMap () {
 
-    this.state.marker.setMap(null);
+    this.state.markers[0].setMap(null);
     this.state.upperDistrict.setMap(null);
     this.state.lowerDistrict.setMap(null);
-    this.state.gmap.fitBounds(this.calcGBounds( STATE_BOUNDS ));
+    this.state.gmap.fitBounds(this.calcGBounds( STATE_BOUNDS ) , STATE_BOUNDS_PADDING);
   }
 
   updateRoute (lat, lng) {
-
     const districtsData = this.stateDistricts.findDistrictsForPoint(lat, lng);
     const lowerId = districtsData.lower.id;
     const upperId = districtsData.upper.id;
@@ -78,15 +78,16 @@ class DistrictMap extends React.Component {
       districtUpper: upperId,
     });
     this.props.history.push(newRoute);
-    console.log("NOW UPDATE LOCATION DATA");
+
     if (this.props.locationData) {
+      console.log("LOCATION DATA")
       this.props.locationData.push({lat: lat, lng: lng})
     }
   }
 
   positionFromDistrict(districtUpper, districtLower) {
     
-    this.state.marker.setMap(null);
+    this.state.markers[0].setMap(null);
 
     if (districtUpper || districtLower) {
 
@@ -99,6 +100,7 @@ class DistrictMap extends React.Component {
 
   positionSet (lat, lng) {
 
+    console.log("POSITION SET")
     let marker = new google.maps.Marker({
           position: new google.maps.LatLng( lat, lng ),
           map: this.state.gmap,
@@ -106,10 +108,7 @@ class DistrictMap extends React.Component {
         });
     marker.addListener('dragend' , this.handleDrag);
 
-    //this.setState({marker : marker});
-    this.state.marker = marker
-
-    
+    this.setState({markers : this.state.markers.push( marker )});    
  
     const districtData = this.stateDistricts.findDistrictsForPoint(lat, lng);
     console.log('posSet districtData', districtData );
@@ -203,18 +202,17 @@ class DistrictMap extends React.Component {
       clickableIcons: false,
       styles: GMAP_STYLE
     });
+    gmap.fitBounds( this.calcGBounds( STATE_BOUNDS ), STATE_BOUNDS_PADDING);
 
-    gmap.fitBounds( this.calcGBounds( STATE_BOUNDS ));
-
-    let marker = new google.maps.Marker();
     let markers = [];
+    markers.push( new google.maps.Marker())
     let upperDistrict = new google.maps.Polygon();
     let lowerDistrict = new google.maps.Polygon();
 
     gmap.addListener('click', this.handleClick  );
 
 
-    const newState = { gmap, marker, markers, upperDistrict, lowerDistrict, mounted: true};
+    const newState = { gmap, markers, upperDistrict, lowerDistrict, mounted: true};
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState));
