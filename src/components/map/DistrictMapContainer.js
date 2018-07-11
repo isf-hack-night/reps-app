@@ -62,10 +62,9 @@ class DistrictMap extends React.Component {
 
 
   resetMap () {
-
-    this.state.markers[0].setMap(null);
-    this.state.upperDistrict.setMap(null);
-    this.state.lowerDistrict.setMap(null);
+    this.state.gmap.data.forEach(function(feature){
+          feature.setGeometry( new google.maps.Data.Polygon([]));
+        });
     this.state.gmap.fitBounds(this.calcGBounds( STATE_BOUNDS ) , STATE_BOUNDS_PADDING);
   }
 
@@ -79,18 +78,17 @@ class DistrictMap extends React.Component {
     });
     this.props.history.push(newRoute);
 
-    if (this.props.locationData) {
-      console.log("LOCATION DATA")
+    if(this.props.locationData){
       this.props.locationData.push({lat: lat, lng: lng})
     }
+    
   }
+
+
 
   positionFromDistrict(districtUpper, districtLower) {
     
-    this.state.markers[0].setMap(null);
-
     if (districtUpper || districtLower) {
-
       const districtData = this.stateDistricts.findDistrictsFromIDs( districtUpper, districtLower);
       this.zoomDistrict(districtData) 
     }
@@ -100,25 +98,23 @@ class DistrictMap extends React.Component {
 
   positionSet (lat, lng) {
 
-    console.log("POSITION SET")
+    /*
     let marker = new google.maps.Marker({
           position: new google.maps.LatLng( lat, lng ),
           map: this.state.gmap,
           draggable: true
         });
     marker.addListener('dragend' , this.handleDrag);
-
-    this.setState({markers : this.state.markers.push( marker )});    
+  */
  
     const districtData = this.stateDistricts.findDistrictsForPoint(lat, lng);
     console.log('posSet districtData', districtData );
     if (districtData.upper || districtData.lower) {
       this.zoomDistrict(districtData)  //make this a callback
     } else {
-
-    this.state.upperDistrict.setMap(null);
-    this.state.lowerDistrict.setMap(null);
-
+        this.state.gmap.data.forEach(function(feature){
+          feature.setGeometry( new google.maps.Data.Polygon([]));
+        });
     }
   }
 
@@ -135,13 +131,11 @@ class DistrictMap extends React.Component {
 
     const drawNewDistrict = true;
 
-    this.state.upperDistrict.setMap(null);
-    this.state.lowerDistrict.setMap(null);
+    this.drawDistrict(districtData.upper);
+    this.drawDistrict(districtData.lower);
+
     this.state.gmap.fitBounds(this.calcGBounds( bbox ));
 
-
-    this.drawDistrict(districtData.upper);
-    this.drawDistrict(districtData.lower)
   }
 
   drawDistrict (district) {
@@ -164,31 +158,8 @@ class DistrictMap extends React.Component {
        shape[i] = shape[i][0].slice(1).map(x => [x[1], x[0]] );  //assumes no donuts
        gshape.push( new google.maps.LatLng(shape[i][1],  shape[i][0] )) ;
     }
-
-    if( district.chamber === 'upper'){
-      let upperDistrict = new google.maps.Polygon({map: this.state.gmap, 
-                                                    paths:gshape, 
-                                                    strokeColor: COLORS.DISTRICT.UPPER,
-                                                    strokeOpacity: 0.8,
-                                                    strokeWeight: 2,
-                                                    fillColor: COLORS.DISTRICT.UPPER,
-                                                    fillOpacity: 0.35
-                                                });
-     // this.setState(upperDistrict: upperDistrict);
-      this.state.upperDistrict = upperDistrict;
-
-    } else {
-      let lowerDistrict = new google.maps.Polygon({map: this.state.gmap, 
-                                                    paths: gshape, 
-                                                    strokeColor: COLORS.DISTRICT.LOWER,
-                                                    strokeOpacity: 0.8,
-                                                    strokeWeight: 2,
-                                                    fillColor: COLORS.DISTRICT.LOWER,
-                                                    fillOpacity: 0.35
-                                                });
-    //  this.setState(lowerDistrict: lowerDistrict);
-      this.state.lowerDistrict = lowerDistrict;
-    }
+  
+    this.state.gmap.data.getFeatureById(district.chamber).setGeometry(new google.maps.Data.Polygon([gshape])); 
 
   }
 
@@ -204,15 +175,31 @@ class DistrictMap extends React.Component {
     });
     gmap.fitBounds( this.calcGBounds( STATE_BOUNDS ), STATE_BOUNDS_PADDING);
 
-    let markers = [];
-    markers.push( new google.maps.Marker())
-    let upperDistrict = new google.maps.Polygon();
-    let lowerDistrict = new google.maps.Polygon();
-
     gmap.addListener('click', this.handleClick  );
 
+    gmap.data.add( new google.maps.Data.Feature({ 
+      id: 'upper',
+      geometry: new google.maps.Data.Polygon([]),
+      properties: {color: COLORS.DISTRICT.UPPER}
+    }));
 
-    const newState = { gmap, markers, upperDistrict, lowerDistrict, mounted: true};
+    gmap.data.add( new google.maps.Data.Feature({ 
+      id: 'lower',
+      geometry: new google.maps.Data.Polygon([]),
+      properties: {color: COLORS.DISTRICT.LOWER}
+    }));
+
+    gmap.data.setStyle(function(feature) {
+          return({
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillOpacity: 0.35,
+            fillColor: feature.getProperty('color'),
+            strokeColor: feature.getProperty('color')
+          });
+        });
+
+    const newState = { gmap, mounted: true};
 
     // this setState will trigger componentDidUpdate thus positionSet
     this.setState(Object.assign({}, this.state, newState));
@@ -250,7 +237,7 @@ class DistrictMap extends React.Component {
     //todo make this responsive ( but needs initial size or won't render)
     const gstyles = {
       minWidth: 500,
-      height: 600,
+      height: 600
     };
 
 
