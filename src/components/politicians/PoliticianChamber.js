@@ -18,7 +18,8 @@ const PoliticianChamber = ({politician}) => {
   if (politician.roles) {
     const chamberRole = politician.roles.filter(role => role.chamber).shift();
     if (chamberRole) {
-      chamber = chamberRole.chamber;
+      // Capitalize first letter
+      chamber = chamberRole.chamber.charAt(0).toUpperCase() + chamberRole.chamber.substr(1);
     }
   }
 
