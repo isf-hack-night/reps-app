@@ -2,8 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import API_KEYS from 'KEYS';
 import queryAPI from 'queryAPI';
-import {GMAP_STYLE} from 'components/map/gmap_style';
-import {COLORS, STATE_BOUNDS, STATE_CENTER, STATE_BOUNDS_PADDING} from 'local_constants';
+import {COLORS, STATE_BOUNDS, STATE_CENTER, GMAP_STYLE, STATE_BOUNDS_PADDING} from 'local_constants';
 const defaultZoom = 6;
 
 //TODO:
