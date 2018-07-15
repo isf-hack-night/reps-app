@@ -233,11 +233,6 @@ class DistrictMap extends React.Component {
 
   render () {
 
-    const styles = {
-      display: window.innerWidth <= 600 ? 'block' : 'inline-block'
-    };
-
-
     //todo make this responsive ( but needs initial size or won't render)
     const gstyles = {
       minWidth: 500,
@@ -246,9 +241,7 @@ class DistrictMap extends React.Component {
 
 
     return (
-      <div style={styles}>
-        <div style={gstyles} id="map"></div>
-      </div>
+        <div className='map' id="map"></div>
     )
   }
 }
