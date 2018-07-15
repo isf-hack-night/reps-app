@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom';
 import API_KEYS from 'KEYS';
 import queryAPI from 'queryAPI';
 import {COLORS, STATE_BOUNDS, STATE_CENTER, GMAP_STYLE, STATE_BOUNDS_PADDING} from 'local_constants';
+import StateStrong from 'api/StateStrong';
 const defaultZoom = 6;
 
 //TODO:
@@ -13,12 +14,12 @@ class DistrictMap extends React.Component {
   constructor (props) {
     super(props);
 
-    this.stateDistricts = props.stateDistricts;
+    this.stateStrong = new StateStrong();
     //todo local lat lng 
     this.state = { mounted: false };
 
     this.handleDrag = this.handleDrag.bind(this);
-    this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick (e) {
@@ -52,6 +53,8 @@ class DistrictMap extends React.Component {
       }
     }
 
+    const { lat, lng } = e.latlng;
+    this.updateRoute(lat, lng);
   }
 
   calcGBounds( bounds ){
@@ -69,8 +72,12 @@ class DistrictMap extends React.Component {
   }
 
   updateRoute (lat, lng) {
-    const districtsData = this.stateDistricts.findDistrictsForPoint(lat, lng);
-    const lowerId = districtsData.lower.id;
+    const districtsData = this.stateStrong.fetchUpperLowerDistrictBoundaries(lat, lng).then(
+      data => this.finishUpdateRoute(data, lat, lng));
+  }
+
+  finishUpdateRoute (districtData, lat, lng) {
+    console.log("FINISH UPDATE:", {districtData, lat, lng});
     const upperId = districtsData.upper.id;
     const newRoute = queryAPI.build({
       districtLower: lowerId,
@@ -78,7 +85,7 @@ class DistrictMap extends React.Component {
     });
     this.props.history.push(newRoute);
 
-    if(this.props.locationData){
+    if (this.props.locationData) {
       this.props.locationData.push({lat: lat, lng: lng})
     }
     
@@ -147,7 +154,7 @@ class DistrictMap extends React.Component {
         for (let c in district.shape[a][b]) {
           shape[a][b][c] = [];
           for (let d in district.shape[a][b][c]) {
-            shape[a][b][c][d] = district.shape[a][b][c][d]
+            shape[a][b][c][d] = district.shape[a][b][c][d];
           }
         }
       }

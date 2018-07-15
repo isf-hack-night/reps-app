@@ -50,6 +50,15 @@ class OpenStates {
     return request.send();
   }
 
+  districtIdToBoundaryId(district_id) {
+    let pieces = district_id.split('-')
+    return `ocd-division/country:us/state:${pieces[0]}/sld${pieces[1][0]}:${pieces[2]}`
+  }
+
+  fetchDistrictBoundaryByDistrictId(district_id) {
+    this.fetchDistrictBoundary(this.districtIdToBoundaryId(district_id))
+  }
+
   fetchDistrictBoundary(boundary_id) {
     const districtBoundaryParams = {
       apikey: this.api_key,

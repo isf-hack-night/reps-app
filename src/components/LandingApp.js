@@ -5,7 +5,7 @@ import CTABanner from 'components/CTABanner';
 import MapHeader from 'components/map/DistrictMapHeader';
 import RepsContainer from 'components/reps/RepsContainer';
 import queryAPI from 'queryAPI';
-import {DATA_FINE_PRINT} from 'local_constants';
+import { US_STATE, DATA_FINE_PRINT } from 'local_constants';
 import OpenStatesAPI from 'openstates';
 import AddressAutocompleteContainer from 'components/map/AddressAutoCompleteContainer';
 
@@ -18,10 +18,9 @@ class LandingApp extends React.Component {
   }
 
   componentDidMount() {
-    const open_states = new OpenStatesAPI.LocalOpenStates();
-    const districts = open_states.getDistricts('ca');
-    const stateDistricts = new OpenStatesAPI.DistrictList(districts, 'ca', open_states);
-    stateDistricts.preloadDistricts(function() {});
+    const open_states = new OpenStatesAPI.OpenStates('no_key_required');
+    const districts = openStates.getDistricts(US_STATE);
+    const stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, open_states);
     this.setState({stateDistricts});
   }
 
