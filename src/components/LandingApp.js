@@ -8,6 +8,8 @@ import queryAPI from 'queryAPI';
 import {DATA_FINE_PRINT} from 'local_constants';
 import OpenStatesAPI from 'openstates';
 import AddressAutocompleteContainer from 'components/map/AddressAutoCompleteContainer';
+import Grid from 'material-ui/Grid';
+
 
 class LandingApp extends React.Component {
   constructor(props) {
@@ -71,13 +73,19 @@ class LandingApp extends React.Component {
     const header = paramsData ? <MapHeader stateDistricts={this.state.stateDistricts} locationData={locationData} /> : null;
     
     return (
-      <div className="RepsApp">
-        {display_head}
-        <br></br>
-        {header}
-        <DistrictMapContainer stateDistricts={this.state.stateDistricts} locationData={locationData} paramsData={paramsData} />
-        {display_right}
-      </div>
+      <Grid className="RepsApp" container spacing={24}>
+        <Grid item xs={12}>
+          {display_head}
+        
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {header}
+          <DistrictMapContainer stateDistricts={this.state.stateDistricts} locationData={locationData} paramsData={paramsData} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {display_right}
+        </Grid>
+      </Grid>
     )
   }
 }
