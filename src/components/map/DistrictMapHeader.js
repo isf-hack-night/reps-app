@@ -7,7 +7,7 @@ class DistrictMapHeader extends React.Component {
     return (
       <div className="DistrictMapHeader">
         <div className="DistrictMapHeader-left">
-          <h5>Change address:</h5>
+        {/* <h5>Change address:</h5> */}
           <AutocompleteContainer locationData={this.props.locationData} stateDistricts={this.props.stateDistricts} />
           <h6>{DATA_FINE_PRINT}</h6>
         </div>
