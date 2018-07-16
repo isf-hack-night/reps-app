@@ -49,19 +49,33 @@ class StateStrong {
         boundaries => ({
           upper: boundaries[0],
           lower: boundaries[1],
+          legIdUpper: this.legIdFromSearchResult(districts.state_upper_legislators),
+          legIdLower: this.legIdFromSearchResult(districts.state_lower_legislators),
         })
       )
     );
+  }
+
+  legIdFromSearchResult(result) {
+    let legId = "";
+    if (result && result.length > 0) {
+      legId = result[0].id;
+    }
+    return legId;
   }
 
   fetchUpperLowerDistrictBoundariesByDistrictIds(upper, lower) {
     return Promise.all([
         this.openstates.fetchDistrictBoundaryByDistrictId(upper),
         this.openstates.fetchDistrictBoundaryByDistrictId(lower),
+        this.openstates.fetchLegislatorByDistrictId(upper),
+        this.openstates.fetchLegislatorByDistrictId(lower),
       ]).then(
         boundaries => ({
           upper: boundaries[0],
           lower: boundaries[1],
+          legIdUpper: this.legIdFromSearchResult(boundaries[2]),
+          legIdLower: this.legIdFromSearchResult(boundaries[3]),
         })
       )
   }

@@ -22,7 +22,7 @@ class LandingApp extends React.Component {
   render() {
     const paramsData = queryAPI.parse();
     const locationData = undefined;
-   
+
     let display_head;
     let display_right;
     const shouldDisplayAction = paramsData && paramsData.actionId;

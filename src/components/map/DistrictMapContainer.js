@@ -84,6 +84,8 @@ class DistrictMap extends React.Component {
     const newRoute = queryAPI.build({
       districtLower: lowerId,
       districtUpper: upperId,
+      legIdLower: districtsData.legIdLower,
+      legIdUpper: districtsData.legIdUpper,
     });
     this.props.history.push(newRoute);
 
@@ -228,7 +230,7 @@ class DistrictMap extends React.Component {
 
     } else {
         if (this.props.paramsData) { 
-          const { districtUpper, districtLower } = this.props.paramsData;
+          const { districtUpper, districtLower, legIdUpper, legIdLower } = this.props.paramsData;
           console.log(this.props.paramsData);
 
           if( districtUpper || districtLower) {

@@ -57,7 +57,9 @@ export const PARAM_TYPES = [
   'lng',
   'actionId',
   'districtLower',
-  'districtUpper'
+  'districtUpper',
+  'legIdUpper',
+  'legIdLower',
 ];
 
 // colors

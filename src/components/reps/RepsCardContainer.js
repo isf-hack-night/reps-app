@@ -2,15 +2,36 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {COLORS, REP_PIC_PATH} from 'local_constants';
 import PhoneLink from 'components/actions/PhoneLink';
+import { Redirect } from 'react-router';
+      
 
 
 class RepsCard extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      redirectLink: null,
+    };
+  }
+
+  goToRepPage(leg_id) {
+    return () => {
+      let rep_link=`/politicians/${leg_id.toLowerCase()}`;
+      this.setState({redirectLink: rep_link});
+    };
+  }
+
   render () {
+    if (this.state.redirectLink) {
+      return (<Redirect push to={this.state.redirectLink} />);
+    }
 
     if(!this.props.rep) { return }
     const rep = this.props.rep.person;
     if (!rep) { return }
 
+    const legId = this.props.rep.leg_id;
     const houseTitle = rep.chamber === 'H' ? 'State Assemblymember' : 'State Senator';
     const houseColor = rep.chamber === 'H' ?  COLORS.DISTRICT.LOWER : COLORS.DISTRICT.UPPER;
     const partyColor = rep.partyCode === 'D' ? COLORS.TEXT.BLUE : COLORS.TEXT.RED;
@@ -21,7 +42,7 @@ class RepsCard extends React.Component {
 
     if(rep.twitter) {
       return (
-        <div className={repClass} onClick={this.props.goToRepPage} style={{border: `3px solid ${houseColor}`}}>
+        <div className={repClass} onClick={this.goToRepPage(legId)} style={{border: `3px solid ${houseColor}`}}>
           <p> Your {houseTitle}: </p>
           <p> <span className="RepName"> {rep.legalName} (<span style={{color: partyColor}}>{rep.partyCode}</span>)</span></p>
           <div>
@@ -44,7 +65,7 @@ class RepsCard extends React.Component {
       )
     } else {
       return (
-        <div className={repClass} onClick={this.props.goToRepPage} style={{border: `3px solid ${houseColor}`}}>
+        <div className={repClass} onClick={this.goToRepPage(legId)} style={{border: `3px solid ${houseColor}`}}>
           <p> Your {houseTitle}: </p>
           <p> <span className="RepName"> {rep.legalName} (<span style={{color: partyColor}}>{rep.partyCode}</span>)</span></p>
           <div>
@@ -69,6 +90,7 @@ class RepsCard extends React.Component {
 }
 
 
+
             //commented out until read to populate with links
             //<a href={`mailto:${rep.email}`} ><i class="fa fa-envelope-square" aria-hidden="true" ></i></a>
             //<i class="fa fa-twitter-square" aria-hidden="true"></i>
@@ -82,6 +104,8 @@ const RepsCardContainer = withRouter(({history, rep}) => (
       // build rep page url using REPS_PATH
       // save rep data to localStorage?
       // history.push(url)
+      let rep_link=`/politicians/${rep.leg_id.toLowerCase()}`;
+      history.push(rep_link);
     }}
     />
 ));

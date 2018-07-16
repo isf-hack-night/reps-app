@@ -52,7 +52,9 @@ class AddressAutocomplete extends React.Component {
     const upperId = districtsData.upper.id;
     const newRoute = queryAPI.build({
       districtLower: lowerId,
-      districtUpper: upperId
+      districtUpper: upperId,
+      legIdUpper: districtsData.legIdUpper,
+      legIdLower: districtsData.legIdUpper,
     });
     this.props.history.push(newRoute);
     if (this.props.locationData) {
