@@ -4,31 +4,20 @@ import ActionPage from 'components/actions/ActionPage';
 import CTABanner from 'components/CTABanner';
 import MapHeader from 'components/map/DistrictMapHeader';
 import RepsContainer from 'components/reps/RepsContainer';
+import StateStrong from 'api/StateStrong';
 import queryAPI from 'queryAPI';
 import { US_STATE, DATA_FINE_PRINT } from 'local_constants';
-import OpenStatesAPI from 'openstates';
 import AddressAutocompleteContainer from 'components/map/AddressAutoCompleteContainer';
 
 class LandingApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stateDistricts: null
+      stateDistricts: new StateStrong(),
     };
   }
 
-  componentDidMount() {
-    const open_states = new OpenStatesAPI.OpenStates('no_key_required');
-    const districts = openStates.getDistricts(US_STATE);
-    const stateDistricts = new OpenStatesAPI.DistrictList(districts, US_STATE, open_states);
-    this.setState({stateDistricts});
-  }
-
   render() {
-    if (!this.state.stateDistricts) {
-      return <div>Loading</div>;
-    }
-    console.log(this.state.stateDistricts);
     const paramsData = queryAPI.parse();
     const locationData = undefined;
    

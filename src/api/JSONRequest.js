@@ -9,8 +9,9 @@ class JSONRequest {
   }
 
   getParamString() {
-    let paramString = '?';
+    let paramString = '';
     if (this.params) {
+      paramString = '?'
       const paramStrings = [];
       Object.entries(this.params).forEach(
         ([key, value]) =>

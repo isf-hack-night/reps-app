@@ -3,7 +3,6 @@ import {withRouter} from 'react-router-dom';
 import API_KEYS from 'KEYS';
 import queryAPI from 'queryAPI';
 import {COLORS, STATE_BOUNDS, STATE_CENTER, GMAP_STYLE, STATE_BOUNDS_PADDING} from 'local_constants';
-import StateStrong from 'api/StateStrong';
 const defaultZoom = 6;
 
 //TODO:
@@ -14,7 +13,9 @@ class DistrictMap extends React.Component {
   constructor (props) {
     super(props);
 
-    this.stateStrong = new StateStrong();
+    console.log(props.stateDistricts);
+    this.stateDistricts = props.stateDistricts;
+
     //todo local lat lng 
     this.state = { mounted: false };
 
@@ -72,12 +73,12 @@ class DistrictMap extends React.Component {
   }
 
   updateRoute (lat, lng) {
-    const districtsData = this.stateStrong.fetchUpperLowerDistrictBoundaries(lat, lng).then(
+    this.stateDistricts.fetchUpperLowerDistrictBoundaries(lat, lng).then(
       data => this.finishUpdateRoute(data, lat, lng));
   }
 
-  finishUpdateRoute (districtData, lat, lng) {
-    console.log("FINISH UPDATE:", {districtData, lat, lng});
+  finishUpdateRoute (districtsData, lat, lng) {
+    const lowerId = districtsData.lower.id;
     const upperId = districtsData.upper.id;
     const newRoute = queryAPI.build({
       districtLower: lowerId,
@@ -85,10 +86,6 @@ class DistrictMap extends React.Component {
     });
     this.props.history.push(newRoute);
 
-    if (this.props.locationData) {
-      this.props.locationData.push({lat: lat, lng: lng})
-    }
-    
   }
 
 
@@ -96,10 +93,9 @@ class DistrictMap extends React.Component {
   positionFromDistrict(districtUpper, districtLower) {
     
     if (districtUpper || districtLower) {
-      const districtData = this.stateDistricts.findDistrictsFromIDs( districtUpper, districtLower);
-      this.zoomDistrict(districtData) 
+      this.stateDistricts.fetchUpperLowerDistrictBoundariesByDistrictIds(districtUpper, districtLower).then(
+        data => this.zoomDistrict(data));
     }
-
   }
 
 
@@ -113,8 +109,12 @@ class DistrictMap extends React.Component {
         });
     marker.addListener('dragend' , this.handleDrag);
   */
- 
-    const districtData = this.stateDistricts.findDistrictsForPoint(lat, lng);
+
+    this.stateDistricts.fetchUpperLowerDistrictBoundaries(lat, lng).then(
+      data => this.finishPositionSet(data));
+  }
+
+  finishPositionSet(districtData) {
     console.log('posSet districtData', districtData );
     if (districtData.upper || districtData.lower) {
       this.zoomDistrict(districtData)  //make this a callback
@@ -218,7 +218,6 @@ class DistrictMap extends React.Component {
 
   //TODO if district but no local lat long params, then use center of bbbox
   componentDidUpdate (prevProps) {
-    console.log("MAP DID UPDATE");
 
     if(this.props.locationData){
       const { lat, lng } = this.props.locationData;
@@ -229,6 +228,7 @@ class DistrictMap extends React.Component {
     } else {
         if (this.props.paramsData) { 
           const { districtUpper, districtLower } = this.props.paramsData;
+          console.log(this.props.paramsData);
 
           if( districtUpper || districtLower) {
             this.positionFromDistrict(districtUpper, districtLower)

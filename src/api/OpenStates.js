@@ -17,6 +17,10 @@ class OpenStates {
     return `${this.base_url}/${path}/`;
   }
 
+  getPathUrlStripped(path) {
+    return `${this.base_url}/${path}`;
+  }
+
   searchBills(query) {
     const billSearchParams = {
       q: query,
@@ -56,15 +60,12 @@ class OpenStates {
   }
 
   fetchDistrictBoundaryByDistrictId(district_id) {
-    this.fetchDistrictBoundary(this.districtIdToBoundaryId(district_id))
+    return this.fetchDistrictBoundary(this.districtIdToBoundaryId(district_id))
   }
 
   fetchDistrictBoundary(boundary_id) {
-    const districtBoundaryParams = {
-      apikey: this.api_key,
-    };
     const boundary_path = `districts/boundary/${boundary_id}`;
-    const request = new JSONRequest(this.getPathUrl(boundary_path), districtBoundaryParams);
+    const request = new JSONRequest(this.getPathUrlStripped(boundary_path), null);
     return request.send();
   }
 }
