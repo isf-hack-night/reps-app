@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.46",
+    "@babel/preset-env": "^7.0.0-beta.46",
     "@types/material-ui": "^0.20.7",
     "@types/react": "^16.0.41",
     "@types/react-dom": "^16.0.4",
