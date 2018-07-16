@@ -53,7 +53,18 @@ class StateStrong {
       )
     );
   }
-}
 
+  fetchUpperLowerDistrictBoundariesByDistrictIds(upper, lower) {
+    return Promise.all([
+        this.openstates.fetchDistrictBoundaryByDistrictId(upper),
+        this.openstates.fetchDistrictBoundaryByDistrictId(lower),
+      ]).then(
+        boundaries => ({
+          upper: boundaries[0],
+          lower: boundaries[1],
+        })
+      )
+  }
+}
 
 export default StateStrong;

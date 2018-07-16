@@ -3,7 +3,6 @@
 const INJECTION_DEV_MODE = true;
 const DEV_SITE_MODE = true;
 
-
 const INJECTION_TEST_PAGE_PATH = DEV_SITE_MODE ? '/test' : '/index.php/test';
 
 export const ROOT_PATH = INJECTION_DEV_MODE ? INJECTION_TEST_PAGE_PATH : '/';
