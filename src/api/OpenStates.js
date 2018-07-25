@@ -40,7 +40,6 @@ class OpenStates {
       page: page,
       per_page: 100 
     };
-    console.log("SEARCHING INT");
     const request = new JSONRequest(this.getPathUrl('bills'), billSearchParams);
     return request.send();
   }
@@ -54,13 +53,24 @@ class OpenStates {
     return request.send();
   }
 
+  fetchLegislatorByDistrictId(district_id) {
+    let pieces = district_id.split('-');
+    const legislator_search_params = {
+      apikey: this.api_key,
+      state: pieces[0],
+      chamber: pieces[1],
+      district: pieces[2],
+    };
+    const request = new JSONRequest(this.getPathUrl('legislators'), legislator_search_params);
+  }
+
   districtIdToBoundaryId(district_id) {
-    let pieces = district_id.split('-')
-    return `ocd-division/country:us/state:${pieces[0]}/sld${pieces[1][0]}:${pieces[2]}`
+    let pieces = district_id.split('-');
+    return `ocd-division/country:us/state:${pieces[0]}/sld${pieces[1][0]}:${pieces[2]}`;
   }
 
   fetchDistrictBoundaryByDistrictId(district_id) {
-    return this.fetchDistrictBoundary(this.districtIdToBoundaryId(district_id))
+    return this.fetchDistrictBoundary(this.districtIdToBoundaryId(district_id));
   }
 
   fetchDistrictBoundary(boundary_id) {

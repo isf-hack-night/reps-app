@@ -12,11 +12,11 @@ class RepsContainer extends React.Component {
       isLoading: true
     };
 
-    this.makeAmplifyRequestAndUpdate()
+    this.makeAmplifyRequestAndUpdate();
   }
 
   makeAmplifyRequestAndUpdate () {
-    const { districtLower, districtUpper } = this.props;
+    const { districtLower, districtUpper, legIdLower, legIdUpper } = this.props;
     amplify().get(districtLower, districtUpper)
              .then((response, outcome) => {
                const stateUpdates = {
@@ -27,6 +27,8 @@ class RepsContainer extends React.Component {
                };
                stateUpdates.districtLower = districtLower;
                stateUpdates.districtUpper = districtUpper;
+               stateUpdates.legIdUpper = legIdUpper;
+               stateUpdates.legIdLower = legIdLower;
                const newState = Object.assign({}, this.state, stateUpdates);
                this.setState(newState)
              })
@@ -41,7 +43,7 @@ class RepsContainer extends React.Component {
 
   hasNewDistrictProps (prevProps) {
     const { districtLower, districtUpper } = this.props;
-    return districtLower !== prevProps.districtLower || districtUpper !== prevProps.districtUpper
+    return districtLower !== prevProps.districtLower || districtUpper !== prevProps.districtUpper;
   }
 
   componentDidUpdate () {
@@ -52,9 +54,9 @@ class RepsContainer extends React.Component {
 
   render () {
     if (!this.state.isLoading && this.state.successfulResponse) {
-      const { ampData, districtLower, districtUpper } = this.state;
+      const { ampData, districtLower, districtUpper, legIdLower, legIdUpper } = this.state;
      // const testAmpData =   [TEST_CUSTOM_ACTION].concat( ampData)   //TEMP
-      return <ActionDashboard ampData={ampData} districtLower={districtLower} districtUpper={districtUpper} />      
+      return <ActionDashboard ampData={ampData} districtLower={districtLower} districtUpper={districtUpper} legIdUpper={legIdUpper} legIdLower={legIdLower} />      
     } else if (this.state.isLoading) {
       //TODO: better spinny gif
       return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style={{width: '75px'}} />
