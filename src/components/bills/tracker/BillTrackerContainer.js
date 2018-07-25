@@ -103,7 +103,7 @@ class BillTrackerContainer extends React.Component {
   renderSearchButton() {
     // Reset page and then re-fetch
     return (
-      <FormControl>
+      <FormControl key={"search_button"}>
         <Button onClick={() => this.setState({page: 1}, () => this.fetchBills())}>Search</Button>
       </FormControl>
     );
@@ -111,7 +111,7 @@ class BillTrackerContainer extends React.Component {
 
   renderSearchField() {
     return (
-      <FormControl>
+      <FormControl key={"search_text"}>
         <TextField
           id="search"
           label="Search"
