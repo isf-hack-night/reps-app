@@ -1,12 +1,40 @@
 import React from 'react';
 import Stepper, {Step, StepLabel} from 'material-ui/Stepper';
 
+function statusSlugToStatus(billStatus) {
+  if (!billStatus || billStatus.length == 0) {
+    return -1;
+  }
+  switch (billStatus[0].slug) {
+    case 'introduced':
+      return 0;
+    case '1st-house-policy':
+      return 1;
+    case '1st-house-appropriations':
+      return 2;
+    case '1st-house-floor':
+      return 3;
+    case '2nd-house-policy':
+      return 4;
+    case '2nd-house-appropriations':
+      return 5;
+    case '2nd-house-floor':
+      return 6;
+    case 'governor-signed':
+      return 8;
+    default:
+      return -1;
+  }
+};
 
 const BillFlowChart = ({bill}) => {
-  const currentStatus = 1; // TODO: extract from bill
+  const currentStatus = statusSlugToStatus(bill.bill_status);
   let chambers = ['Senate', 'Assembly'];
   if (bill.history.length && bill.history[0].chamber === 'A') {
     chambers = ['Assembly', 'Senate'];
+  }
+  if (currentStatus < 0) {
+    return <div> </div>;
   }
   return (
     <div>
