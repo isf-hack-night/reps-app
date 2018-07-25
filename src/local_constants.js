@@ -21,7 +21,7 @@ export const STATE_CENTER = [37.2719, -119.2702];
 // state boundaries
 export const STATE_BOUNDS = [[32.528832, -124.482003], [42.009517, -114.131211]];
 
-export const MAP_PADDING = 10;
+export const STATE_BOUNDS_PADDING = 0;
 
 // amplify team base url
 export const AMPLIFY_URL_BASE = `https://civictools.appspot-preview.com/api/v1/actions?teamId=-Kr2PPG5GTkR3oFfQ_Lq&state=${US_STATE}`;
