@@ -4,9 +4,9 @@ import ActionPage from 'components/actions/ActionPage';
 import CTABanner from 'components/CTABanner';
 import MapHeader from 'components/map/DistrictMapHeader';
 import RepsContainer from 'components/reps/RepsContainer';
+import StateStrong from 'api/StateStrong';
 import queryAPI from 'queryAPI';
-import {DATA_FINE_PRINT} from 'local_constants';
-import OpenStatesAPI from 'openstates';
+import { US_STATE, DATA_FINE_PRINT } from 'local_constants';
 import AddressAutocompleteContainer from 'components/map/AddressAutoCompleteContainer';
 import Grid from 'material-ui/Grid';
 
@@ -15,25 +15,14 @@ class LandingApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stateDistricts: null
+      stateDistricts: new StateStrong(),
     };
   }
 
-  componentDidMount() {
-    const open_states = new OpenStatesAPI.LocalOpenStates();
-    const districts = open_states.getDistricts('ca');
-    const stateDistricts = new OpenStatesAPI.DistrictList(districts, 'ca', open_states);
-    stateDistricts.preloadDistricts(function() {});
-    this.setState({stateDistricts});
-  }
-
   render() {
-    if (!this.state.stateDistricts) {
-      return <div>Loading</div>;
-    }
     const paramsData = queryAPI.parse();
     const locationData = undefined;
-   
+
     let display_head;
     let display_right;
     const shouldDisplayAction = paramsData && paramsData.actionId;

@@ -43,12 +43,18 @@ class AddressAutocomplete extends React.Component {
 
   //TODO need to pass latlong to map somehow
   updateRoute (lat, lng) {
-    const districtsData = this.stateDistricts.findDistrictsForPoint(lat, lng);
+    this.stateDistricts.fetchUpperLowerDistrictBoundaries(lat, lng).then(
+      data => this.finishUpdateRoute(data, lat, lng));
+  }
+
+  finishUpdateRoute (districtsData, lat, lng) {
     const lowerId = districtsData.lower.id;
     const upperId = districtsData.upper.id;
     const newRoute = queryAPI.build({
       districtLower: lowerId,
-      districtUpper: upperId
+      districtUpper: upperId,
+      legIdUpper: districtsData.legIdUpper,
+      legIdLower: districtsData.legIdUpper,
     });
     this.props.history.push(newRoute);
     if (this.props.locationData) {
