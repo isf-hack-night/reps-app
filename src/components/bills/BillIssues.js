@@ -22,7 +22,7 @@ const BillIssues = ({bill}) => {
   return (
     <div style={
       {display: "flex",
-        justifyContent: "center",
+        justifyContent: "left",
         flexWrap: "wrap"}
     }>
       {issuesChips}
