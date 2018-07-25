@@ -31,7 +31,6 @@ class LandingApp extends React.Component {
     if (!this.state.stateDistricts) {
       return <div>Loading</div>;
     }
-    console.log(this.state.stateDistricts);
     const paramsData = queryAPI.parse();
     const locationData = undefined;
    

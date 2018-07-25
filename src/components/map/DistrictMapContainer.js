@@ -120,6 +120,7 @@ class DistrictMap extends React.Component {
   }
 
   zoomDistrict (districtData) {
+    console.log(districtData);
     const bboxU = districtData.upper.bbox;  //TODO get bbox of both bboxes
     const bboxL = districtData.lower.bbox;
   
@@ -212,7 +213,6 @@ class DistrictMap extends React.Component {
 
   //TODO if district but no local lat long params, then use center of bbbox
   componentDidUpdate (prevProps) {
-    console.log("MAP DID UPDATE");
 
     if(this.props.locationData){
       const { lat, lng } = this.props.locationData;
@@ -225,6 +225,7 @@ class DistrictMap extends React.Component {
           const { districtUpper, districtLower } = this.props.paramsData;
 
           if( districtUpper || districtLower) {
+
             this.positionFromDistrict(districtUpper, districtLower)
           }
      }
