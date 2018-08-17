@@ -40,7 +40,7 @@ const TRACKED_BILLS = {
 };
 
 class BillTracker {
-  constructor(url='https://dev.state-strong.org') {
+  constructor(url='/') {
     this.apiPromise = WPAPI.discover(url);
   }
 

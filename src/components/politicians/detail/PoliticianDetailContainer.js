@@ -15,7 +15,7 @@ class PoliticianDetailContainer extends React.Component {
       politician: null
     };
     this.politician_slug = props.match.params.politician_slug;
-    this.wordPressAPIPromise = WPAPI.discover( 'https://dev.state-strong.org' );
+    this.wordPressAPIPromise = WPAPI.discover('/');
   }
 
   componentDidMount() {

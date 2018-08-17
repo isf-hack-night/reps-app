@@ -22,7 +22,7 @@ class BillDetailContainer extends React.Component {
       bill: null
     };
     this.bill_slug = props.match.params.bill_slug;
-    this.wordPressAPIPromise = WPAPI.discover( 'https://dev.state-strong.org' );
+    this.wordPressAPIPromise = WPAPI.discover('/');
     this.wordPress = new WordPress();
   }
 

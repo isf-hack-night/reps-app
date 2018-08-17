@@ -2,7 +2,7 @@ import WPAPI from 'wpapi';
 import utils from 'utils';
 
 class WordPress {
-  constructor(url='https://dev.state-strong.org') {
+  constructor(url='/') {
     this.apiPromise = WPAPI.discover(url);
     this.billMetadata = {
       position: null,
