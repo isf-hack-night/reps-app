@@ -19,7 +19,7 @@ class BillTrackerContainer extends React.Component {
       rowsPerPage: 10,
       search: '',
     };
-    this.wordPressAPIPromise = WPAPI.discover( 'https://dev.state-strong.org' );
+    this.wordPressAPIPromise = WPAPI.discover('/');
     this.wordPress = new WordPress();
     this.filterOptions = ['position', 'issue'];
     this.onChangePage = this.onChangePage.bind(this);

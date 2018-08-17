@@ -10,7 +10,7 @@ class StateStrong {
     this.openstates = new OpenStates();
     this.map = new MapAPI();
     this.billtracker = new BillTracker();
-    this.wordPressAPIPromise = WPAPI.discover('https://dev.state-strong.org');
+    this.wordPressAPIPromise = WPAPI.discover('/');
   }
 
   fetchBill(id) {

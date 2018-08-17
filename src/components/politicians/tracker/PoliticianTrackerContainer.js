@@ -19,7 +19,7 @@ class PoliticianTrackerContainer extends React.Component {
       search: '',
     };
     this.filterOptions = [];
-    this.wordPressAPIPromise = WPAPI.discover( 'https://dev.state-strong.org' );
+    this.wordPressAPIPromise = WPAPI.discover('/');
     this.onChangePage = this.onChangePage.bind(this);
     this.onChangeRowsPerPage = this.onChangeRowsPerPage.bind(this);
   }

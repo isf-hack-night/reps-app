@@ -5,7 +5,7 @@ import WordPress from 'api/WordPress';
 class ActionList extends React.Component {
   constructor(props) {
     super(props);
-    this.wordPress = new WordPress('https://dev.state-strong.org/wp-json/wp/v2');
+    this.wordPress = new WordPress('/wp-json/wp/v2');
     this.state = {
       issues: [],
       currentIssue: null,
