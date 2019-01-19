@@ -40,7 +40,7 @@ class ActionDashboard extends React.Component {
           <RepsCard rep={upperRep} />
         </div>
         <br></br>
-        <ActionsDisplay actions={this.props.ampData} />
+        {/*<ActionsDisplay actions={this.props.ampData} />*/}
       </div>
     )
   }
