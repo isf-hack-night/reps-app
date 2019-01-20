@@ -26,12 +26,6 @@ class ActionDashboard extends React.Component {
     } else if (!upperRep.person && lowerRep.person) {
       upperRep = null
     }
-    if (lowerRep) {
-      lowerRep.leg_id = this.props.legIdLower;
-    }
-    if (upperRep) {
-      upperRep.leg_id = this.props.legIdUpper;
-    }
 
     return (
       <div className="ActionDashboard">

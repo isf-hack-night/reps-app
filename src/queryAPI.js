@@ -1,9 +1,7 @@
 import {PARAM_TYPES, QUERY_SPLIT} from 'local_constants';
 
-function parseQuery () {
-  const url = window.location.href;
-  const queryParams = url.split(QUERY_SPLIT)[1];
-  return getParamData(queryParams);
+function parseQuery (params) {
+  return getParamData(params);
 }
 
 function getParamData (params) {

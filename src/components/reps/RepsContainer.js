@@ -16,8 +16,8 @@ class RepsContainer extends React.Component {
   }
 
   makeAmplifyRequestAndUpdate () {
-    const { districtLower, districtUpper, legIdLower, legIdUpper } = this.props;
-    amplify().get(districtLower, districtUpper)
+    const { districtLowerId, districtUpperId } = this.props;
+    amplify().get(districtLowerId, districtUpperId)
              .then((response, outcome) => {
                const stateUpdates = {
                  successfulResponse: outcome === 'success',
@@ -25,10 +25,8 @@ class RepsContainer extends React.Component {
                  ampData: response.concreteActions
 
                };
-               stateUpdates.districtLower = districtLower;
-               stateUpdates.districtUpper = districtUpper;
-               stateUpdates.legIdUpper = legIdUpper;
-               stateUpdates.legIdLower = legIdLower;
+               stateUpdates.districtLower = districtLowerId;
+               stateUpdates.districtUpper = districtUpperId;
                const newState = Object.assign({}, this.state, stateUpdates);
                this.setState(newState)
              })
@@ -42,8 +40,8 @@ class RepsContainer extends React.Component {
   }
 
   hasNewDistrictProps (prevProps) {
-    const { districtLower, districtUpper } = this.props;
-    return districtLower !== prevProps.districtLower || districtUpper !== prevProps.districtUpper;
+    const { districtLowerId, districtUpperId } = this.props;
+    return districtLowerId !== prevProps.districtLowerId || districtUpperId !== prevProps.districtUpperId;
   }
 
   componentDidUpdate () {
@@ -54,9 +52,9 @@ class RepsContainer extends React.Component {
 
   render () {
     if (!this.state.isLoading && this.state.successfulResponse) {
-      const { ampData, districtLower, districtUpper, legIdLower, legIdUpper } = this.state;
+      const { ampData, districtLower, districtUpper } = this.state;
      // const testAmpData =   [TEST_CUSTOM_ACTION].concat( ampData)   //TEMP
-      return <ActionDashboard ampData={ampData} districtLower={districtLower} districtUpper={districtUpper} legIdUpper={legIdUpper} legIdLower={legIdLower} />      
+      return <ActionDashboard ampData={ampData} districtLower={districtLower} districtUpper={districtUpper} />      
     } else if (this.state.isLoading) {
       //TODO: better spinny gif
       return <img src="https://static.fjcdn.com/gifs/Awesome_13a9db_5343455.gif" style={{width: '75px'}} />

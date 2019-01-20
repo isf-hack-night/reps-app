@@ -8,7 +8,7 @@ class DistrictMapHeader extends React.Component {
       <div className="DistrictMapHeader">
         <div className="DistrictMapHeader-left">
         {/* <h5>Change address:</h5> */}
-          <AutocompleteContainer locationData={this.props.locationData} stateDistricts={this.props.stateDistricts} />
+          <AutocompleteContainer updateLocation={this.props.updateLocation} />
           <h6>{DATA_FINE_PRINT}</h6>
         </div>
         {/* TODO: make <MiniMap /> */}

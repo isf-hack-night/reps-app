@@ -1,6 +1,7 @@
 import Legiscan from 'api/Legiscan';
 import OpenStates from 'api/OpenStates';
 import MapAPI from 'api/MapAPI';
+import LocationSearchAPI from 'api/LocationSearchAPI'
 import BillTracker from 'api/BillTracker';
 import WPAPI from "wpapi";
 
@@ -8,7 +9,7 @@ class StateStrong {
   constructor() {
     this.legiscan = new Legiscan();
     this.openstates = new OpenStates();
-    this.map = new MapAPI();
+    this.locationSearch = new LocationSearchAPI();
     this.billtracker = new BillTracker();
     this.wordPressAPIPromise = WPAPI.discover('/');
   }
@@ -40,19 +41,9 @@ class StateStrong {
   //   );
   // }
 
-  fetchUpperLowerDistrictBoundaries(latitude, longitude) {
-    return this.map.fetchDistrictsByLocation(latitude, longitude).then(
-      districts => Promise.all([
-        this.openstates.fetchDistrictBoundary(districts.state_upper_boundary),
-        this.openstates.fetchDistrictBoundary(districts.state_lower_boundary),
-      ]).then(
-        boundaries => ({
-          upper: boundaries[0],
-          lower: boundaries[1],
-          legIdUpper: this.legIdFromSearchResult(districts.state_upper_legislators),
-          legIdLower: this.legIdFromSearchResult(districts.state_lower_legislators),
-        })
-      )
+  fetchUpperLowerDistrictBoundariesByLocation(latitude, longitude) {
+    return this.locationSearch.fetchDistrictsByLocation(latitude, longitude).then(
+      districts => (this.parseOutDistrict(districts))
     );
   }
 
@@ -64,20 +55,91 @@ class StateStrong {
     return legId;
   }
 
+  parseOutDistrictFromLookupById(result) {
+    var district = {};
+    for (let dIdx in result.divisions) {
+      var division = result.divisions[dIdx];
+      if (division.government == 'State') {
+        var districtId = this.openstates.boundaryIdToDistrictId(division.id);
+        district.chamber = division.type;
+        district.bbox = this.locationSearch.bboxFromBoundary(division.boundary);
+        district.shape = division.boundary.map(x => [x]); 
+        district.id = districtId;
+        district.ocd_id = division.id;
+        district.leg_id = division.legislators[0].id;
+      }
+    }
+    return district;
+  }
+
+  parseOutDistrictsFromLookupById(upperResult, lowerResult) {
+    var districtData = { upper: this.parseOutDistrictFromLookupById(upperResult), lower: this.parseOutDistrictFromLookupById(lowerResult) };
+    districtData.legIdLower = districtData.lower.leg_id;
+    districtData.legIdUpper = districtData.upper.leg_id;
+    return districtData;
+  }
+
+  parseOutDistrictFromLegislator(district, legislator, boundary) {
+    district.legislator = legislator;
+    var districtId = this.openstates.boundaryIdToDistrictId(legislator.division_id);
+    district.id = districtId;
+    // For some reason the boundary files Wayne has are not
+    // full polygons. They do not have cutouts/donuts.
+    district.bbox = [[boundary.box.miny, boundary.box.minx], [boundary.box.maxy, boundary.box.maxx]];
+    district.shape = boundary.rings.map(x => [x]); 
+  }
+
+  parseOutDistrict(districts) {
+    var districtData = { upper: {}, lower: {} };
+    if (districts.state_lower_legislators != null && districts.state_lower_legislators.length > 0) {
+      var lowerLegislator = districts.state_lower_legislators[0];
+      districtData.legIdLower = lowerLegislator.id;
+      this.parseOutDistrictFromLegislator(districtData.lower, lowerLegislator, districts.state_lower_boundary);
+      districtData.lower.chamber = "lower";
+    }
+    if (districts.state_upper_legislators != null && districts.state_upper_legislators.length > 0) {
+      var upperLegislator = districts.state_upper_legislators[0];
+      districtData.legIdUpper = upperLegislator.id;
+      this.parseOutDistrictFromLegislator(districtData.upper, upperLegislator, districts.state_upper_boundary);
+      districtData.upper.chamber = "upper";
+    }
+    return districtData;
+  }
+
+  parseOutDistrictOldLocationSearch(districts) {
+    var districtData = { upper: {}, lower: {} };
+    for (let dIdx in districts.divisions) {
+      var division = districts.divisions[dIdx];
+      if (division.government == 'State') {
+        console.log(division);
+        var districtId = this.openstates.boundaryIdToDistrictId(division.id);
+        var district = null;
+        if (districtId.includes('upper')) {
+          district = districtData.upper;
+          districtData.legIdUpper = division.legislators[0].id;
+          district.chamber = 'upper';
+        } else {
+          district = districtData.lower;
+          districtData.legIdLower = division.legislators[0].id;
+          district.chamber = 'lower';
+        }
+        district.id = districtId;
+        district.bbox = this.locationSearch.bboxFromBoundary(division.boundary);
+        // For some reason the boundary files Wayne has are not
+        // full polygons. They do not have cutouts/donuts.
+        district.shape = division.boundary.map(x => [x]); 
+      }
+    }
+    return districtData;
+  }
+
   fetchUpperLowerDistrictBoundariesByDistrictIds(upper, lower) {
     return Promise.all([
-        this.openstates.fetchDistrictBoundaryByDistrictId(upper),
-        this.openstates.fetchDistrictBoundaryByDistrictId(lower),
-        this.openstates.fetchLegislatorByDistrictId(upper),
-        this.openstates.fetchLegislatorByDistrictId(lower),
+        this.locationSearch.fetchDistrictById(upper),
+        this.locationSearch.fetchDistrictById(lower),
       ]).then(
-        boundaries => ({
-          upper: boundaries[0],
-          lower: boundaries[1],
-          legIdUpper: this.legIdFromSearchResult(boundaries[2]),
-          legIdLower: this.legIdFromSearchResult(boundaries[3]),
-        })
-      )
+        boundaries => (this.parseOutDistrictsFromLookupById(boundaries[0], boundaries[1]))
+      );
   }
 }
 
