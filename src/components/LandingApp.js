@@ -22,6 +22,9 @@ class LandingApp extends React.Component {
   render() {
     const paramsData = queryAPI.parse();
     const locationData = undefined;
+    if (!window.google) {
+      return <div>Can't display maps: Missing connection to google</div>;
+    }
 
     let display_head;
     let display_right;
