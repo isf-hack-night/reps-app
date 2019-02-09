@@ -63,12 +63,10 @@ This is just a rough guideline for style. Not all these guidelines have been fol
 
 # To Deploy to CA_SS site
 
-check that local_constants.js INJECTION_DEV_MODE = false; 
+check that constants.js INJECTION_DEV_MODE = false
 
+run `docker-compose run web npm run build`
 
-run 'webpack' to create dist/bundle.js
-
-go to wordpress and delete old bundle.js from the media library and upload new bundle.js
-(note, wp media folder does permalinks by month, so should check functions.php to make sure the path to new bundle is correct)
+go to the google bucket and replace the bundle.js file with the new one.
 
 
