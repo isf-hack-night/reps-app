@@ -3,6 +3,9 @@ import Grid from 'material-ui/Grid';
 import {Link} from 'react-router-dom';
 
 const BillSponsors = ({bill}) => {
+  if (!bill.sponsors) {
+    return 'N/A';
+  }
   return (
     <Grid container direction="column" spacing={0}>
       {bill.sponsors.map(
