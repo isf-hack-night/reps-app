@@ -37,7 +37,7 @@ class PoliticianDetailContainer extends React.Component {
     return (
       <div>
         <PoliticianDetailHeader politician={politician} />
-        <Grid container spacing={12}>
+        <Grid container spacing={8}>
           <Grid item xs={3}>
             <PoliticianPicture politician={politician} />
           </Grid>
