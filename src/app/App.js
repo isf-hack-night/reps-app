@@ -12,8 +12,8 @@ import BillDetailContainer from 'components/bills/detail/BillDetailContainer';
 import LandingApp from 'components/LandingApp';
 
 import 'styles/style.less';
-import PoliticianTrackerContainer from 'components/politicians/tracker/PoliticianTrackerContainer';
 import PoliticianDetailContainer from 'components/politicians/detail/PoliticianDetailContainer';
+import PoliticianTrackerContainer from 'components/politicians/tracker/PoliticianTrackerContainer';
 
 const App = () => (
   <HashRouter>
@@ -24,7 +24,6 @@ const App = () => (
         <Route path="/bills" component={BillTrackerContainer}/>
         <Route path="/politicians/:politician_slug" component={PoliticianDetailContainer}/>
         <Route path="/politicians" component={PoliticianTrackerContainer}/>
-        <Redirect from="/" to="find_rep"/>
       </Switch>
     </div>
   </HashRouter>

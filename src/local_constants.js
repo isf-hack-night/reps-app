@@ -1,4 +1,5 @@
 // root path to app
+export const ROOT_REACT_ELEMENT = 'reps_app_root';
 
 const INJECTION_DEV_MODE = true;
 const DEV_SITE_MODE = true;
@@ -8,9 +9,6 @@ const INJECTION_TEST_PAGE_PATH = DEV_SITE_MODE ? '/test' : '/index.php/test';
 export const ROOT_PATH = INJECTION_DEV_MODE ? INJECTION_TEST_PAGE_PATH : '/';
 
 export const QUERY_SPLIT = INJECTION_DEV_MODE ? INJECTION_TEST_PAGE_PATH : '.org/';
-
-// path to individual rep page
-export const REPS_PATH = `${ROOT_PATH}/rep`;
 
 // operation state within the US
 export const US_STATE = 'ca';
@@ -26,9 +24,6 @@ export const STATE_BOUNDS_PADDING = 0;
 // amplify team base url
 export const AMPLIFY_URL_BASE = `https://civictools.appspot-preview.com/api/v1/actions?teamId=-Kr2PPG5GTkR3oFfQ_Lq&state=${US_STATE}`;
 
-// Local copy of OpenStates url base
-export const LOCAL_OPEN_STATES_URL_BASE = "https://static.state-strong.org/data";
-
 // Open states url base
 export const OPEN_STATES_URL_BASE = 'https://api.state-strong.org/open-states/api/v1';
 
@@ -37,9 +32,6 @@ export const LEGISCAN_URL_BASE = 'https://api.legiscan.com';
 
 // Map url base
 export const MAP_URL_BASE = 'https://api.state-strong.org/civic-key/front-page';
-
-
-export const ACTION_TYPES = ['call', 'flex'];
 
 // image sources
 //export const CAP_PIC = 'https://nerdist.com/wp-content/uploads/2016/05/20160506_nerdistnews_capexclusive_1x1.jpg'
