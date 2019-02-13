@@ -12,12 +12,14 @@ class BillTrackerContainer extends React.Component {
     super(props);
     this.state = {
       billMetadata: [],
-      bills: {},
+      bills: [],
       filters: {},
       count: 0,
       page: 1,
       rowsPerPage: 10,
       search: '',
+      orderby: 'slug',
+      order:'asc'
     };
     this.wordPressAPIPromise = WPAPI.discover('/');
     this.wordPress = new WordPress();
@@ -44,6 +46,8 @@ class BillTrackerContainer extends React.Component {
         let request = api.legislation()
           .perPage(this.state.rowsPerPage)
           .page(this.state.page)
+          .order(this.state.order)
+          .orderby(this.state.orderby)
           .search(this.state.search);
         for (const filterKey in this.state.filters) {
           const filterValue = this.state.filters[filterKey];
@@ -59,7 +63,7 @@ class BillTrackerContainer extends React.Component {
           bills.map(bill => this.wordPress.annotateBillMetadata(bill))
         ).then(
           () => this.setState({
-            bills: utils.arrayToObject('id', bills),
+            bills,
             count: parseInt(bills._paging ? bills._paging.total : 0),
           })
         );

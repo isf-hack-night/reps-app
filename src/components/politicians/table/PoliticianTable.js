@@ -41,7 +41,7 @@ class PoliticianTable extends React.Component {
   }
 
   body() {
-    const rows = Object.values(this.props.politicians).map((politician) => this.row(politician));
+    const rows = this.props.politicians.map((politician) => this.row(politician));
     return (
       <TableBody>
         {rows}

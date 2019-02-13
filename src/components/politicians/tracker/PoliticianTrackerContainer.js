@@ -11,12 +11,14 @@ class PoliticianTrackerContainer extends React.Component {
     super(props);
     this.state = {
       politicianMetadata: null,
-      politicians: null,
+      politicians: [],
       filters: {},
       count: 0,
       page: 1,
       rowsPerPage: 10,
       search: '',
+      orderby: 'title',
+      order:'asc'
     };
     this.filterOptions = [];
     this.wordPressAPIPromise = WPAPI.discover('/');
@@ -40,6 +42,8 @@ class PoliticianTrackerContainer extends React.Component {
         let request = api.politician()
           .perPage(this.state.rowsPerPage)
           .page(this.state.page)
+          .order(this.state.order)
+          .orderby(this.state.orderby)
           .search(this.state.search);
         for (const filterKey in this.state.filters) {
           const filterValue = this.state.filters[filterKey];
@@ -51,7 +55,7 @@ class PoliticianTrackerContainer extends React.Component {
       }
     ).then(
       politicians => this.setState({
-        politicians: utils.arrayToObject('id', politicians),
+        politicians,
         count: parseInt(politicians._paging ? politicians._paging.total : 0),
       })
     );

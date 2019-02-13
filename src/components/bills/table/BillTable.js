@@ -40,7 +40,7 @@ class BillTable extends React.Component {
   }
 
   body() {
-    const rows = Object.values(this.props.bills).map((bill) => this.row(bill));
+    const rows = this.props.bills.map((bill) => this.row(bill));
     return (
       <TableBody>
         {rows}
