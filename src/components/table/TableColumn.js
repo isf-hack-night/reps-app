@@ -10,7 +10,7 @@ const prettify = (str) => {
 
 
 const defaultCell = (key) => ({row}) => <div>{row[key]}</div>;
-const defaultHead = (key) => () => <div>{prettify(key)}</div>;
+const defaultHead = (key) => () => <h4>{prettify(key)}</h4>;
 
 class TableColumn {
   constructor({key, headComponent, cellComponent}) {

@@ -3,7 +3,7 @@ import Chip from 'material-ui/Chip';
 import {indigo} from 'material-ui/colors';
 
 const style = {
-  backgroundColor:indigo[500],
+  backgroundColor: '#2D4C6B',
   color:'white',
   // display: 'inline-block',
   margin:'4px',
