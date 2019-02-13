@@ -8,7 +8,7 @@ import TableColumn from 'components/table/TableColumn';
 
 export const BILL_NAME_COLUMN = new TableColumn({
   key: 'name',
-  headComponent: () => <div>Bill</div>,
+  headComponent: () => <h4>Bill</h4>,
   cellComponent: BillNameLink
 });
 
