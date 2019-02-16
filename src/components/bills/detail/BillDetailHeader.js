@@ -8,15 +8,15 @@ class BillDetailHeader extends React.Component {
   render() {
     const bill = this.props.bill;
     return (
-      <Grid container justify="flex-start" alignItems="flex-start" spacing={0}>
-        <Grid item xs={2}>
-          <BillNameLink bill={bill}/>
+      <Grid container justify="flex-start" alignItems="baseline" spacing={0}>
+        <Grid item xs={12}>
+          <h2><BillNameLink bill={bill}/></h2>
+        </Grid>
+        <Grid item xs={10}>
+          <BillTitle bill={bill}/>
         </Grid>
         <Grid item xs={2}>
           <BillPosition bill={bill}/>
-        </Grid>
-        <Grid item xs={2}>
-          <BillTitle bill={bill}/>
         </Grid>
       </Grid>
     );

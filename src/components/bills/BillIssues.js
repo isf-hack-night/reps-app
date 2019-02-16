@@ -1,6 +1,5 @@
 import React from 'react';
 import Chip from 'material-ui/Chip';
-import {indigo} from 'material-ui/colors';
 
 const style = {
   backgroundColor: '#2D4C6B',
