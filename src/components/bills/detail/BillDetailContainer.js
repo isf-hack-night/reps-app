@@ -57,10 +57,10 @@ class BillDetailContainer extends React.Component {
           {/*<h3>Current Committee</h3>*/}
           {/*<BillCurrentCommittee bill={bill}/>*/}
         {/*</Grid>*/}
-        <Grid item xs={12}>
-          <h3>Next Hearing</h3>
-          <BillNextHearing bill={bill}/>
-        </Grid>
+        {/*<Grid item xs={12}>*/}
+          {/*<h3>Next Hearing</h3>*/}
+          {/*<BillNextHearing bill={bill}/>*/}
+        {/*</Grid>*/}
       </Grid>
     );
   }

@@ -7,6 +7,9 @@ import PoliticianOffices from 'components/politicians/PoliticianOffices';
 import {Grid} from 'material-ui';
 import PoliticianElectionInfo from 'components/politicians/PoliticianElectionInfo';
 import PoliticianCommittees from 'components/politicians/PoliticianCommittees';
+import PoliticianParty from 'components/politicians/PoliticianParty';
+import PoliticianChamber from 'components/politicians/PoliticianChamber';
+import PoliticianDistrict from 'components/politicians/PoliticianDistrict';
 
 class PoliticianDetailContainer extends React.Component {
   constructor(props) {
@@ -37,11 +40,24 @@ class PoliticianDetailContainer extends React.Component {
     return (
       <div>
         <PoliticianDetailHeader politician={politician} />
-        <Grid container spacing={8}>
+        <Grid container spacing={12}>
           <Grid item xs={3}>
-            <PoliticianPicture politician={politician} />
+            <Grid container>
+              <Grid item xs={12}>
+                <PoliticianPicture politician={politician} />
+              </Grid>
+              <Grid item xs={12}>
+                  Party: <PoliticianParty politician={politician}/>
+              </Grid>
+              <Grid item xs={12}>
+                  Chamber: <PoliticianChamber politician={politician}/>
+              </Grid>
+              <Grid item xs={12}>
+                  District: <PoliticianDistrict politician={politician}/>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6}>
             <h3>Offices</h3>
             <PoliticianOffices politician={politician} />
           </Grid>
@@ -50,10 +66,10 @@ class PoliticianDetailContainer extends React.Component {
             {/*<h3>Election Info</h3>*/}
             {/*<PoliticianElectionInfo politician={politician} />*/}
           {/*</Grid>*/}
-          <Grid item xs={3}>
-            <h3>Committees</h3>
-            <PoliticianCommittees politician={politician} />
-          </Grid>
+          {/*<Grid item xs={3}>*/}
+            {/*<h3>Committees</h3>*/}
+            {/*<PoliticianCommittees politician={politician} />*/}
+          {/*</Grid>*/}
         </Grid>
       </div>
     );
