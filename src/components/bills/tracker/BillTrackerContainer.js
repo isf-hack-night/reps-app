@@ -16,7 +16,7 @@ class BillTrackerContainer extends React.Component {
       filters: {},
       count: 0,
       page: 1,
-      rowsPerPage: 10,
+      rowsPerPage: 25,
       search: '',
       orderby: 'slug',
       order:'asc'

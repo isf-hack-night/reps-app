@@ -7,7 +7,7 @@ import PoliticianDistrict from 'components/politicians/PoliticianDistrict';
 
 export const POLITICIAN_NAME_COLUMN = new TableColumn({
   key: 'name',
-  headComponent: () => <h4>Politican</h4>,
+  headComponent: () => <h4>Legislator</h4>,
   cellComponent: PoliticianNameLink
 });
 
