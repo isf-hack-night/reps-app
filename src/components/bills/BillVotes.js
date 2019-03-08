@@ -15,6 +15,9 @@ class BillVotes extends React.Component {
 
   render() {
     const votes = this.props.bill.votes;
+    if (!votes.length) {
+      return null;
+    }
     const rows = votes.map(this.getRow);
     return (
       <MUIDataTable

@@ -15,7 +15,7 @@ class PoliticianTrackerContainer extends React.Component {
       filters: {},
       count: 0,
       page: 1,
-      rowsPerPage: 10,
+      rowsPerPage: 25,
       search: '',
       orderby: 'title',
       order:'asc'
