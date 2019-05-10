@@ -1,6 +1,6 @@
 import {
-  BILL_ISSUES_COLUMN, BILL_NAME_COLUMN, BILL_POSITION_COLUMN,
-  BILL_TITLE_COLUMN
+  BILL_EXCERPT_COLUMN,
+  BILL_ISSUES_COLUMN, BILL_NAME_COLUMN, BILL_POSITION_COLUMN
 } from 'components/bills/table/columns';
 import React from 'react';
 import Table, {
@@ -19,7 +19,8 @@ class BillTable extends React.Component {
     super(props);
     this.columns = [
       BILL_NAME_COLUMN,
-      BILL_TITLE_COLUMN,
+      BILL_EXCERPT_COLUMN,
+      // BILL_TITLE_COLUMN,
       BILL_POSITION_COLUMN,
       // BILL_ACTIONS_COLUMN,
       BILL_ISSUES_COLUMN

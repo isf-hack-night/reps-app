@@ -5,6 +5,7 @@ import BillNameLink from 'components/bills/BillNameLink';
 import BillPosition from 'components/bills/BillPosition';
 import BillTitle from 'components/bills/BillTitle';
 import TableColumn from 'components/table/TableColumn';
+import BillExcerpt from 'components/bills/BillExcerpt';
 
 export const BILL_NAME_COLUMN = new TableColumn({
   key: 'name',
@@ -15,6 +16,11 @@ export const BILL_NAME_COLUMN = new TableColumn({
 export const BILL_TITLE_COLUMN = new TableColumn({
   key: 'title',
   cellComponent: BillTitle
+});
+
+export const BILL_EXCERPT_COLUMN = new TableColumn({
+  key: 'excerpt',
+  cellComponent: BillExcerpt
 });
 
 export const BILL_POSITION_COLUMN = new TableColumn({

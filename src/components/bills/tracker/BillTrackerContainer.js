@@ -2,7 +2,6 @@ import FilterDropdown from 'components/table/FilterDropdown';
 import BillTable from 'components/bills/table/BillTable';
 import React from 'react';
 import WPAPI from 'wpapi';
-import utils from 'utils';
 import WordPress from 'api/WordPress';
 import {Button, FormControl, TextField} from 'material-ui';
 
@@ -13,7 +12,9 @@ class BillTrackerContainer extends React.Component {
     this.state = {
       billMetadata: [],
       bills: [],
-      filters: {},
+      filters: {
+        interest: 37,
+      },
       count: 0,
       page: 1,
       rowsPerPage: 25,
@@ -120,6 +121,9 @@ class BillTrackerContainer extends React.Component {
           id="search"
           label="Search"
           type="search"
+          name="Search"
+          placeholder="Search"
+          autoFocus
           onChange={e => this.setState({search: e.target.value})}
         />
       </FormControl>
