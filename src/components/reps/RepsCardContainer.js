@@ -16,6 +16,9 @@ class RepsCard extends React.Component {
   }
 
   goToRepPage(leg_id) {
+    if (!leg_id) {
+      return () => {};
+    }
     return () => {
       let rep_link=`/politicians/${leg_id.toLowerCase()}`;
       this.setState({redirectLink: rep_link});

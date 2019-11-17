@@ -64,6 +64,15 @@ class OpenStates {
     const request = new JSONRequest(this.getPathUrl('legislators'), legislator_search_params);
   }
 
+  boundaryIdToDistrictId(boundary_id) {
+    let pieces = boundary_id.split('/');
+    let state = pieces[2].split(':');
+    let district = pieces[3].split(':');
+    let chamber = district[0].charAt(3) == 'u' ? 'upper' : 'lower';
+    return `${state[1]}-${chamber}-${district[1]}`;
+
+  }
+
   districtIdToBoundaryId(district_id) {
     let pieces = district_id.split('-');
     return `ocd-division/country:us/state:${pieces[0]}/sld${pieces[1][0]}:${pieces[2]}`;

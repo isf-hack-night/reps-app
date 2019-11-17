@@ -33,6 +33,15 @@ export const LEGISCAN_URL_BASE = 'https://api.legiscan.com';
 // Map url base
 export const MAP_URL_BASE = 'https://api.state-strong.org/civic-key/front-page';
 
+// Location search url base
+export const LOCATION_SEARCH_URL_BASE = 'https://api.state-strong.org/civic-key/front-page';
+
+// District lookup url base
+export const DISTRICT_LOOKUP_URL_BASE = 'https://api.state-strong.org/civic-key/district-lookup';
+
+
+export const ACTION_TYPES = ['call', 'flex'];
+
 // image sources
 //export const CAP_PIC = 'https://nerdist.com/wp-content/uploads/2016/05/20160506_nerdistnews_capexclusive_1x1.jpg'
 export const REP_PIC_PATH = 'https://s3-us-west-1.amazonaws.com/amplify-portraits/';

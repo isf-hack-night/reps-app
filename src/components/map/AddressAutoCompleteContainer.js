@@ -1,7 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import utils from 'utils';
-import queryAPI from 'queryAPI';
 
 class AddressAutocomplete extends React.Component {
   constructor (props) {
@@ -10,8 +9,8 @@ class AddressAutocomplete extends React.Component {
     this.state = {
       uuid: utils.generateUUID()
     };
-    this.stateDistricts = props.stateDistricts;
 
+    this.updateLocation = props.updateLocation;
     this.getPlace = this.getPlace.bind(this);
     this.geolocate = this.geolocate.bind(this)
   }
@@ -38,28 +37,7 @@ class AddressAutocomplete extends React.Component {
     const lat = place.geometry.location.lat();
     const lng = place.geometry.location.lng();
 
-    this.updateRoute(lat, lng)
-  }
-
-  //TODO need to pass latlong to map somehow
-  updateRoute (lat, lng) {
-    this.stateDistricts.fetchUpperLowerDistrictBoundaries(lat, lng).then(
-      data => this.finishUpdateRoute(data, lat, lng));
-  }
-
-  finishUpdateRoute (districtsData, lat, lng) {
-    const lowerId = districtsData.lower.id;
-    const upperId = districtsData.upper.id;
-    const newRoute = queryAPI.build({
-      districtLower: lowerId,
-      districtUpper: upperId,
-      legIdUpper: districtsData.legIdUpper,
-      legIdLower: districtsData.legIdUpper,
-    });
-    this.props.history.push(newRoute);
-    if (this.props.locationData) {
-      this.props.locationData.push({lat: lat, lng: lng})  //TODO is this getting called
-    }
+    this.updateLocation(lat, lng)
   }
 
   componentDidMount () {
@@ -87,8 +65,8 @@ class AddressAutocomplete extends React.Component {
 }
 
 // TODO: Move this to calling code. Make this a "dumb" component
-const AddressAutocompleteContainer = withRouter(({history, stateDistricts}) => (
-  <AddressAutocomplete history={history} stateDistricts={stateDistricts} />
+const AddressAutocompleteContainer = withRouter(({updateLocation}) => (
+  <AddressAutocomplete updateLocation={updateLocation} />
 ));
 
 export default AddressAutocompleteContainer
